@@ -22,7 +22,8 @@
     "react-hook-form": "^7.48.2",
     "react-icons": "^4.11.0",
     "sonner": "^1.2.0",
-    "swr": "^2.2.4"
+    "swr": "^2.2.4",
+    "zustand": "^4.4.6"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",

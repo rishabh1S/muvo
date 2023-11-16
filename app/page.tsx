@@ -1,21 +1,19 @@
 "use client";
 import React, { useEffect } from "react";
 
-import { Navbar } from "@/components";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Billboard, MovieList } from "@/components";
-// import InfoModal from '@/components/InfoModal';
+import { Navbar, Billboard, MovieList, InfoModal } from "@/components";
 import useMovieList from "@/app/hooks/useMovieList";
-// import useFavorites from '@/hooks/useFavorites';
-// import useInfoModalStore from '@/hooks/useInfoModalStore';
+import useFavorites from "@/app/hooks/useFavorites";
+import useInfoModal from "@/app/hooks/useInfoModal";
 
 export default function Home() {
   const session = useSession();
   const router = useRouter();
   const { data: movies = [] } = useMovieList();
-  // const { data: favorites = [] } = useFavorites();
-  // const {isOpen, closeModal} = useInfoModalStore();
+  const { data: favorites = [] } = useFavorites();
+  const { isOpen, closeModal } = useInfoModal();
 
   useEffect(() => {
     if (session?.status !== "authenticated") {
@@ -24,12 +22,12 @@ export default function Home() {
   }, [session?.status, router]);
   return (
     <>
-      {/* <InfoModal visible={isOpen} onClose={closeModal} /> */}
+      <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar />
       <Billboard />
       <div className="pb-40">
         <MovieList title="Trending Now" data={movies} />
-        {/*<MovieList title="My List" data={favorites} /> */}
+        <MovieList title="My List" data={favorites} />
       </div>
     </>
   );

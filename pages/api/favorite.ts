@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-// import { without } from "lodash";
+import { without } from "lodash";
 
 import prismadb from "@/app/libs/prismadb";
 import serverAuth from "@/app/libs/serverAuth";
@@ -53,14 +53,14 @@ export default async function handler(
         throw new Error("Invalid ID");
       }
 
-      // const updatedFavoriteIds = without(currentUser.favoriteIds, movieId);
+      const updatedFavoriteIds = without(currentUser.favoriteIds, movieId);
 
       const updatedUser = await prismadb.user.update({
         where: {
           email: currentUser.email || "",
         },
         data: {
-          // favoriteIds: updatedFavoriteIds,
+          favoriteIds: updatedFavoriteIds,
         },
       });
 

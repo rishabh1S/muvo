@@ -1,13 +1,11 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useCallback } from "react";
 import { useRouter } from "next/navigation";
-// import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import { BsFillPlayFill } from "react-icons/bs";
+import { BsFillPlayFill, BsChevronDown } from "react-icons/bs";
 
 import { MovieInterface } from "@/types";
-// import FavoriteButton from '@/components/FavoriteButton';
-// import useInfoModalStore from '@/hooks/useInfoModalStore';
+import { FavoriteButton } from ".";
+import useInfoModal from "@/app/hooks/useInfoModal";
 
 interface MovieCardProps {
   data: MovieInterface;
@@ -15,7 +13,7 @@ interface MovieCardProps {
 
 const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
   const router = useRouter();
-  //   const { openModal } = useInfoModalStore();
+  const { openModal } = useInfoModal();
 
   const redirectToWatch = useCallback(
     () => router.push(`/watch/${data.id}`),
@@ -98,12 +96,15 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
             >
               <BsFillPlayFill size={30} className="text-black w-4 lg:w-6" />
             </div>
-            {/* <FavoriteButton movieId={data.id} /> */}
+            <FavoriteButton movieId={data.id} />
             <div
-              //   onClick={() => openModal(data?.id)}
+              onClick={() => openModal(data?.id)}
               className="cursor-pointer ml-auto group/item w-6 h-6 lg:w-10 lg:h-10 border-white border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300"
             >
-              {/* <ChevronDownIcon className="text-white group-hover/item:text-neutral-300 w-4 lg:w-6" /> */}
+              <BsChevronDown
+                size={20}
+                className="text-white group-hover/item:text-neutral-300 w-4 lg:w-6"
+              />
             </div>
           </div>
           <p className="text-green-400 font-semibold mt-4">

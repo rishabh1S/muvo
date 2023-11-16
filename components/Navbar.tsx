@@ -1,11 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
 import { BsBell, BsChevronDown, BsSearch } from "react-icons/bs";
-import { IoMic } from "react-icons/io5";
 import { NavbarItem, MobileMenu, AccountMenu } from ".";
 
-const TOP_OFFSET = 66;
+const TOP_OFFSET = 86;
 
 const Navbar = () => {
   const [showAccountMenu, setShowAccountMenu] = useState(false);
@@ -41,7 +39,9 @@ const Navbar = () => {
     <nav className="w-full fixed z-40">
       <div
         className={`px-4 md:px-16 lg:py-6 py-2 flex flex-row items-center transition duration-500 ${
-          showBackground ? "bg-zinc-900 bg-opacity-90" : ""
+          showBackground
+            ? "bg-zinc-900/70 backdrop-blur-sm border-b border-solid border-gray-300 border-opacity-30 transition-opacity"
+            : ""
         }`}
       >
         <img src="/images/logo.png" className="h-10 lg:h-14" alt="Logo" />
@@ -66,24 +66,21 @@ const Navbar = () => {
           <MobileMenu visible={showMobileMenu} />
         </div>
         <div className="flex flex-row ml-auto gap-7 items-center">
-          <div className="max-w-md mx-auto rounded-lg overflow-hidden md:max-w-xl">
-            <div className="md:flex">
-              <div className="w-full p-2">
-                <div className="relative">
-                  <div className="text-gray-700 hover:text-gray-500 cursor-pointer transition">
-                    <BsSearch className="absolute top-3 left-4" />
-                  </div>
-                  <input
-                    type="text"
-                    className="bg-white h-10 w-full pl-12 pr-4 rounded-lg focus:outline-none hover:cursor-pointer"
-                    name=""
-                  />
-                </div>
+          <div className="w-full p-2">
+            <div className="relative">
+              <div className="text-gray-700 hover:text-gray-500 cursor-pointer transition">
+                <BsSearch className="absolute top-3 left-4" />
               </div>
+              <input
+                type="text"
+                className="bg-gray-200 h-10 sm:w-80 pl-12 pr-3 rounded-full focus:outline-none hover:cursor-pointer"
+                name=""
+                placeholder="Search..."
+              />
             </div>
           </div>
           <div className="text-gray-200 hover:text-gray-300 cursor-pointer transition">
-            <BsBell className="w-6" />
+            <BsBell size={22} className="w-6" />
           </div>
           <div
             onClick={toggleAccountMenu}
