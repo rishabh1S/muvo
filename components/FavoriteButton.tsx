@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useCallback, useMemo } from "react";
 import { AiOutlinePlus, AiOutlineCheck } from "react-icons/ai";
-
+import { toast } from "sonner";
 import useCurrentUser from "@/app/hooks/useCurrentUser";
 import useFavorites from "@/app/hooks/useFavorites";
 
@@ -25,8 +25,10 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
 
     if (isFavorite) {
       response = await axios.delete("/api/favorite", { data: { movieId } });
+      toast.success("Removed from favourites");
     } else {
       response = await axios.post("/api/favorite", { movieId });
+      toast.success("Added to favourites");
     }
 
     const updatedFavoriteIds = response?.data?.favoriteIds;
