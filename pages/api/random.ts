@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import prismadb from "@/app/libs/prismadb";
 import serverAuth from "@/app/libs/serverAuth";
+import { getTrendingMedias } from "@/public/utils";
 
 export default async function handler(
   req: NextApiRequest,
@@ -13,15 +13,12 @@ export default async function handler(
 
     await serverAuth(req, res);
 
-    const moviesCount = await prismadb.movie.count();
-    const randomIndex = Math.floor(Math.random() * moviesCount);
+    const trendingMovies = await getTrendingMedias("movie");
+    const randomIndex = Math.floor(Math.random() * trendingMovies.length);
 
-    const randomMovies = await prismadb.movie.findMany({
-      take: 1,
-      skip: randomIndex,
-    });
+    const randomMovie = trendingMovies[randomIndex];
 
-    return res.status(200).json(randomMovies[0]);
+    return res.status(200).json(randomMovie);
   } catch (error) {
     console.log(error);
 

@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import prismadb from "../../app/libs/prismadb";
 
 import { getSession } from "next-auth/react";
-// import { without } from "lodash";
+import { without } from "lodash";
 
 export default async function handler(
   req: NextApiRequest,
@@ -41,14 +41,14 @@ export default async function handler(
       throw new Error("Invalid email");
     }
 
-    // const updatedFavoriteIds = without(user.favoriteIds, movieId);
+    const updatedFavoriteIds = without(user.favoriteIds, movieId);
 
     const updatedUser = await prismadb.user.update({
       where: {
         email: session.user.email,
       },
       data: {
-        // favoriteIds: updatedFavoriteIds,
+        favoriteIds: updatedFavoriteIds,
       },
     });
 

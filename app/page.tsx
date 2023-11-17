@@ -11,7 +11,9 @@ import useInfoModal from "@/app/hooks/useInfoModal";
 export default function Home() {
   const session = useSession();
   const router = useRouter();
-  const { data: movies = [] } = useMovieList();
+  const { data: moviesTrending = [] } = useMovieList("trending");
+  const { data: moviesPopular = [] } = useMovieList("popular");
+  const { data: moviesToprated = [] } = useMovieList("toprated");
   const { data: favorites = [] } = useFavorites();
   const { isOpen, closeModal } = useInfoModal();
 
@@ -26,7 +28,9 @@ export default function Home() {
       <Navbar />
       <Billboard />
       <div className="pb-40">
-        <MovieList title="Trending Now" data={movies} />
+        <MovieList title="Trending Now" data={moviesTrending} />
+        <MovieList title="Popular on NextFlix" data={moviesPopular} />
+        <MovieList title="Top Rated" data={moviesToprated} />
         <MovieList title="My List" data={favorites} />
       </div>
     </>

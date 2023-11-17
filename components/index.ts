@@ -9,6 +9,7 @@ import MovieCard from "./MovieCard";
 import FavoriteButton from "./FavoriteButton";
 import PlayButton from "./PlayButton";
 import InfoModal from "./InfoModal";
+import CircleLoader from "./CircleLoader";
 
 export {
   Input,
@@ -22,4 +23,5 @@ export {
   FavoriteButton,
   PlayButton,
   InfoModal,
+  CircleLoader,
 };

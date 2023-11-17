@@ -1,6 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import prismadb from "@/app/libs/prismadb";
 import serverAuth from "@/app/libs/serverAuth";
+import {
+  getPopularMedias,
+  getTopratedMedias,
+  getTrendingMedias,
+} from "@/public/utils";
 
 export default async function handler(
   req: NextApiRequest,
@@ -12,8 +16,18 @@ export default async function handler(
     }
 
     await serverAuth(req, res);
+    const { type } = req.query;
 
-    const movies = await prismadb.movie.findMany();
+    let movies;
+    if (type === "trending") {
+      movies = await getTrendingMedias("movie");
+    } else if (type === "popular") {
+      movies = await getPopularMedias("movie");
+    } else if (type === "toprated") {
+      movies = await getTopratedMedias("movie");
+    } else {
+      return res.status(400).end();
+    }
 
     return res.status(200).json(movies);
   } catch (error) {

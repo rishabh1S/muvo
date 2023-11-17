@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { BsBell, BsChevronDown, BsSearch } from "react-icons/bs";
 import { NavbarItem, MobileMenu, AccountMenu } from ".";
 
-const TOP_OFFSET = 86;
+const TOP_OFFSET = 66;
 
 const Navbar = () => {
   const [showAccountMenu, setShowAccountMenu] = useState(false);
@@ -12,7 +12,6 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      console.log(window.scrollY);
       if (window.scrollY >= TOP_OFFSET) {
         setShowBackground(true);
       } else {
