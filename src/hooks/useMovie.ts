@@ -1,9 +1,9 @@
 import useSwr from "swr";
 import fetcher from "@/src/libs/fetcher";
 
-const useMovie = (id?: string) => {
+const useMovie = (mediaType?: string, mediaId?: string) => {
   const { data, error, isLoading } = useSwr(
-    id ? `/api/movies/${id}` : null,
+    mediaId ? `/api/media/${mediaType}/${mediaId}` : null,
     fetcher,
     {
       revalidateIfStale: false,

@@ -3,17 +3,17 @@ import ReactPlayer from "react-player";
 
 interface VideoPlayerProps {
   url: string;
-  poster?: string;
+  muted: boolean;
 }
 
-const VideoPlayer: React.FC<VideoPlayerProps> = ({ url }) => {
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ url, muted }) => {
   return (
     <ReactPlayer
       url={url}
       width="100%"
       height="100%"
       playing
-      muted
+      muted={muted}
       loop
       controls={false}
       onEnded={() => {}}

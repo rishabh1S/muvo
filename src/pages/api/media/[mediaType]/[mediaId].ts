@@ -13,19 +13,19 @@ export default async function handler(
 
     await serverAuth(req, res);
 
-    const { movieId } = req.query;
+    const { mediaType, mediaId } = req.query;
 
-    if (typeof movieId !== "string") {
-      throw new Error("Invalid Id");
+    if (typeof mediaType !== "string" || typeof mediaId !== "string") {
+      throw new Error("Invalid Media Type or Id");
     }
 
-    if (!movieId) {
-      throw new Error("Missing Id");
+    if (!mediaType || !mediaId) {
+      throw new Error("Missing Media Type or Id");
     }
 
-    const movies = await getTVorMovieDetailsByID("movie", movieId);
+    const medias = await getTVorMovieDetailsByID(mediaType, mediaId);
 
-    return res.status(200).json(movies);
+    return res.status(200).json(medias);
   } catch (error) {
     console.log(error);
     return res.status(500).end();

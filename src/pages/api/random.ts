@@ -13,10 +13,12 @@ export default async function handler(
 
     await serverAuth(req, res);
 
-    const trendingMovies = await getTrendingMedias("movie");
-    const randomIndex = Math.floor(Math.random() * trendingMovies.length);
+    const { mediaType } = req.query;
 
-    const randomMovie = trendingMovies[randomIndex];
+    const trendingMedias = await getTrendingMedias(mediaType as string);
+    const randomIndex = Math.floor(Math.random() * trendingMedias.length);
+
+    const randomMovie = trendingMedias[randomIndex];
 
     return res.status(200).json(randomMovie);
   } catch (error) {

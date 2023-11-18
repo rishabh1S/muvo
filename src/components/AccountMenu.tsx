@@ -1,11 +1,21 @@
 import { signOut } from "next-auth/react";
 import React from "react";
-
+import { toast } from "sonner";
 import { useCurrentUser } from "../hooks";
 
 interface AccountMenuProps {
   visible?: boolean;
 }
+
+const handleSignOut = async () => {
+  try {
+    await signOut();
+    toast.success("Successfully signed out");
+  } catch (error) {
+    console.error("Sign-out error:", error);
+    toast.error("Failed to sign out");
+  }
+};
 
 const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
   const { data: currentUser } = useCurrentUser();
@@ -30,7 +40,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
       </div>
       <hr className="bg-gray-600 border-0 h-px my-4" />
       <div
-        onClick={() => signOut()}
+        onClick={handleSignOut}
         className="px-3 text-center text-white text-sm hover:underline"
       >
         Sign out of Nextflix

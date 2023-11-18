@@ -12,11 +12,11 @@ export default async function handler(
     if (req.method === "POST") {
       const { currentUser } = await serverAuth(req, res);
 
-      const { movieId } = req.body;
+      const { mediaId } = req.body;
 
       const existingMovie = await prismadb.movie.findUnique({
         where: {
-          id: movieId,
+          id: mediaId,
         },
       });
 
@@ -30,7 +30,7 @@ export default async function handler(
         },
         data: {
           favoriteIds: {
-            push: movieId,
+            push: mediaId,
           },
         },
       });
@@ -41,11 +41,11 @@ export default async function handler(
     if (req.method === "DELETE") {
       const { currentUser } = await serverAuth(req, res);
 
-      const { movieId } = req.body;
+      const { mediaId } = req.body;
 
       const existingMovie = await prismadb.movie.findUnique({
         where: {
-          id: movieId,
+          id: mediaId,
         },
       });
 
@@ -53,7 +53,7 @@ export default async function handler(
         throw new Error("Invalid ID");
       }
 
-      const updatedFavoriteIds = without(currentUser.favoriteIds, movieId);
+      const updatedFavoriteIds = without(currentUser.favoriteIds, mediaId);
 
       const updatedUser = await prismadb.user.update({
         where: {

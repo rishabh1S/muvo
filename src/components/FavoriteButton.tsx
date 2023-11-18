@@ -5,10 +5,10 @@ import { toast } from "sonner";
 import { useCurrentUser, useFavorites } from "../hooks";
 
 interface FavoriteButtonProps {
-  movieId: string;
+  mediaId: string;
 }
 
-const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
+const FavoriteButton: React.FC<FavoriteButtonProps> = ({ mediaId }) => {
   const { mutate: mutateFavorites } = useFavorites();
 
   const { data: currentUser, mutate } = useCurrentUser();
@@ -16,17 +16,17 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
   const isFavorite = useMemo(() => {
     const list = currentUser?.favoriteIds || [];
 
-    return list.includes(movieId);
-  }, [currentUser, movieId]);
+    return list.includes(mediaId);
+  }, [currentUser, mediaId]);
 
   const toggleFavorites = useCallback(async () => {
     let response;
 
     if (isFavorite) {
-      response = await axios.delete("/api/favorite", { data: { movieId } });
+      response = await axios.delete("/api/favorite", { data: { mediaId } });
       toast.success("Removed from favourites");
     } else {
-      response = await axios.post("/api/favorite", { movieId });
+      response = await axios.post("/api/favorite", { mediaId });
       toast.success("Added to favourites");
     }
 
@@ -37,7 +37,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
       favoriteIds: updatedFavoriteIds,
     });
     mutateFavorites();
-  }, [movieId, isFavorite, currentUser, mutate, mutateFavorites]);
+  }, [mediaId, isFavorite, currentUser, mutate, mutateFavorites]);
 
   const Icon = isFavorite ? AiOutlineCheck : AiOutlinePlus;
 

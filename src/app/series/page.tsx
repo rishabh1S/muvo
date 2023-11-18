@@ -9,9 +9,9 @@ import { useMovieList, useFavorites, useInfoModal } from "@/src/hooks";
 export default function Series() {
   const session = useSession();
   const router = useRouter();
-  const { data: moviesTrending = [] } = useMovieList("trending");
-  const { data: moviesPopular = [] } = useMovieList("popular");
-  const { data: moviesToprated = [] } = useMovieList("toprated");
+  const { data: moviesTrending = [] } = useMovieList("trending", "tv");
+  const { data: moviesPopular = [] } = useMovieList("popular", "tv");
+  const { data: moviesToprated = [] } = useMovieList("toprated", "tv");
   const { data: favorites = [] } = useFavorites();
   const { isOpen, closeModal } = useInfoModal();
 
@@ -24,7 +24,7 @@ export default function Series() {
     <>
       <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar />
-      <Billboard />
+      <Billboard mediaType="tv" />
       <div className="pb-40">
         <MovieList title="Trending Now" data={moviesTrending} />
         <MovieList title="Popular on NextFlix" data={moviesPopular} />

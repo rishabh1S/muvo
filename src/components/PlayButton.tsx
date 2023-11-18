@@ -3,15 +3,20 @@ import { BsFillPlayFill } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 
 interface PlayButtonProps {
-  movieId: string;
+  mediaType?: string;
+  mediaId?: string;
 }
 
-const PlayButton: React.FC<PlayButtonProps> = ({ movieId }) => {
+const PlayButton: React.FC<PlayButtonProps> = ({ mediaType, mediaId }) => {
   const router = useRouter();
 
   return (
     <button
-      onClick={() => router.push(`/watch/${movieId}`)}
+      onClick={() =>
+        mediaType === "tv"
+          ? router.push(`/streamtv/${mediaId}`)
+          : router.push(`/streammovie/${mediaId}`)
+      }
       className="
         bg-white 
         rounded-md 

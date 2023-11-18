@@ -8,10 +8,15 @@ import {
   getTVorMovieVideosByID,
 } from "@/public/utils";
 
-const Billboard: React.FC = () => {
+interface BillboardProps {
+  mediaType: string;
+}
+
+const Billboard: React.FC<BillboardProps> = ({ mediaType }) => {
   const { openModal } = useInfoModal();
-  const { data, isLoading } = useBillboard();
+  const { data, isLoading } = useBillboard(mediaType);
   const [key, setKey] = useState(null);
+  const isComingSoon = new Date(data?.release_date) > new Date();
 
   useEffect(() => {
     const fetchPlayerData = async () => {
@@ -34,8 +39,8 @@ const Billboard: React.FC = () => {
   }, [data]);
 
   const handleOpenModal = useCallback(() => {
-    openModal(data?.id.toString());
-  }, [openModal, data?.id]);
+    openModal(data?.media_type, data?.id.toString());
+  }, [openModal, data?.media_type, data?.id]);
 
   if (isLoading) {
     return <CircleLoader />;
@@ -45,7 +50,7 @@ const Billboard: React.FC = () => {
     <div className="relative h-[56.25vw]">
       {key ? (
         <>
-          <VideoPlayer url={`${baseYoutubeUrl}${key}`} />
+          <VideoPlayer url={`${baseYoutubeUrl}${key}`} muted={true} />
           <div className="absolute top-0 left-0 w-full h-full bg-transparent" />
         </>
       ) : (
@@ -57,7 +62,7 @@ const Billboard: React.FC = () => {
       )}
       <div className="absolute top-[30%] md:top-[40%] ml-4 md:ml-16">
         <p className="text-white text-xl md:text-4xl h-full sm:w-[70%] lg:text-6xl font-bold drop-shadow-xl">
-          {data?.title}
+          {data?.title || data?.name}
         </p>
         <p className="text-white text-[8px] md:text-lg mt-3 md:mt-8 w-[90%] md:w-[80%] lg:w-[50%] drop-shadow-xl">
           {data?.overview?.split(" ").length > 20
@@ -65,7 +70,30 @@ const Billboard: React.FC = () => {
             : data?.overview}
         </p>
         <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
-          <PlayButton movieId={data?.id.toString()} />
+          {!isComingSoon && (
+            <PlayButton
+              mediaType={data?.media_type}
+              mediaId={data?.id.toString()}
+            />
+          )}
+          {isComingSoon && (
+            <p
+              className="bg-white 
+                  rounded-md 
+                  py-1 md:py-2 
+                  px-2 md:px-4
+                  w-auto 
+                  text-xs lg:text-lg 
+                  font-semibold
+                  flex
+                  flex-row
+                  items-center
+                  hover:bg-neutral-300
+                  transition text-black"
+            >
+              Coming Soon
+            </p>
+          )}
           <button
             onClick={handleOpenModal}
             className="

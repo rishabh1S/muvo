@@ -16,9 +16,9 @@ interface InfoModalProps {
 
 const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   const [isVisible, setIsVisible] = useState<boolean>(!!visible);
-  const { movieId } = useInfoModal();
-  const { data, isLoading } = useMovie(movieId);
-  console.log(data);
+  const { mediaType, mediaId } = useInfoModal();
+  const { data, isLoading } = useMovie(mediaType, mediaId);
+  console.log("InfoModal", data);
   const videoKey = data?.videos?.results?.[0]?.key;
 
   useEffect(() => {
@@ -37,8 +37,13 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   }
 
   const getCountryName = (countryCode: string | number) => {
-    const countryInfo = countryLookup.byIso(countryCode);
-    return countryInfo ? countryInfo.country : countryCode;
+    try {
+      const countryInfo = countryLookup.byIso(countryCode);
+      return countryInfo ? countryInfo.country : countryCode;
+    } catch (error) {
+      console.error("Error fetching country information:", error);
+      return countryCode;
+    }
   };
 
   const isComingSoon = new Date(data?.release_date) > new Date();
@@ -54,7 +59,10 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
           <div className="relative h-96">
             {videoKey ? (
               <>
-                <VideoPlayer url={`${baseYoutubeUrl}${videoKey}`} />
+                <VideoPlayer
+                  url={`${baseYoutubeUrl}${videoKey}`}
+                  muted={false}
+                />
                 <div className="absolute top-0 left-0 w-full h-full bg-transparent" />
               </>
             ) : (
@@ -72,14 +80,31 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
             </div>
             <div className="absolute bottom-[10%] left-10">
               <p className="text-white text-3xl md:text-4xl h-full lg:text-5xl font-bold mb-8">
-                {data?.title}
+                {data?.title || data?.name}
               </p>
               <div className="flex flex-row gap-4 items-center">
-                {!isComingSoon && <PlayButton movieId={data?.id} />}
-                {isComingSoon && (
-                  <p className="text-white text-xl">COMING SOON</p>
+                {!isComingSoon && (
+                  <PlayButton mediaType={mediaType} mediaId={mediaId} />
                 )}
-                <FavoriteButton movieId={data?.id} />
+                {isComingSoon && (
+                  <p
+                    className="bg-white 
+                      rounded-md 
+                      py-1 md:py-2 
+                      px-2 md:px-4
+                      w-auto 
+                      text-xs lg:text-lg 
+                      font-semibold
+                      flex
+                      flex-row
+                      items-center
+                      hover:bg-neutral-300
+                      transition text-black"
+                  >
+                    Coming Soon
+                  </p>
+                )}
+                <FavoriteButton mediaId={data?.id} />
               </div>
             </div>
           </div>
@@ -148,7 +173,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                 )}
               </div>
             </div>
-            <p className="text-white text-lg">{data?.overview}</p>
+            <p className="text-white text-base">{data?.overview}</p>
           </div>
         </div>
       </div>

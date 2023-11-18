@@ -4,6 +4,10 @@
 
 body {
   @apply bg-zinc-900 h-full overflow-x-hidden;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 #__next {
@@ -36,4 +40,17 @@ html {
 body::-webkit-scrollbar {
   display: none; 
   }
+}
+
+.overlay-film-cover {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 10%,
+    theme('colors.body')
+  );
 }

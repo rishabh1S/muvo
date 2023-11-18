@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import prismadb from "../../src/libs/prismadb";
+import prismadb from "@/src/libs/prismadb";
 
 import { getSession } from "next-auth/react";
 import { without } from "lodash";
@@ -19,11 +19,11 @@ export default async function handler(
       throw new Error("Not signed in");
     }
 
-    const { movieId } = req.body;
+    const { mediaId } = req.body;
 
     const existingMovie = await prismadb.movie.findUnique({
       where: {
-        id: movieId,
+        id: mediaId,
       },
     });
 
@@ -41,7 +41,7 @@ export default async function handler(
       throw new Error("Invalid email");
     }
 
-    const updatedFavoriteIds = without(user.favoriteIds, movieId);
+    const updatedFavoriteIds = without(user.favoriteIds, mediaId);
 
     const updatedUser = await prismadb.user.update({
       where: {

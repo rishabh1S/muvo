@@ -16,20 +16,20 @@ export default async function handler(
     }
 
     await serverAuth(req, res);
-    const { type } = req.query;
+    const { mediaType, type } = req.query;
 
-    let movies;
+    let media;
     if (type === "trending") {
-      movies = await getTrendingMedias("movie");
+      media = await getTrendingMedias(mediaType as string);
     } else if (type === "popular") {
-      movies = await getPopularMedias("movie");
+      media = await getPopularMedias(mediaType as string);
     } else if (type === "toprated") {
-      movies = await getTopratedMedias("movie");
+      media = await getTopratedMedias(mediaType as string);
     } else {
       return res.status(400).end();
     }
 
-    return res.status(200).json(movies);
+    return res.status(200).json(media);
   } catch (error) {
     console.log({ error });
     return res.status(500).end();

@@ -1,14 +1,19 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
 import { BsBell, BsChevronDown } from "react-icons/bs";
+import { AiOutlineSearch } from "react-icons/ai";
 import { NavbarItem, MobileMenu, AccountMenu, SearchBar } from ".";
-
+import { usePathname, useRouter } from "next/navigation";
 const TOP_OFFSET = 66;
 
 const Navbar = () => {
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
+  const [showSearchBar, setShowSearchBar] = useState(false);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const router = useRouter();
+  const pathName = usePathname() ?? "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,17 +42,16 @@ const Navbar = () => {
   return (
     <nav className="w-full fixed z-40">
       <div
-        className={`px-4 md:px-16 lg:py-6 py-2 flex flex-row items-center transition duration-500 ${
+        className={`px-4 md:px-16 py-6 flex flex-row items-center transition duration-500 ${
           showBackground
             ? "bg-zinc-900/70 backdrop-blur-sm border-b border-solid border-gray-300 border-opacity-30 transition-opacity"
             : ""
         }`}
       >
-        <img src="/images/logo.png" className="h-10 lg:h-14" alt="Logo" />
+        <img src="/images/logo.png" className="h-6 lg:h-14" alt="Logo" />
         <div className="flex-row ml-8 gap-7 hidden lg:flex">
           <NavbarItem label="Movies" href="/" />
           <NavbarItem label="Series" href="/series" />
-          <NavbarItem label="New & Popular" href="/newPopular" />
           <NavbarItem label="My List" href="/favlist" />
         </div>
         <div
@@ -63,7 +67,20 @@ const Navbar = () => {
           <MobileMenu visible={showMobileMenu} />
         </div>
         <div className="flex flex-row ml-auto gap-7 items-center">
-          <SearchBar />
+          {showSearchBar ? (
+            <SearchBar
+              pathName={pathName}
+              router={router}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              setShowSearchBar={setShowSearchBar}
+            />
+          ) : (
+            <AiOutlineSearch
+              onClick={() => setShowSearchBar(true)}
+              className="hidden sm:inline sm:w-6 sm:h-6 cursor-pointer text-gray-200"
+            />
+          )}
           <div className="text-gray-200 hover:text-gray-300 cursor-pointer transition">
             <BsBell size={22} className="w-6" />
           </div>

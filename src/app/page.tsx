@@ -2,17 +2,16 @@
 import React, { useEffect } from "react";
 
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Navbar, Billboard, MovieList, InfoModal } from "@/src/components";
-import { useMovieList, useFavorites, useInfoModal } from "@/src/hooks";
+import { useMovieList, useInfoModal } from "@/src/hooks";
 
 export default function Home() {
   const session = useSession();
   const router = useRouter();
-  const { data: moviesTrending = [] } = useMovieList("trending");
-  const { data: moviesPopular = [] } = useMovieList("popular");
-  const { data: moviesToprated = [] } = useMovieList("toprated");
-  const { data: favorites = [] } = useFavorites();
+  const { data: moviesTrending } = useMovieList("trending", "movie");
+  const { data: moviesPopular } = useMovieList("popular", "movie");
+  const { data: moviesToprated } = useMovieList("toprated", "movie");
   const { isOpen, closeModal } = useInfoModal();
 
   useEffect(() => {
@@ -20,16 +19,16 @@ export default function Home() {
       router.push("/authenticate");
     }
   }, [session?.status, router]);
+
   return (
     <>
       <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar />
-      <Billboard />
+      <Billboard mediaType="movie" />
       <div className="pb-40">
         <MovieList title="Trending Now" data={moviesTrending} />
         <MovieList title="Popular on NextFlix" data={moviesPopular} />
         <MovieList title="Top Rated" data={moviesToprated} />
-        <MovieList title="My List" data={favorites} />
       </div>
     </>
   );

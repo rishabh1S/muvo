@@ -1,33 +1,57 @@
 "use client";
-
-import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
-import { useEffect } from "react";
-import { Navbar, MovieCard } from "@/src/components";
+import { useEffect, useState } from "react";
+import { Navbar, InfoModal, MovieCard } from "@/src/components";
 import { getTVorMovieSearchResults } from "@/public/utils";
+import { useInfoModal } from "@/src/hooks";
+import { MovieInterface } from "@/src/types";
 
 export default function Search() {
-  const { data: session } = useSession();
+  const [searchResults, setSearchResults] = useState<MovieInterface[]>([]);
+  const { isOpen, closeModal } = useInfoModal();
   const params = useParams();
+  const mediaName = params!.query as string;
+  useEffect(() => {
+    async function getSearchResults() {
+      const tvShows = await getTVorMovieSearchResults("tv", mediaName);
+      const movies = await getTVorMovieSearchResults("movie", mediaName);
+      const filteredTVShows = tvShows
+        .filter(
+          (item: { backdrop_path: null; poster_path: null }) =>
+            item.backdrop_path !== null && item.poster_path !== null
+        )
+        .map((tvShowItem: any) => ({ ...tvShowItem, type: "tv" }));
+
+      const filteredMovies = movies
+        .filter(
+          (item: { backdrop_path: null; poster_path: null }) =>
+            item.backdrop_path !== null && item.poster_path !== null
+        )
+        .map((movieItem: any) => ({ ...movieItem, type: "movie" }));
+
+      setSearchResults([...filteredTVShows, ...filteredMovies]);
+      console.log(tvShows, movies);
+    }
+    getSearchResults();
+  }, [mediaName]);
 
   return (
-    <>
+    <div className="absolute">
       <Navbar />
-      <div className="mt-[100px] space-y-0.5 md:space-y-2 px-4">
-        {/* <h2 className="cursor-pointer text-sm font-semibold text-[#e5e5e5] transition-colors duration-200 hover:text-white md:text-2xl">
-              Showing Results for {decodeURI(params.query)}
-          </h2> */}
-        {/* <div className="grid grid-cols-5 gap-3 items-center scrollbar-hide md:p-2">
-              {searchResults && searchResults.length
-                  ? searchResults.map((searchItem) => (
-                      <MovieCard
-                          key={searchItem.id}
-                          media={searchItem}
-                          searchView={true} />
-                  ))
-                  : null}
-          </div> */}
+      <InfoModal visible={isOpen} onClose={closeModal} />
+      <div className="px-4 md:px-12 mt-4 space-y-8 py-28">
+        <h2 className="text-white text-md md:text-xl lg:text-2xl font-semibold mb-4">
+          Showing Results for{" "}
+          <span className="text-violet-500 font-bold">
+            {decodeURIComponent(mediaName)}
+          </span>
+        </h2>
+        <div className="grid grid-cols-4 gap-2">
+          {searchResults.map((movie) => (
+            <MovieCard key={movie.id} data={movie} />
+          ))}
+        </div>
       </div>
-    </>
+    </div>
   );
 }

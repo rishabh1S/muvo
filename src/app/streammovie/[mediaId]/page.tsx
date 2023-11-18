@@ -3,14 +3,15 @@ import React, { useCallback, useEffect, useState } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { useParams, useRouter } from "next/navigation";
 import { useMovie } from "@/src/hooks";
-import { embedUrl } from "@/public/utils";
+import { embedMovieUrl } from "@/public/utils";
+import { VideoEmbedding } from "@/src/components";
 
 const Watch = () => {
   const router = useRouter();
-  const params = useParams() as { movieId: string };
-  const { movieId } = params;
-
-  const { data } = useMovie(movieId as string);
+  const params = useParams() as { mediaId: string };
+  const { mediaId } = params;
+  const mediaType = "movie";
+  const { data } = useMovie(mediaType, mediaId);
 
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
 
@@ -22,34 +23,25 @@ const Watch = () => {
     let timeoutId: NodeJS.Timeout;
 
     const handleMouseActivity = () => {
-      // Reset the timer
       clearTimeout(timeoutId);
-
-      // Show the navbar
       showNavbar();
-
-      // Set a new timer to hide the navbar after 5 seconds
       timeoutId = setTimeout(() => {
         setIsNavbarVisible(false);
       }, 5000);
     };
-
-    // Add event listeners for mouse activity
     document.addEventListener("mousemove", handleMouseActivity);
     document.addEventListener("keydown", handleMouseActivity);
-
-    // Initial setup to hide the navbar after 5 seconds
     timeoutId = setTimeout(() => {
       setIsNavbarVisible(false);
     }, 5000);
-
-    // Cleanup event listeners on component unmount
     return () => {
       document.removeEventListener("mousemove", handleMouseActivity);
       document.removeEventListener("keydown", handleMouseActivity);
       clearTimeout(timeoutId);
     };
   }, [showNavbar]);
+
+  const episodeURL = `${embedMovieUrl}${mediaId}`;
   return (
     <div className="h-screen w-screen">
       {isNavbarVisible && (
@@ -60,20 +52,12 @@ const Watch = () => {
             className="w-4 md:w-10 text-white cursor-pointer hover:opacity-80 transition"
           />
           <p className="text-white text-1xl md:text-3xl font-bold">
-            <span className="font-light">Watching:</span> {data?.title}
+            <span className="font-light">Watching:</span>{" "}
+            {data?.title || data?.name}
           </p>
         </nav>
       )}
-      <iframe
-        src={`${embedUrl}/${movieId}`}
-        width="100%"
-        height="100%"
-        frameBorder="0"
-        allowFullScreen
-        seamless
-        allow="autoplay"
-        referrerPolicy="no-referrer"
-      ></iframe>
+      <VideoEmbedding embedURL={episodeURL} />
     </div>
   );
 };
