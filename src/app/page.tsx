@@ -3,10 +3,8 @@ import React, { useEffect } from "react";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Navbar, Billboard, MovieList, InfoModal } from "@/components";
-import useMovieList from "@/app/hooks/useMovieList";
-import useFavorites from "@/app/hooks/useFavorites";
-import useInfoModal from "@/app/hooks/useInfoModal";
+import { Navbar, Billboard, MovieList, InfoModal } from "@/src/components";
+import { useMovieList, useFavorites, useInfoModal } from "@/src/hooks";
 
 export default function Home() {
   const session = useSession();
