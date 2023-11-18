@@ -3,6 +3,7 @@ const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 
 export const baseUrl = "https://image.tmdb.org/t/p/original";
 export const baseYoutubeUrl = "https://www.youtube.com/watch?v=";
+export const embedUrl = `https://autoembed.to/movie/tmdb`;
 
 export const getTrendingMedias = async (type: string) => {
   try {
@@ -95,7 +96,7 @@ export const getTVorMovieSearchResults = async (
 ) => {
   try {
     const res = await fetch(
-      `${BASE_URL}/search/${type}?api_key=${API_KEY}&include_adult=false&language=en-US&query=${query}`,
+      `${BASE_URL}/search/${type}?api_key=${API_KEY}&language=en-US&query=${query}`,
       {
         method: "GET",
       }

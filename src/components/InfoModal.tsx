@@ -1,0 +1,159 @@
+import React, { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
+import countryLookup from "country-code-lookup";
+import { PlayButton, FavoriteButton, VideoPlayer } from ".";
+import { useInfoModal, useMovie } from "../hooks";
+import { baseUrl, baseYoutubeUrl } from "@/public/utils";
+import { Genre } from "@/src/types";
+import { SiImdb } from "react-icons/si";
+import { RiMovie2Line } from "react-icons/ri";
+import { AiOutlineClose } from "react-icons/ai";
+
+interface InfoModalProps {
+  visible?: boolean;
+  onClose: any;
+}
+
+const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
+  const [isVisible, setIsVisible] = useState<boolean>(!!visible);
+  const { movieId } = useInfoModal();
+  const { data, isLoading } = useMovie(movieId);
+  console.log(data);
+  const videoKey = data?.videos?.results?.[0]?.key;
+
+  useEffect(() => {
+    setIsVisible(!!visible);
+  }, [visible]);
+
+  const handleClose = useCallback(() => {
+    setIsVisible(false);
+    setTimeout(() => {
+      onClose();
+    }, 300);
+  }, [onClose]);
+
+  if (!visible || isLoading) {
+    return null;
+  }
+
+  const getCountryName = (countryCode: string | number) => {
+    const countryInfo = countryLookup.byIso(countryCode);
+    return countryInfo ? countryInfo.country : countryCode;
+  };
+
+  const isComingSoon = new Date(data?.release_date) > new Date();
+
+  return (
+    <div className="z-50 transition duration-300 bg-black bg-opacity-80 flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0">
+      <div className="relative w-auto mx-auto max-w-3xl rounded-md overflow-hidden">
+        <div
+          className={`${
+            isVisible ? "scale-100" : "scale-0"
+          } transform duration-300 relative flex-auto bg-zinc-900 drop-shadow-md`}
+        >
+          <div className="relative h-96">
+            {videoKey ? (
+              <>
+                <VideoPlayer url={`${baseYoutubeUrl}${videoKey}`} />
+                <div className="absolute top-0 left-0 w-full h-full bg-transparent" />
+              </>
+            ) : (
+              <img
+                src={`${baseUrl}/${data?.backdrop_path || data?.poster_path}`}
+                alt={data?.title}
+                className="w-full h-full object-cover"
+              />
+            )}
+            <div
+              onClick={handleClose}
+              className="cursor-pointer absolute top-3 right-3 h-10 w-10 rounded-full bg-black bg-opacity-70 flex items-center justify-center"
+            >
+              <AiOutlineClose size={24} className="text-white w-6" />
+            </div>
+            <div className="absolute bottom-[10%] left-10">
+              <p className="text-white text-3xl md:text-4xl h-full lg:text-5xl font-bold mb-8">
+                {data?.title}
+              </p>
+              <div className="flex flex-row gap-4 items-center">
+                {!isComingSoon && <PlayButton movieId={data?.id} />}
+                {isComingSoon && (
+                  <p className="text-white text-xl">COMING SOON</p>
+                )}
+                <FavoriteButton movieId={data?.id} />
+              </div>
+            </div>
+          </div>
+
+          <div className="px-12 py-8">
+            <div className="flex flex-row items-center gap-4 mb-1">
+              <p className="text-green-400 font-semibold text-lg">
+                {new Date(data?.release_date).getFullYear() ===
+                new Date().getFullYear() ? (
+                  <>
+                    New{" "}
+                    <span className="text-white">
+                      {new Date(data?.release_date).getFullYear()}
+                    </span>
+                  </>
+                ) : (
+                  <span className="text-white">
+                    {new Date(data?.release_date).getFullYear()}
+                  </span>
+                )}
+              </p>
+              <p className="text-white text-lg">
+                {data?.runtime
+                  ? `${Math.floor(data.runtime / 60)}h ${data.runtime % 60}min`
+                  : ""}
+              </p>
+              <div className="ml-auto px-2">
+                <p className="text-violet-500 text-lg">
+                  {data?.genres?.map((genre: Genre) => genre.name).join(", ")}
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-row items-center gap-4 mb-6">
+              {data?.production_companies?.[0] && (
+                <div className="flex items-center">
+                  <div className="text-white text-lg mr-2">
+                    {data.production_companies[0].name}
+                  </div>
+                  <span className="text-green-400 font-semibold text-lg">
+                    {getCountryName(
+                      data.production_companies[0].origin_country
+                    )}
+                  </span>
+                </div>
+              )}
+              <div className="ml-auto flex items-center">
+                {data?.imdb_id && (
+                  <Link
+                    href={`https://www.imdb.com/title/${data.imdb_id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-yellow-500 mx-2"
+                  >
+                    <SiImdb size={26} />
+                  </Link>
+                )}
+                {data?.id && (
+                  <Link
+                    href={`https://www.themoviedb.org/movie/${data?.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500"
+                  >
+                    <RiMovie2Line size={30} />
+                  </Link>
+                )}
+              </div>
+            </div>
+            <p className="text-white text-lg">{data?.overview}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default InfoModal;
