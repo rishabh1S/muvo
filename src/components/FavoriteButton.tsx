@@ -13,15 +13,23 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
   mediaType,
   mediaId,
 }) => {
-  const { mutate: mutateFavorites } = useFavorites();
-
-  const { data: currentUser, mutate } = useCurrentUser();
+  const {
+    data: favoritedMedias,
+    isLoading,
+    mutate: mutateFavorites,
+  } = useFavorites();
+  const { data: currentUser, mutate: mutateCurrentUser } = useCurrentUser();
 
   const isFavorite = useMemo(() => {
-    const list = currentUser?.favoriteIds || [];
+    if (!favoritedMedias || isLoading || !currentUser) {
+      return false;
+    }
 
-    return list.includes(mediaId);
-  }, [currentUser, mediaId]);
+    return favoritedMedias.some(
+      (favorite) =>
+        favorite.mediaType === mediaType && favorite.mediaId === mediaId
+    );
+  }, [favoritedMedias, isLoading, currentUser, mediaType, mediaId]);
 
   const toggleFavorites = useCallback(async () => {
     try {
@@ -38,15 +46,23 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
 
       const updatedFavoriteIds = response?.data?.favoriteIds;
 
-      mutate({
+      mutateCurrentUser({
         ...currentUser,
         favoriteIds: updatedFavoriteIds,
       });
+
       mutateFavorites();
     } catch (error) {
       console.error("Error toggling favorites:", error);
     }
-  }, [mediaType, mediaId, isFavorite, currentUser, mutate, mutateFavorites]);
+  }, [
+    isFavorite,
+    mediaType,
+    mediaId,
+    currentUser,
+    mutateCurrentUser,
+    mutateFavorites,
+  ]);
 
   const Icon = isFavorite ? AiOutlineCheck : AiOutlinePlus;
 

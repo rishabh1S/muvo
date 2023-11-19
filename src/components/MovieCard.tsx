@@ -10,12 +10,11 @@ import { baseUrl } from "@/public/utils";
 
 interface MovieCardProps {
   data: MovieInterface;
+  mediaType: string;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
+const MovieCard: React.FC<MovieCardProps> = ({ data, mediaType }) => {
   const router = useRouter();
-  const currentPath = usePathname();
-  const mediaType = currentPath === "/" ? "movie" : "tv";
 
   const { openModal } = useInfoModal();
 

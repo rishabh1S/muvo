@@ -43,17 +43,19 @@ export default async function handler(
 
       const { mediaType, mediaId } = req.body;
 
-      const updatedFavoriteIds = without(currentUser.favoriteIds, {
-        mediaType,
-        mediaId,
-      });
-
       const updatedUser = await prismadb.user.update({
         where: {
           email: currentUser.email || "",
         },
         data: {
-          favoriteIds: updatedFavoriteIds,
+          favoriteIds: {
+            deleteMany: [
+              {
+                mediaType,
+                mediaId,
+              },
+            ],
+          },
         },
       });
 

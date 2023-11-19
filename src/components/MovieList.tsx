@@ -4,6 +4,7 @@ import "react-multi-carousel/lib/styles.css";
 import { MovieInterface } from "@/src/types";
 import { MovieCard } from ".";
 import { isEmpty } from "lodash";
+import { usePathname } from "next/navigation";
 
 interface MovieListProps {
   data: MovieInterface[];
@@ -27,6 +28,9 @@ const responsive = {
 };
 
 const MovieList: React.FC<MovieListProps> = ({ data, title }) => {
+  const currentPath = usePathname();
+  const mediaType = currentPath === "/" ? "movie" : "tv";
+
   if (isEmpty(data)) {
     return null;
   }
@@ -45,7 +49,7 @@ const MovieList: React.FC<MovieListProps> = ({ data, title }) => {
           itemClass="px-2"
         >
           {data.map((media) => (
-            <MovieCard key={media.id} data={media} />
+            <MovieCard key={media.id} mediaType={mediaType} data={media} />
           ))}
         </Carousel>
       </div>

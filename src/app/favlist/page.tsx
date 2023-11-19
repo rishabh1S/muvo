@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Navbar, MovieList, InfoModal, MovieCard } from "@/src/components";
+import { Navbar, InfoModal, MovieCard } from "@/src/components";
 import { useFavorites, useInfoModal } from "@/src/hooks";
 import { getTVorMovieDetailsByID } from "@/public/utils";
 
@@ -12,7 +12,6 @@ export default function FavList() {
   const router = useRouter();
   const { data: favorites = [] } = useFavorites();
   const { isOpen, closeModal } = useInfoModal();
-  console.log(favorites);
   const [extendedFavorites, setExtendedFavorites] = useState([]);
 
   useEffect(() => {
@@ -24,7 +23,7 @@ export default function FavList() {
             mediaType,
             mediaId
           );
-          return extendedData;
+          return { mediaType, ...extendedData };
         });
 
         const extendedDataResults = await Promise.all(extendedDataPromises);
@@ -52,7 +51,11 @@ export default function FavList() {
           </p>
           <div className="grid grid-cols-4 gap-2">
             {extendedFavorites.map((extendedData, index) => (
-              <MovieCard key={index} data={extendedData} />
+              <MovieCard
+                key={index}
+                mediaType={extendedData.mediaType}
+                data={extendedData}
+              />
             ))}
           </div>
         </div>

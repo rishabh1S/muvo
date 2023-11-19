@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Navbar, Billboard, MovieList, InfoModal } from "@/src/components";
-import { useMovieList, useFavorites, useInfoModal } from "@/src/hooks";
+import { useMovieList, useInfoModal } from "@/src/hooks";
 
 export default function Series() {
   const session = useSession();
@@ -12,7 +12,6 @@ export default function Series() {
   const { data: moviesTrending = [] } = useMovieList("trending", "tv");
   const { data: moviesPopular = [] } = useMovieList("popular", "tv");
   const { data: moviesToprated = [] } = useMovieList("toprated", "tv");
-  const { data: favorites = [] } = useFavorites();
   const { isOpen, closeModal } = useInfoModal();
 
   useEffect(() => {
@@ -29,7 +28,6 @@ export default function Series() {
         <MovieList title="Trending Now" data={moviesTrending} />
         <MovieList title="Popular on NextFlix" data={moviesPopular} />
         <MovieList title="Top Rated" data={moviesToprated} />
-        <MovieList title="My List" data={favorites} />
       </div>
     </>
   );

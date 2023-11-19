@@ -61,61 +61,11 @@ export default function Search() {
         </h2>
         <div className="grid grid-cols-4 gap-2">
           {searchResults.map((media) => (
-            <div
+            <MovieCard
               key={media.id}
-              className="relative  overflow-hidden bg-cover bg-no-repeat group"
-            >
-              <img
-                onClick={() =>
-                  redirectToWatch(media.mediaType, media.id.toString())
-                }
-                src={`${baseUrl}/${media?.backdrop_path || media?.poster_path}`}
-                alt="Media"
-                draggable={false}
-                className="
-        cursor-pointer transition duration-300 ease-in-out group-hover:scale-110 w-full h-full
-      "
-              />
-              <div className="opacity-0 absolute top-20 transform w-full group-hover:opacity-100">
-                <div className="z-10 bg-zinc-900/90 p-2 lg:p-4 absolute w-full transition shadow-md">
-                  <div className="flex flex-row items-center gap-3">
-                    <div
-                      onClick={() =>
-                        redirectToWatch(media.mediaType, media.id.toString())
-                      }
-                      className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300"
-                    >
-                      <BsFillPlayFill
-                        size={30}
-                        className="text-black w-4 lg:w-6"
-                      />
-                    </div>
-                    <FavoriteButton
-                      mediaType={media.mediaType}
-                      mediaId={media.id.toString()}
-                    />
-                    <div
-                      onClick={() =>
-                        openModal(media.mediaType, media.id.toString())
-                      }
-                      className="cursor-pointer ml-auto group/item w-6 h-6 lg:w-10 lg:h-10 border-white border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300"
-                    >
-                      <BsChevronDown
-                        size={20}
-                        className="text-white group-hover/item:text-neutral-300 w-4 lg:w-6"
-                      />
-                    </div>
-                  </div>
-                  <p className="mt-4 text-white text-[12px] lg:text-2xl">
-                    {(media.title || media.name) &&
-                      (media.title || media.name)
-                        .split(" ")
-                        .slice(0, 4)
-                        .join(" ")}
-                  </p>
-                </div>
-              </div>
-            </div>
+              mediaType={media.mediaType}
+              data={media}
+            />
           ))}
         </div>
       </div>
