@@ -1,9 +1,9 @@
 "use client";
 import React, { useCallback } from "react";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { BsFillPlayFill, BsChevronDown } from "react-icons/bs";
 
-import { MovieInterface, Genre } from "@/src/types";
+import { MovieInterface } from "@/src/types";
 import { FavoriteButton } from ".";
 import { useInfoModal } from "../hooks";
 import { baseUrl } from "@/public/utils";
@@ -47,7 +47,10 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
             >
               <BsFillPlayFill size={30} className="text-black w-4 lg:w-6" />
             </div>
-            <FavoriteButton mediaId={data.id.toString()} />
+            <FavoriteButton
+              mediaType={mediaType}
+              mediaId={data.id.toString()}
+            />
             <div
               onClick={() => openModal(mediaType, data.id.toString())}
               className="cursor-pointer ml-auto group/item w-6 h-6 lg:w-10 lg:h-10 border-white border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300"

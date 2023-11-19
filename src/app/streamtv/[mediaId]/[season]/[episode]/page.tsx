@@ -18,10 +18,23 @@ const Episode = () => {
   const { data, isLoading } = useMovie(mediaType, mediaId);
   const episodeURL = `${embedTvShowUrl}${mediaId}-${season}-${episode}`;
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
+  const episodeCount = data?.seasons.find(
+    (s: { season_number: number }) => s.season_number === Number(season)
+  )?.episode_count;
 
   const showNavbar = useCallback(() => {
     setIsNavbarVisible(true);
   }, []);
+
+  const goToPreviousEpisode = () => {
+    const previousEpisode = Math.max(Number(episode) - 1, 1);
+    router.push(`/streamtv/${mediaId}/${season}/${previousEpisode}`);
+  };
+
+  const goToNextEpisode = () => {
+    const nextEpisode = Math.min(Number(episode) + 1, episodeCount);
+    router.push(`/streamtv/${mediaId}/${season}/${nextEpisode}`);
+  };
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
@@ -31,13 +44,13 @@ const Episode = () => {
       showNavbar();
       timeoutId = setTimeout(() => {
         setIsNavbarVisible(false);
-      }, 5000);
+      }, 3000);
     };
     document.addEventListener("mousemove", handleMouseActivity);
     document.addEventListener("keydown", handleMouseActivity);
     timeoutId = setTimeout(() => {
       setIsNavbarVisible(false);
-    }, 5000);
+    }, 3000);
     return () => {
       document.removeEventListener("mousemove", handleMouseActivity);
       document.removeEventListener("keydown", handleMouseActivity);
@@ -51,18 +64,34 @@ const Episode = () => {
   return (
     <div className="h-screen w-screen">
       {isNavbarVisible && (
-        <nav className="fixed w-full p-6 z-10 flex flex-row items-center gap-8 bg-black bg-opacity-70">
-          <AiOutlineArrowLeft
-            size={36}
-            onClick={() => router.push("/series")}
-            className="w-4 md:w-10 text-white cursor-pointer hover:opacity-80 transition"
-          />
-          <p className="text-white text-1xl md:text-3xl">
-            <span className="font-light">Watching:</span>{" "}
-            {data?.title || data?.name}
-            {` Season ${season}`}
-            {` Episode ${episode}`}
-          </p>
+        <nav className="fixed w-full p-6 z-10 flex items-center justify-between gap-8 bg-black bg-opacity-70">
+          <div className="flex gap-4">
+            <AiOutlineArrowLeft
+              size={36}
+              onClick={() => router.push(`/streamtv/${mediaId}/${season}`)}
+              className="w-4 md:w-10 text-white cursor-pointer hover:opacity-80 transition"
+            />
+            <div className="text-white text-1xl md:text-3xl">
+              <span className="font-light">Watching:</span>{" "}
+              {data?.title || data?.name}
+              {` Season ${season}`}
+              {` Episode ${episode}`}
+            </div>
+          </div>
+          <div className="flex gap-4">
+            <div
+              className="block border text-gray-200 border-gray-200 shadow-lg hover:bg-gray-200 hover:text-gray-900 transition duration-300 font-bold sm:py-2 sm:px-4 py-1 px-2 rounded cursor-pointer"
+              onClick={goToPreviousEpisode}
+            >
+              Previous Episode
+            </div>
+            <div
+              className="block border text-gray-200 border-gray-200 shadow-lg hover:bg-gray-200 hover:text-gray-900 transition duration-300 font-bold sm:py-2 sm:px-4 py-1 px-2 rounded cursor-pointer"
+              onClick={goToNextEpisode}
+            >
+              Next Episode
+            </div>
+          </div>
         </nav>
       )}
       <VideoEmbedding embedURL={episodeURL} />

@@ -5,10 +5,14 @@ import { toast } from "sonner";
 import { useCurrentUser, useFavorites } from "../hooks";
 
 interface FavoriteButtonProps {
+  mediaType: string;
   mediaId: string;
 }
 
-const FavoriteButton: React.FC<FavoriteButtonProps> = ({ mediaId }) => {
+const FavoriteButton: React.FC<FavoriteButtonProps> = ({
+  mediaType,
+  mediaId,
+}) => {
   const { mutate: mutateFavorites } = useFavorites();
 
   const { data: currentUser, mutate } = useCurrentUser();
@@ -20,24 +24,29 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ mediaId }) => {
   }, [currentUser, mediaId]);
 
   const toggleFavorites = useCallback(async () => {
-    let response;
+    try {
+      let response;
+      if (isFavorite) {
+        response = await axios.delete("/api/favorite", {
+          data: { mediaType, mediaId },
+        });
+        toast.success("Removed from favourites");
+      } else {
+        response = await axios.post("/api/favorite", { mediaType, mediaId });
+        toast.success("Added to favourites");
+      }
 
-    if (isFavorite) {
-      response = await axios.delete("/api/favorite", { data: { mediaId } });
-      toast.success("Removed from favourites");
-    } else {
-      response = await axios.post("/api/favorite", { mediaId });
-      toast.success("Added to favourites");
+      const updatedFavoriteIds = response?.data?.favoriteIds;
+
+      mutate({
+        ...currentUser,
+        favoriteIds: updatedFavoriteIds,
+      });
+      mutateFavorites();
+    } catch (error) {
+      console.error("Error toggling favorites:", error);
     }
-
-    const updatedFavoriteIds = response?.data?.favoriteIds;
-
-    mutate({
-      ...currentUser,
-      favoriteIds: updatedFavoriteIds,
-    });
-    mutateFavorites();
-  }, [mediaId, isFavorite, currentUser, mutate, mutateFavorites]);
+  }, [mediaType, mediaId, isFavorite, currentUser, mutate, mutateFavorites]);
 
   const Icon = isFavorite ? AiOutlineCheck : AiOutlinePlus;
 

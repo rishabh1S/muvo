@@ -1,13 +1,20 @@
 "use client";
-import { CircleLoader, FavoriteButton, PlayButton } from "@/src/components";
+import {
+  CircleLoader,
+  FavoriteButton,
+  PlayButton,
+  Navbar,
+} from "@/src/components";
 import { useMovie } from "@/src/hooks";
 import { useParams } from "next/navigation";
 import React from "react";
 import { Genre } from "@/src/types";
 import Link from "next/link";
-import { baseUrl } from "@/public/utils";
+import { baseUrl, baseYoutubeUrl } from "@/public/utils";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { RiMovie2Line } from "react-icons/ri";
+import { BsFillPlayFill } from "react-icons/bs";
 
 const responsive = {
   desktop: {
@@ -31,13 +38,17 @@ const TvSelection = () => {
   const mediaType = "tv";
   const { data, isLoading } = useMovie(mediaType, mediaId);
   console.log(data);
+  const key =
+    data?.videos?.results.find((video) => video.type === "Trailer")?.key ||
+    data?.videos?.results[0]?.key;
 
   if (isLoading) {
     return <CircleLoader />;
   }
 
   return (
-    <div className="bg-body">
+    <div className="min-h-screen">
+      <Navbar />
       <div className="h-[300px] relative overflow-hidden">
         <div className="absolute left-0 right-0 top-0 bottom-0 bg-gradient-to-b from-transparent via-transparent to-body"></div>
         <img
@@ -57,16 +68,45 @@ const TvSelection = () => {
             <p className="text-white text-3xl md:text-4xl h-full lg:text-5xl font-bold mb-8">
               {data?.name}
             </p>
-            <ul className="flex items-center gap-3">
-              {data?.genres?.map((genre: Genre) => (
-                <li
-                  key={genre.id}
-                  className="px-4 py-2 bg-primary text-gray-200 rounded-lg text-sm"
-                >
-                  {genre.name}
-                </li>
-              ))}
-            </ul>
+            <div className="flex items-center gap-2">
+              <ul className="flex items-center gap-3">
+                {data?.genres?.map((genre: Genre) => (
+                  <li
+                    key={genre.id}
+                    className="px-4 py-2 bg-primary text-gray-200 rounded-lg text-sm"
+                  >
+                    {genre.name}
+                  </li>
+                ))}
+              </ul>
+              <div className="sm:absolute right-0">
+                {data?.id && (
+                  <Link
+                    href={`https://www.themoviedb.org/tv/${data?.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500"
+                  >
+                    <RiMovie2Line size={36} />
+                  </Link>
+                )}
+              </div>
+            </div>
+            <div className="flex items-center gap-8">
+              <Link
+                href={`${baseYoutubeUrl}${key}`}
+                target="_blank"
+                passHref
+                className="bg-white rounded-md py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-neutral-300 transition text-black"
+              >
+                <BsFillPlayFill
+                  size={24}
+                  className="w-4 md:w-7 text-black mr-1"
+                />
+                Play Trailer
+              </Link>
+              <FavoriteButton mediaType="tv" mediaId={data?.id} />
+            </div>
             <p className="text-white text-[8px] md:text-lg drop-shadow-xl w-[90%] ">
               {data?.overview}
             </p>
@@ -88,7 +128,9 @@ const TvSelection = () => {
             >
               <div className="relative overflow-hidden aspect-w-4 aspect-h-3">
                 <img
-                  src={`${baseUrl}/${season?.poster_path}`}
+                  src={`${baseUrl}/${
+                    season?.poster_path || data?.backdrop_path
+                  }`}
                   alt={`Season ${season.name} Cover`}
                   className="object-cover w-full h-full group-hover:opacity-70"
                 />

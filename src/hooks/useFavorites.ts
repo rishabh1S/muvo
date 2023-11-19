@@ -7,6 +7,11 @@ const useFavorites = () => {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
   });
+
+  if (error) {
+    console.error("Error fetching favorites:", error);
+  }
+
   return {
     data,
     error,

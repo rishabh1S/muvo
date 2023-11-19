@@ -1,5 +1,6 @@
 "use client";
 import { baseUrl } from "@/public/utils";
+import { CircleLoader, Navbar } from "@/src/components";
 import { useMovie } from "@/src/hooks";
 import { Genre } from "@/src/types";
 import Link from "next/link";
@@ -12,9 +13,16 @@ const Season = () => {
   const mediaType = "tv";
   const { data, isLoading } = useMovie(mediaType, mediaId);
   console.log(data);
-  const episodeCount = data?.seasons[Number(season)]?.episode_count || 0;
+  const episodeCount = data?.seasons.find(
+    (s: { season_number: number }) => s.season_number === Number(season)
+  )?.episode_count;
+
+  if (isLoading) {
+    <CircleLoader />;
+  }
   return (
-    <div className="bg-body">
+    <div className="bg-body min-h-screen">
+      <Navbar />
       <div className="h-[300px] relative overflow-hidden">
         <div className="absolute left-0 right-0 top-0 bottom-0 bg-gradient-to-b from-transparent via-transparent to-body"></div>
         <img

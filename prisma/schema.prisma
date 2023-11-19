@@ -11,17 +11,17 @@ datasource db {
 }
 
 model User {
-  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  id             String         @id @default(auto()) @map("_id") @db.ObjectId
   name           String?
   image          String?
-  email          String?   @unique
+  email          String?        @unique
   emailVerified  DateTime?
   hashedPassword String?
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
   sessions       Session[]
   accounts       Account[]
-  favoriteIds    String[]  @db.ObjectId
+  favoriteIds    FavouriteIds[]
 }
 
 model Account {
@@ -58,4 +58,12 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model FavouriteIds {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  mediaType String
+  mediaId   String
+  User      User?   @relation(fields: [userId], references: [id])
+  userId    String? @db.ObjectId
 }

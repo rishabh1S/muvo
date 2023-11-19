@@ -19,7 +19,9 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   const { mediaType, mediaId } = useInfoModal();
   const { data, isLoading } = useMovie(mediaType, mediaId);
   console.log("InfoModal", data);
-  const videoKey = data?.videos?.results?.[0]?.key;
+  const videoKey =
+    data?.videos?.results.find((video) => video.type === "Trailer")?.key ||
+    data?.videos?.results[0]?.key;
 
   useEffect(() => {
     setIsVisible(!!visible);
@@ -104,7 +106,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                     Coming Soon
                   </p>
                 )}
-                <FavoriteButton mediaId={data?.id} />
+                <FavoriteButton mediaType={mediaType} mediaId={mediaId} />
               </div>
             </div>
           </div>
@@ -117,19 +119,23 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                   <>
                     New{" "}
                     <span className="text-white">
-                      {new Date(data?.release_date).getFullYear()}
+                      {new Date(
+                        data?.release_date || data?.first_air_date
+                      ).getFullYear()}
                     </span>
                   </>
                 ) : (
                   <span className="text-white">
-                    {new Date(data?.release_date).getFullYear()}
+                    {new Date(
+                      data?.release_date || data?.first_air_date
+                    ).getFullYear()}
                   </span>
                 )}
               </p>
               <p className="text-white text-lg">
                 {data?.runtime
                   ? `${Math.floor(data.runtime / 60)}h ${data.runtime % 60}min`
-                  : ""}
+                  : `${data?.number_of_episodes} episodes`}
               </p>
               <div className="ml-auto px-2">
                 <p className="text-violet-500 text-lg">
