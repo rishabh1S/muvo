@@ -26,7 +26,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
     }
 
     return favoritedMedias.some(
-      (favorite) =>
+      (favorite: { mediaType: string; mediaId: string }) =>
         favorite.mediaType === mediaType && favorite.mediaId === mediaId
     );
   }, [favoritedMedias, isLoading, currentUser, mediaType, mediaId]);

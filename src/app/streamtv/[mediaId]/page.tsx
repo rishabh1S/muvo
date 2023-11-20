@@ -39,8 +39,9 @@ const TvSelection = () => {
   const { data, isLoading } = useMovie(mediaType, mediaId);
   console.log(data);
   const key =
-    data?.videos?.results.find((video) => video.type === "Trailer")?.key ||
-    data?.videos?.results[0]?.key;
+    data?.videos?.results.find(
+      (video: { type: string }) => video.type === "Trailer"
+    )?.key || data?.videos?.results[0]?.key;
 
   if (isLoading) {
     return <CircleLoader />;
@@ -119,27 +120,36 @@ const TvSelection = () => {
           containerClass="-mx-[10px]"
           itemClass="px-2"
         >
-          {data?.seasons.map((season, i: number) => (
-            <Link
-              href={`/streamtv/${data.id}/${season.season_number}`}
-              passHref
-              className="block border border-gray-800 rounded shadow hover:bg-gray-800 transition duration-300 relative group hover:scale-105"
-              key={i}
-            >
-              <div className="relative overflow-hidden aspect-w-4 aspect-h-3">
-                <img
-                  src={`${baseUrl}/${
-                    season?.poster_path || data?.backdrop_path
-                  }`}
-                  alt={`Season ${season.name} Cover`}
-                  className="object-cover w-full h-full group-hover:opacity-70"
-                />
-              </div>
-              <div className="absolute top-2 left-2 bg-black bg-opacity-60 p-1 rounded">
-                <span className="font-bold text-white">{season.name}</span>
-              </div>
-            </Link>
-          ))}
+          {data?.seasons.map(
+            (
+              season: {
+                name: string;
+                poster_path: string | null;
+                season_number: number;
+              },
+              i: number
+            ) => (
+              <Link
+                href={`/streamtv/${data.id}/${season.season_number}`}
+                passHref
+                className="block border border-gray-800 rounded shadow hover:bg-gray-800 transition duration-300 relative group hover:scale-105"
+                key={i}
+              >
+                <div className="relative overflow-hidden aspect-w-4 aspect-h-3">
+                  <img
+                    src={`${baseUrl}/${
+                      season?.poster_path || data?.backdrop_path
+                    }`}
+                    alt={`Season ${season.name} Cover`}
+                    className="object-cover w-full h-full group-hover:opacity-70"
+                  />
+                </div>
+                <div className="absolute top-2 left-2 bg-black bg-opacity-60 p-1 rounded">
+                  <span className="font-bold text-white">{season.name}</span>
+                </div>
+              </Link>
+            )
+          )}
         </Carousel>
       </div>
     </div>

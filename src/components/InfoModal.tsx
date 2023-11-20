@@ -20,8 +20,9 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   const { data, isLoading } = useMovie(mediaType, mediaId);
   console.log("InfoModal", data);
   const videoKey =
-    data?.videos?.results.find((video) => video.type === "Trailer")?.key ||
-    data?.videos?.results[0]?.key;
+    data?.videos?.results.find(
+      (video: { type: string }) => video.type === "Trailer"
+    )?.key || data?.videos?.results[0]?.key;
 
   useEffect(() => {
     setIsVisible(!!visible);
@@ -106,7 +107,10 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                     Coming Soon
                   </p>
                 )}
-                <FavoriteButton mediaType={mediaType} mediaId={mediaId} />
+                <FavoriteButton
+                  mediaType={mediaType as string}
+                  mediaId={mediaId as string}
+                />
               </div>
             </div>
           </div>

@@ -1,13 +1,13 @@
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { MovieInterface } from "@/src/types";
+import { MediaInterface } from "@/src/types";
 import { MovieCard } from ".";
 import { isEmpty } from "lodash";
 import { usePathname } from "next/navigation";
 
 interface MovieListProps {
-  data: MovieInterface[];
+  data: MediaInterface[];
   title: string;
 }
 

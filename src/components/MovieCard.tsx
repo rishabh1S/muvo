@@ -1,15 +1,15 @@
 "use client";
 import React, { useCallback } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { BsFillPlayFill, BsChevronDown } from "react-icons/bs";
 
-import { MovieInterface } from "@/src/types";
+import { MediaInterface } from "@/src/types";
 import { FavoriteButton } from ".";
 import { useInfoModal } from "../hooks";
 import { baseUrl } from "@/public/utils";
 
 interface MovieCardProps {
-  data: MovieInterface;
+  data: MediaInterface;
   mediaType: string;
 }
 

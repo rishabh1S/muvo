@@ -12,19 +12,21 @@ export default function FavList() {
   const router = useRouter();
   const { data: favorites = [] } = useFavorites();
   const { isOpen, closeModal } = useInfoModal();
-  const [extendedFavorites, setExtendedFavorites] = useState([]);
+  const [extendedFavorites, setExtendedFavorites] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchExtendedFavorites = async () => {
       try {
-        const extendedDataPromises = favorites.map(async (favorite) => {
-          const { mediaType, mediaId } = favorite;
-          const extendedData = await getTVorMovieDetailsByID(
-            mediaType,
-            mediaId
-          );
-          return { mediaType, ...extendedData };
-        });
+        const extendedDataPromises = favorites.map(
+          async (favorite: { mediaType: string; mediaId: string }) => {
+            const { mediaType, mediaId } = favorite;
+            const extendedData = await getTVorMovieDetailsByID(
+              mediaType,
+              mediaId
+            );
+            return { mediaType, ...extendedData };
+          }
+        );
 
         const extendedDataResults = await Promise.all(extendedDataPromises);
         setExtendedFavorites(extendedDataResults);

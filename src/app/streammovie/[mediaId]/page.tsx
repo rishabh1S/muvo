@@ -41,8 +41,9 @@ const MovieSelection = () => {
   console.log(data);
   const isComingSoon = new Date(data?.release_date) > new Date();
   const key =
-    data?.videos?.results.find((video) => video.type === "Trailer")?.key ||
-    data?.videos?.results[0]?.key;
+    data?.videos?.results.find(
+      (video: { type: string }) => video.type === "Trailer"
+    )?.key || data?.videos?.results[0]?.key;
 
   if (isLoading) {
     return <CircleLoader />;

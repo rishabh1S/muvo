@@ -1,19 +1,17 @@
 "use client";
 import { useParams, useRouter } from "next/navigation";
-import { useCallback, useEffect, useReducer, useState } from "react";
-import { Navbar, InfoModal, MovieCard, FavoriteButton } from "@/src/components";
-import { baseUrl, getTVorMovieSearchResults } from "@/public/utils";
+import { useEffect, useState } from "react";
+import { Navbar, InfoModal, MovieCard } from "@/src/components";
+import { getTVorMovieSearchResults } from "@/public/utils";
 import { useInfoModal } from "@/src/hooks";
-import { MovieInterface } from "@/src/types";
-import { BsChevronDown, BsFillPlayFill } from "react-icons/bs";
+import { MediaInterface } from "@/src/types";
 
 export default function Search() {
-  const [searchResults, setSearchResults] = useState<MovieInterface[]>([]);
+  const [searchResults, setSearchResults] = useState<MediaInterface[]>([]);
   const { isOpen, closeModal } = useInfoModal();
   const router = useRouter();
   const params = useParams();
   const mediaName = params!.query as string;
-  const { openModal } = useInfoModal();
   useEffect(() => {
     async function getSearchResults() {
       const tvShows = await getTVorMovieSearchResults("tv", mediaName);
@@ -39,15 +37,6 @@ export default function Search() {
     getSearchResults();
   }, [mediaName]);
 
-  const redirectToWatch = useCallback(
-    (mediaType: string, mediaId: string) => {
-      mediaType === "tv"
-        ? router.push(`/streamtv/${mediaId}`)
-        : router.push(`/streammovie/${mediaId}`);
-    },
-    [router]
-  );
-
   return (
     <div className="absolute">
       <Navbar />
@@ -63,7 +52,7 @@ export default function Search() {
           {searchResults.map((media) => (
             <MovieCard
               key={media.id}
-              mediaType={media.mediaType}
+              mediaType={media.mediaType || ""}
               data={media}
             />
           ))}
