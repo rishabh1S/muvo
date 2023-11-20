@@ -29,7 +29,7 @@ const responsive = {
 
 const MovieList: React.FC<MovieListProps> = ({ data, title }) => {
   const currentPath = usePathname();
-  const mediaType = currentPath === "/" ? "movie" : "tv";
+  const mediaType = currentPath === "/series" ? "tv" : "movie";
 
   if (isEmpty(data)) {
     return null;

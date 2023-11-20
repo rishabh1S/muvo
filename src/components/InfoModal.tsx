@@ -183,7 +183,11 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                 )}
               </div>
             </div>
-            <p className="text-white text-base">{data?.overview}</p>
+            <p className="text-white text-base">
+              {data?.overview?.split(" ").length > 50
+                ? `${data?.overview?.split(" ").slice(0, 50).join(" ")} ...`
+                : data?.overview}
+            </p>
           </div>
         </div>
       </div>

@@ -38,10 +38,9 @@ const UserCard: React.FC<UserCardProps> = ({ name }) => {
 const Profiles = () => {
   const router = useRouter();
   const { data: currentUser } = useCurrentUser();
-  console.log(currentUser?.name);
 
   const selectProfile = useCallback(() => {
-    router.push("/");
+    router.push("/movies");
   }, [router]);
 
   return (

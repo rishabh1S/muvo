@@ -1,5 +1,5 @@
 "use client";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Navbar, InfoModal, MovieCard } from "@/src/components";
 import { getTVorMovieSearchResults } from "@/public/utils";
@@ -9,7 +9,6 @@ import { MediaInterface } from "@/src/types";
 export default function Search() {
   const [searchResults, setSearchResults] = useState<MediaInterface[]>([]);
   const { isOpen, closeModal } = useInfoModal();
-  const router = useRouter();
   const params = useParams();
   const mediaName = params!.query as string;
   useEffect(() => {
@@ -42,21 +41,32 @@ export default function Search() {
       <Navbar />
       <InfoModal visible={isOpen} onClose={closeModal} />
       <div className="px-4 md:px-12 mt-4 space-y-8 py-28">
-        <h2 className="text-white text-md md:text-xl lg:text-2xl font-semibold mb-4">
-          Showing Results for{" "}
-          <span className="text-violet-500 font-bold">
-            {decodeURIComponent(mediaName)}
-          </span>
-        </h2>
-        <div className="grid grid-cols-4 gap-2">
-          {searchResults.map((media) => (
-            <MovieCard
-              key={media.id}
-              mediaType={media.mediaType || ""}
-              data={media}
-            />
-          ))}
-        </div>
+        {searchResults.length === 0 ? (
+          <p className="text-white text-md md:text-xl lg:text-2xl font-semibold mb-4">
+            No Results found for{" "}
+            <span className="text-violet-500 font-bold">
+              {decodeURIComponent(mediaName)}
+            </span>
+          </p>
+        ) : (
+          <>
+            <h2 className="text-white text-md md:text-xl lg:text-2xl font-semibold mb-4">
+              Showing Results for{" "}
+              <span className="text-violet-500 font-bold">
+                {decodeURIComponent(mediaName)}
+              </span>
+            </h2>
+            <div className="grid grid-cols-4 gap-2">
+              {searchResults.map((media) => (
+                <MovieCard
+                  key={media.id}
+                  mediaType={media.mediaType || ""}
+                  data={media}
+                />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

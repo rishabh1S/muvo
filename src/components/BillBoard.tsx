@@ -39,8 +39,8 @@ const Billboard: React.FC<BillboardProps> = ({ mediaType }) => {
   }, [data]);
 
   const handleOpenModal = useCallback(() => {
-    openModal(data?.media_type, data?.id.toString());
-  }, [openModal, data?.media_type, data?.id]);
+    openModal(mediaType, data?.id.toString());
+  }, [openModal, mediaType, data?.id]);
 
   if (isLoading) {
     return <CircleLoader />;

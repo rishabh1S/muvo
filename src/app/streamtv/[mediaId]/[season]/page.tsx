@@ -34,7 +34,12 @@ const Season = () => {
       <div className="max-w-7xl mx-auto p-4 flex flex-col gap-12">
         <div className="-mt-[150px] flex items-center relative z-10">
           <img
-            src={`${baseUrl}/${data?.poster_path}`}
+            src={`${baseUrl}/${
+              data?.seasons.find(
+                (s: { season_number: number }) =>
+                  s.season_number === Number(season)
+              )?.poster_path
+            }`}
             alt="data?.title"
             className="w-[200px] min-w-[200px] h-[300px] sm:mx-auto"
           ></img>

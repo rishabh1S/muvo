@@ -106,7 +106,7 @@ const TvSelection = () => {
                 />
                 Play Trailer
               </Link>
-              <FavoriteButton mediaType="tv" mediaId={data?.id} />
+              <FavoriteButton mediaType="tv" mediaId={data?.id.toString()} />
             </div>
             <p className="text-white text-[8px] md:text-lg drop-shadow-xl w-[90%] ">
               {data?.overview}

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Navbar, InfoModal, MovieCard } from "@/src/components";
+import { Navbar, InfoModal, MovieCard, MovieList } from "@/src/components";
 import { useFavorites, useInfoModal } from "@/src/hooks";
 import { getTVorMovieDetailsByID } from "@/public/utils";
 
@@ -36,7 +36,7 @@ export default function FavList() {
     };
 
     if (session?.status !== "authenticated") {
-      router.push("/authenticate");
+      router.push("/");
     } else {
       fetchExtendedFavorites();
     }

@@ -121,7 +121,7 @@ const MovieSelection = () => {
                 />
                 Play Trailer
               </Link>
-              <FavoriteButton mediaType="movie" mediaId={data?.id} />
+              <FavoriteButton mediaType="movie" mediaId={data?.id.toString()} />
               <div className="flex items-center sm:absolute right-0">
                 {data?.imdb_id && (
                   <Link
