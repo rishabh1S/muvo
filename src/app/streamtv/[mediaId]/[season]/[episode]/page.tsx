@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useMovie } from "@/src/hooks";
 import { embedTvShowUrl } from "@/public/utils";
 import { CircleLoader, VideoEmbedding } from "@/src/components";
+import { toast } from "sonner";
 
 const Episode = () => {
   const router = useRouter();
@@ -57,6 +58,14 @@ const Episode = () => {
       clearTimeout(timeoutId);
     };
   }, [showNavbar]);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      toast.info("Try other servers if Server 1 fails.");
+    }, 3000);
+
+    return () => clearTimeout(timeoutId);
+  }, []);
 
   if (isLoading) {
     return <CircleLoader />;

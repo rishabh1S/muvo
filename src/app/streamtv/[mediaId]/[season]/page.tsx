@@ -4,10 +4,16 @@ import { CircleLoader, Navbar } from "@/src/components";
 import { useMovie } from "@/src/hooks";
 import { Genre } from "@/src/types";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import React from "react";
+import { useParams, useRouter } from "next/navigation";
+import React, { useEffect } from "react";
+import { BsFillPlayFill } from "react-icons/bs";
+import { IoMdHome } from "react-icons/io";
+import { FaChevronRight } from "react-icons/fa6";
+import { useSession } from "next-auth/react";
 
 const Season = () => {
+  const session = useSession();
+  const router = useRouter();
   const params = useParams() as { mediaId: string; season: string };
   const { mediaId, season } = params;
   const mediaType = "tv";
@@ -17,38 +23,89 @@ const Season = () => {
     (s: { season_number: number }) => s.season_number === Number(season)
   )?.episode_count;
 
+  useEffect(() => {
+    if (session?.status !== "authenticated") {
+      router.push("/");
+    }
+  }, [session?.status, router]);
+
   if (isLoading) {
     <CircleLoader />;
   }
   return (
-    <div className="bg-body min-h-screen">
+    <div className="bg-body min-h-screen pb-20">
       <Navbar />
       <div className="h-[300px] relative overflow-hidden">
         <div className="absolute left-0 right-0 top-0 bottom-0 bg-gradient-to-b from-transparent via-transparent to-body"></div>
         <img
           src={`${baseUrl}/${data?.backdrop_path}`}
           alt="data?.title"
-          className="rounded-none"
+          className="w-full h-auto"
         ></img>
       </div>
       <div className="max-w-7xl mx-auto p-4 flex flex-col gap-12">
-        <div className="-mt-[150px] flex items-center relative z-10">
-          <img
-            src={`${baseUrl}/${
-              data?.seasons.find(
-                (s: { season_number: number }) =>
-                  s.season_number === Number(season)
-              )?.poster_path
-            }`}
-            alt="data?.title"
-            className="w-[200px] min-w-[200px] h-[300px] sm:mx-auto"
-          ></img>
+        <div className="-mt-[150px] flex sm:flex-row flex-col items-center relative z-10">
+          <div className="flex flex-col items-center gap-10">
+            <nav className="flex items-start -mt-10">
+              <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+                <li className="inline-flex items-center">
+                  <Link
+                    href="/series"
+                    className="inline-flex items-center text-sm font-medium text-gray-400 hover:text-violet-600"
+                  >
+                    <IoMdHome size={18} />
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <div className="flex items-center">
+                    <FaChevronRight className="text-gray-400" />
+                    <Link
+                      href={`/streamtv/${mediaId}`}
+                      className="ms-1 text-sm font-medium text-gray-400 hover:text-violet-600 md:ms-2"
+                    >
+                      Season
+                    </Link>
+                  </div>
+                </li>
+                <li aria-current="page">
+                  <div className="flex items-center">
+                    <FaChevronRight className="text-gray-200" />
+                    <span className="ms-1 text-sm font-medium text-gray-200 md:ms-2">
+                      Episode
+                    </span>
+                  </div>
+                </li>
+              </ol>
+            </nav>
+            <img
+              src={`${baseUrl}/${
+                data?.seasons.find(
+                  (s: { season_number: number }) =>
+                    s.season_number === Number(season)
+                )?.poster_path
+              }`}
+              alt="data?.title"
+              className="sm:w-[200px] w-36 sm:h-[300px]"
+            ></img>
+          </div>
           <div className="mx-auto flex flex-col items-center gap-3">
-            <p className="text-white text-3xl md:text-4xl h-full lg:text-5xl font-bold mb-8">
+            <div className="text-white text-3xl md:text-4xl h-full lg:text-5xl font-bold">
               {data?.name}
-              <span>{` Season ${season}`}</span>
-            </p>
+            </div>
+            <div className="mb-8 text-white text-2xl md:text-3xl h-full lg:text-4xl font-semibold">{` Season ${season}`}</div>
             <ul className="flex items-center gap-3">
+              <Link
+                href={`/streamtv/${mediaId}/${season}/1`}
+                passHref
+                className="bg-white rounded-md py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-neutral-300 transition text-black"
+              >
+                <BsFillPlayFill
+                  size={24}
+                  className="w-4 md:w-7 text-black mr-1"
+                />
+                Watch Now
+              </Link>
               {data?.genres?.map((genre: Genre) => (
                 <li
                   key={genre.id}
@@ -58,12 +115,12 @@ const Season = () => {
                 </li>
               ))}
             </ul>
-            <p className="text-white text-[8px] md:text-lg drop-shadow-xl w-[90%] ">
+            <p className="text-white text-justify text-[14px] md:text-lg drop-shadow-xl px-4">
               {data?.overview}
             </p>
           </div>
         </div>
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4">
           {Array.from({ length: episodeCount }, (_, index) => (
             <Link
               key={index + 1}

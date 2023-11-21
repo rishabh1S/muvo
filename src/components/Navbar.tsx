@@ -67,22 +67,27 @@ const Navbar = () => {
           <MobileMenu visible={showMobileMenu} />
         </div>
         <div className="flex flex-row ml-auto gap-7 items-center">
-          {showSearchBar ? (
-            <SearchBar
-              pathName={pathName}
-              router={router}
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-              setShowSearchBar={setShowSearchBar}
-            />
-          ) : (
-            <AiOutlineSearch
-              onClick={() => setShowSearchBar(true)}
-              className="hidden sm:inline sm:w-6 sm:h-6 cursor-pointer text-gray-200"
-            />
-          )}
-          <div className="text-gray-200 hover:text-gray-300 cursor-pointer transition">
-            <BsBell size={22} className="w-6" />
+          <div className="relative">
+            {showSearchBar ? (
+              <div
+                className={
+                  "sm:relative fixed inset-0 sm:mt-0 mt-4 bg-black sm:bg-opacity-0 bg-opacity-50 z-50"
+                }
+              >
+                <SearchBar
+                  pathName={pathName}
+                  router={router}
+                  searchQuery={searchQuery}
+                  setSearchQuery={setSearchQuery}
+                  setShowSearchBar={setShowSearchBar}
+                />
+              </div>
+            ) : (
+              <AiOutlineSearch
+                onClick={() => setShowSearchBar(true)}
+                className="inline sm:w-6 sm:h-6 cursor-pointer text-gray-200"
+              />
+            )}
           </div>
           <div
             onClick={toggleAccountMenu}

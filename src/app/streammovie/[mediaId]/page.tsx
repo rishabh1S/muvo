@@ -6,34 +6,19 @@ import {
   PlayButton,
 } from "@/src/components";
 import { useMovie } from "@/src/hooks";
-import { useParams } from "next/navigation";
-import React from "react";
+import { useParams, useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 import { Genre } from "@/src/types";
 import Link from "next/link";
 import { baseUrl, baseYoutubeUrl } from "@/public/utils";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
 import { BsFillPlayFill } from "react-icons/bs";
 import { RiMovie2Line } from "react-icons/ri";
 import { SiImdb } from "react-icons/si";
-
-const responsive = {
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 5,
-    slidesToSlide: 2,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 720 },
-    items: 3,
-  },
-  mobile: {
-    breakpoint: { max: 720, min: 0 },
-    items: 2,
-  },
-};
+import { useSession } from "next-auth/react";
 
 const MovieSelection = () => {
+  const session = useSession();
+  const router = useRouter();
   const params = useParams() as { mediaId: string };
   const { mediaId } = params;
   const mediaType = "movie";
@@ -44,6 +29,12 @@ const MovieSelection = () => {
     data?.videos?.results.find(
       (video: { type: string }) => video.type === "Trailer"
     )?.key || data?.videos?.results[0]?.key;
+
+  useEffect(() => {
+    if (session?.status !== "authenticated") {
+      router.push("/");
+    }
+  }, [session?.status, router]);
 
   if (isLoading) {
     return <CircleLoader />;

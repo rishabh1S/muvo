@@ -31,7 +31,7 @@ const SearchBar: React.FC<SearchProps> = ({
   };
 
   return (
-    <div className="hidden md:flex justify-center items-center text-center">
+    <div className="flex justify-center items-center text-center">
       <div className="bg-[rgba(0,0,0,0.75)] border border-gray-300 px-4 items-center text-center flex rounded-full">
         <div className="order-2 flex items-center">
           <input
@@ -40,19 +40,19 @@ const SearchBar: React.FC<SearchProps> = ({
             onKeyUp={handleSubmit}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search Movies, TV and Dramas..."
-            className="bg-transparent text-[14px] font-medium px-4 py-2 placeholder:text-[14px] font-md text-white outline-none w-[210px] h-10 sm:w-80 pl-12 pr-3 rounded-full focus:outline-none hover:cursor-pointer"
+            className="bg-transparent text-[14px] font-medium px-4 py-2 placeholder:text-[14px] font-md text-white outline-none h-10 w-full sm:w-72 pl-12 pr-3 rounded-full focus:outline-none hover:cursor-pointer"
           />
           {searchQuery && (
             <IoCloseOutline
               onClick={handleClear}
               size={30}
-              className="hidden sm:inline sm:w-6 sm-h-6 cursor-pointer text-gray-200 mx-2"
+              className="inline sm:w-6 sm-h-6 cursor-pointer text-gray-200 mx-2"
             />
           )}
         </div>
         <AiOutlineSearch
           onClick={() => setShowSearchBar(false)}
-          className="hidden sm:inline sm:w-6 sm:h-6 cursor-pointer text-gray-200 mx-2.5"
+          className="inline sm:w-6 sm:h-6 cursor-pointer text-gray-200 mx-2.5"
         />
       </div>
     </div>

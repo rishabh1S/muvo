@@ -47,7 +47,7 @@ const Billboard: React.FC<BillboardProps> = ({ mediaType }) => {
   }
 
   return (
-    <div className="relative h-[56.25vw]">
+    <div className="relative sm:h-[56.25vw] h-[65vw]">
       {key ? (
         <>
           <VideoPlayer url={`${baseYoutubeUrl}${key}`} muted={true} />
@@ -60,7 +60,7 @@ const Billboard: React.FC<BillboardProps> = ({ mediaType }) => {
           className="w-full h-full object-cover"
         />
       )}
-      <div className="absolute top-[30%] md:top-[40%] ml-4 md:ml-16">
+      <div className="absolute top-[35%] md:top-[40%] ml-4 md:ml-16">
         <p className="text-white text-xl md:text-4xl h-full sm:w-[70%] lg:text-6xl font-bold drop-shadow-xl">
           {data?.title || data?.name}
         </p>
@@ -101,7 +101,7 @@ const Billboard: React.FC<BillboardProps> = ({ mediaType }) => {
             text-white
               bg-opacity-30 
               rounded-md 
-              py-1 md:py-2 
+              py-1.5 md:py-2 
               px-2 md:px-4
               w-auto 
               text-xs lg:text-lg 

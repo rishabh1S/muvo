@@ -32,7 +32,7 @@ const PlayButton: React.FC<PlayButtonProps> = ({ mediaType, mediaId }) => {
         transition
         "
     >
-      <BsFillPlayFill size={24} className="w-4 md:w-7 text-black mr-1" />
+      <BsFillPlayFill size={22} className="w-4 md:w-7 text-black pr-1" />
       Play
     </button>
   );

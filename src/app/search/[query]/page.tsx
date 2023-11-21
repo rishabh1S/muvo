@@ -1,16 +1,26 @@
 "use client";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Navbar, InfoModal, MovieCard } from "@/src/components";
 import { getTVorMovieSearchResults } from "@/public/utils";
 import { useInfoModal } from "@/src/hooks";
 import { MediaInterface } from "@/src/types";
+import { useSession } from "next-auth/react";
 
 export default function Search() {
+  const session = useSession();
+  const router = useRouter();
   const [searchResults, setSearchResults] = useState<MediaInterface[]>([]);
   const { isOpen, closeModal } = useInfoModal();
   const params = useParams();
   const mediaName = params!.query as string;
+
+  useEffect(() => {
+    if (session?.status !== "authenticated") {
+      router.push("/");
+    }
+  }, [session?.status, router]);
+
   useEffect(() => {
     async function getSearchResults() {
       const tvShows = await getTVorMovieSearchResults("tv", mediaName);
@@ -56,7 +66,7 @@ export default function Search() {
                 {decodeURIComponent(mediaName)}
               </span>
             </h2>
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid sm:grid-cols-4 md:grid-cols-2 gap-2">
               {searchResults.map((media) => (
                 <MovieCard
                   key={media.id}
