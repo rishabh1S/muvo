@@ -18,7 +18,6 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   const [isVisible, setIsVisible] = useState<boolean>(!!visible);
   const { mediaType, mediaId } = useInfoModal();
   const { data, isLoading } = useMovie(mediaType, mediaId);
-  console.log("InfoModal", data);
   const videoKey =
     data?.videos?.results.find(
       (video: { type: string }) => video.type === "Trailer"

@@ -47,10 +47,10 @@ export default function Search() {
   }, [mediaName]);
 
   return (
-    <div className="absolute">
+    <>
       <Navbar />
       <InfoModal visible={isOpen} onClose={closeModal} />
-      <div className="px-4 md:px-12 mt-4 space-y-8 py-28">
+      <div className="px-4 md:px-12 space-y-8 py-28">
         {searchResults.length === 0 ? (
           <p className="text-white text-md md:text-xl lg:text-2xl font-semibold mb-4">
             No Results found for{" "}
@@ -66,7 +66,7 @@ export default function Search() {
                 {decodeURIComponent(mediaName)}
               </span>
             </h2>
-            <div className="grid sm:grid-cols-4 md:grid-cols-2 gap-2">
+            <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-2">
               {searchResults.map((media) => (
                 <MovieCard
                   key={media.id}
@@ -79,6 +79,6 @@ export default function Search() {
         )}
       </div>
       <Footer />
-    </div>
+    </>
   );
 }

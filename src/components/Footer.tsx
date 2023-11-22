@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="w-full bg-zinc-950 text-gray-400">
       <div className="w-full p-10 space-y-4">
-        <div className="">Questions? Call 000-800-040-1843</div>
+        <div className="">Questions? Call 000-400-080-1723</div>
         <div className="flex flex-wrap w-full">
           <div className="sm:w-1/4 w-1/2">
             <ul className="space-y-2">

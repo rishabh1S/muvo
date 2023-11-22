@@ -6,8 +6,9 @@ import {
   Footer,
   VideoModal,
   CircleRating,
+  MovieList,
 } from "@/src/components";
-import { useMovie } from "@/src/hooks";
+import { useMovie, useSimilar } from "@/src/hooks";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Genre } from "@/src/types";
@@ -44,7 +45,7 @@ const TvSelection = () => {
   const { mediaId } = params;
   const mediaType = "tv";
   const { data, isLoading } = useMovie(mediaType, mediaId);
-  console.log(data);
+  const { data: mediaSimilar } = useSimilar(mediaType, mediaId);
   const [show, setShow] = useState(false);
   const [videoKey, setVideoKey] = useState("");
   const isComingSoon = new Date(data?.first_air_date) > new Date();
@@ -202,6 +203,13 @@ const TvSelection = () => {
             )
           )}
         </Carousel>
+      </div>
+      <div className="pb-20">
+        <MovieList
+          title="Similar Tv shows"
+          data={mediaSimilar}
+          mediaType="tv"
+        />
       </div>
       <Footer />
     </div>

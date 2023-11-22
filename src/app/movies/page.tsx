@@ -32,9 +32,17 @@ export default function Movies() {
       <Navbar />
       <Billboard mediaType="movie" />
       <div className="pb-40">
-        <MovieList title="Trending Now" data={moviesTrending} />
-        <MovieList title="Popular on NextFlix" data={moviesPopular} />
-        <MovieList title="Top Rated" data={moviesToprated} />
+        <MovieList
+          title="Trending Now"
+          data={moviesTrending}
+          mediaType="movie"
+        />
+        <MovieList
+          title="Popular on NextFlix"
+          data={moviesPopular}
+          mediaType="movie"
+        />
+        <MovieList title="Top Rated" data={moviesToprated} mediaType="movie" />
       </div>
       <Footer />
     </>

@@ -4,15 +4,16 @@ import {
   CircleRating,
   FavoriteButton,
   Footer,
+  MovieList,
   Navbar,
   VideoModal,
 } from "@/src/components";
-import { useMovie } from "@/src/hooks";
+import { useMovie, useSimilar } from "@/src/hooks";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Genre } from "@/src/types";
 import Link from "next/link";
-import { baseUrl, baseYoutubeUrl } from "@/public/utils";
+import { baseUrl } from "@/public/utils";
 import { BsFillPlayFill } from "react-icons/bs";
 import { RiMovie2Line } from "react-icons/ri";
 import { SiImdb } from "react-icons/si";
@@ -25,7 +26,7 @@ const MovieSelection = () => {
   const { mediaId } = params;
   const mediaType = "movie";
   const { data, isLoading } = useMovie(mediaType, mediaId);
-  console.log(data);
+  const { data: mediaSimilar } = useSimilar(mediaType, mediaId);
   const [show, setShow] = useState(false);
   const [videoKey, setVideoKey] = useState("");
   const isComingSoon = new Date(data?.release_date) > new Date();
@@ -171,6 +172,13 @@ const MovieSelection = () => {
             </p>
           </div>
         </div>
+      </div>
+      <div className="pb-20">
+        <MovieList
+          title="Similar Movies"
+          data={mediaSimilar}
+          mediaType="movie"
+        />
       </div>
       <Footer />
     </div>

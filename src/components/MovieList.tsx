@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 interface MovieListProps {
   data: MediaInterface[];
   title: string;
+  mediaType: string;
 }
 
 const responsive = {
@@ -27,9 +28,8 @@ const responsive = {
   },
 };
 
-const MovieList: React.FC<MovieListProps> = ({ data, title }) => {
+const MovieList: React.FC<MovieListProps> = ({ data, title, mediaType }) => {
   const currentPath = usePathname();
-  const mediaType = currentPath === "/series" ? "tv" : "movie";
 
   if (isEmpty(data)) {
     return null;

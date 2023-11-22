@@ -128,7 +128,7 @@ export const getTVorMovieDetailsByID = async (type: string, id: string) => {
   }
 };
 
-export const getSimilarTVorMovies = async (type: string, id: number) => {
+export const getSimilarTVorMovies = async (type: string, id: string) => {
   try {
     const res = await fetch(
       `${BASE_URL}/${type}/${id}/similar?api_key=${API_KEY}&language=en-US`,

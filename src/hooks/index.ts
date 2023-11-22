@@ -4,6 +4,7 @@ import useInfoModal from "./useInfoModal";
 import useMovie from "./useMovie";
 import useFavorites from "./useFavorites";
 import useMovieList from "./useMovieList";
+import useSimilar from "./useSimilar";
 
 export {
   useBillboard,
@@ -12,4 +13,5 @@ export {
   useMovie,
   useFavorites,
   useMovieList,
+  useSimilar,
 };

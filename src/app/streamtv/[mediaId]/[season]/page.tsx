@@ -18,7 +18,6 @@ const Season = () => {
   const { mediaId, season } = params;
   const mediaType = "tv";
   const { data, isLoading } = useMovie(mediaType, mediaId);
-  console.log(data);
   const seasonInfo = data?.seasons.find(
     (s: { season_number: number }) => s.season_number === Number(season)
   );
@@ -86,7 +85,7 @@ const Season = () => {
           <div className="mx-auto flex flex-col items-center gap-3">
             <div className="text-white text-3xl md:text-4xl h-full lg:text-5xl font-bold">
               {data?.name}
-              <span className="text-2xl md:text-3xl h-full lg:text-4xl font-semibold line-clamp-1">{` Season ${season}`}</span>
+              <span className="text-2xl md:text-3xl h-full lg:text-4xl font-semibold line-clamp-1 text-center">{` Season ${season}`}</span>
             </div>
             <p className="text-white font-semibold text-lg">
               {seasonInfo && seasonInfo.air_date

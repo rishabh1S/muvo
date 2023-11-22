@@ -31,9 +31,13 @@ export default function Series() {
       <Navbar />
       <Billboard mediaType="tv" />
       <div className="pb-40">
-        <MovieList title="Trending Now" data={moviesTrending} />
-        <MovieList title="Popular on NextFlix" data={moviesPopular} />
-        <MovieList title="Top Rated" data={moviesToprated} />
+        <MovieList title="Trending Now" data={moviesTrending} mediaType="tv" />
+        <MovieList
+          title="Popular on NextFlix"
+          data={moviesPopular}
+          mediaType="tv"
+        />
+        <MovieList title="Top Rated" data={moviesToprated} mediaType="tv" />
       </div>
       <Footer />
     </>
