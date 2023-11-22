@@ -19,9 +19,10 @@ const Season = () => {
   const mediaType = "tv";
   const { data, isLoading } = useMovie(mediaType, mediaId);
   console.log(data);
-  const episodeCount = data?.seasons.find(
+  const seasonInfo = data?.seasons.find(
     (s: { season_number: number }) => s.season_number === Number(season)
-  )?.episode_count;
+  );
+  const isComingSoon = seasonInfo?.episode_count === 0;
 
   useEffect(() => {
     if (session?.status !== "authenticated") {
@@ -78,31 +79,37 @@ const Season = () => {
       <div className="max-w-7xl mx-auto p-4 flex flex-col gap-12 pb-20">
         <div className="-mt-[150px] flex sm:flex-row flex-col items-center relative z-10">
           <img
-            src={`${baseUrl}/${
-              data?.seasons.find(
-                (s: { season_number: number }) =>
-                  s.season_number === Number(season)
-              )?.poster_path
-            }`}
+            src={`${baseUrl}/${seasonInfo?.poster_path}`}
             alt="data?.title"
             className="sm:w-[200px] w-36 sm:h-[300px]"
           ></img>
           <div className="mx-auto flex flex-col items-center gap-3">
             <div className="text-white text-3xl md:text-4xl h-full lg:text-5xl font-bold">
               {data?.name}
+              <span className="text-2xl md:text-3xl h-full lg:text-4xl font-semibold line-clamp-1">{` Season ${season}`}</span>
             </div>
-            <div className="mb-8 text-white text-2xl md:text-3xl h-full lg:text-4xl font-semibold">{` Season ${season}`}</div>
-            <Link
-              href={`/streamtv/${mediaId}/${season}/1`}
-              passHref
-              className="bg-white rounded-md py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-neutral-300 transition text-black"
-            >
-              <BsFillPlayFill
-                size={24}
-                className="w-4 md:w-7 text-black mr-1"
-              />
-              Watch Now
-            </Link>
+            <p className="text-white font-semibold text-lg">
+              {seasonInfo && seasonInfo.air_date
+                ? new Date(seasonInfo.air_date).getFullYear()
+                : ""}
+            </p>
+            {!isComingSoon ? (
+              <Link
+                href={`/streamtv/${mediaId}/1/1`}
+                passHref
+                className="bg-white rounded-md py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-neutral-300 transition text-black"
+              >
+                <BsFillPlayFill
+                  size={24}
+                  className="w-4 md:w-7 text-black mr-1"
+                />
+                Watch Now
+              </Link>
+            ) : (
+              <p className="bg-white rounded-md py-1 md:py-2 px-2 md:px-4w-auto text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-neutral-300 transition text-black pointer-events-none">
+                Coming Soon
+              </p>
+            )}
             <div className="flex items-center gap-3">
               <ul className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3 text-center">
                 {data?.genres?.map((genre: Genre) => (
@@ -121,7 +128,7 @@ const Season = () => {
           </div>
         </div>
         <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4">
-          {Array.from({ length: episodeCount }, (_, index) => (
+          {Array.from({ length: seasonInfo.episode_count }, (_, index) => (
             <Link
               key={index + 1}
               href={`/streamtv/${mediaId}/${season}/${index + 1}`}
