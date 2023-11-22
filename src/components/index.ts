@@ -13,6 +13,9 @@ import CircleLoader from "./CircleLoader";
 import VideoEmbedding from "./VideoEmbedding";
 import VideoPlayer from "./VideoPlayer";
 import SearchBar from "./SearchBar";
+import CircleRating from "./CircleRating";
+import VideoModal from "./VideoModal";
+import Footer from "./Footer";
 
 export {
   Input,
@@ -30,4 +33,7 @@ export {
   VideoEmbedding,
   VideoPlayer,
   SearchBar,
+  VideoModal,
+  CircleRating,
+  Footer,
 };

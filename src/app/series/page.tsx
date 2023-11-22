@@ -3,7 +3,13 @@ import React, { useEffect } from "react";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Navbar, Billboard, MovieList, InfoModal } from "@/src/components";
+import {
+  Navbar,
+  Billboard,
+  MovieList,
+  InfoModal,
+  Footer,
+} from "@/src/components";
 import { useMovieList, useInfoModal } from "@/src/hooks";
 
 export default function Series() {
@@ -29,6 +35,7 @@ export default function Series() {
         <MovieList title="Popular on NextFlix" data={moviesPopular} />
         <MovieList title="Top Rated" data={moviesToprated} />
       </div>
+      <Footer />
     </>
   );
 }

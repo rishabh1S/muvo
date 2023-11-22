@@ -50,6 +50,7 @@ const Navbar = () => {
       >
         <img src="/images/logo.png" className="h-6 lg:h-14" alt="Logo" />
         <div className="flex-row ml-8 gap-7 hidden lg:flex">
+          <NavbarItem label="Home" href="/" />
           <NavbarItem label="Movies" href="/movies" />
           <NavbarItem label="Series" href="/series" />
           <NavbarItem label="My List" href="/favlist" />
@@ -71,7 +72,7 @@ const Navbar = () => {
             {showSearchBar ? (
               <div
                 className={
-                  "sm:relative fixed inset-0 sm:mt-0 mt-4 bg-black sm:bg-opacity-0 bg-opacity-50 z-50"
+                  "sm:relative fixed inset-0 sm:pt-0 pt-4 bg-black sm:bg-opacity-0 bg-opacity-60 z-50"
                 }
               >
                 <SearchBar

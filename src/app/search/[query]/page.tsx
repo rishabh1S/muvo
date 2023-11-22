@@ -1,7 +1,7 @@
 "use client";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Navbar, InfoModal, MovieCard } from "@/src/components";
+import { Navbar, InfoModal, MovieCard, Footer } from "@/src/components";
 import { getTVorMovieSearchResults } from "@/public/utils";
 import { useInfoModal } from "@/src/hooks";
 import { MediaInterface } from "@/src/types";
@@ -78,6 +78,7 @@ export default function Search() {
           </>
         )}
       </div>
+      <Footer />
     </div>
   );
 }

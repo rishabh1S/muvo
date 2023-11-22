@@ -2,12 +2,14 @@
 import {
   CircleLoader,
   FavoriteButton,
-  PlayButton,
   Navbar,
+  Footer,
+  VideoModal,
+  CircleRating,
 } from "@/src/components";
 import { useMovie } from "@/src/hooks";
 import { useParams, useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Genre } from "@/src/types";
 import Link from "next/link";
 import { baseUrl, baseYoutubeUrl } from "@/public/utils";
@@ -43,6 +45,8 @@ const TvSelection = () => {
   const mediaType = "tv";
   const { data, isLoading } = useMovie(mediaType, mediaId);
   console.log(data);
+  const [show, setShow] = useState(false);
+  const [videoKey, setVideoKey] = useState("");
   const isComingSoon = new Date(data?.first_air_date) > new Date();
   const key =
     data?.videos?.results.find(
@@ -60,7 +64,7 @@ const TvSelection = () => {
   }
 
   return (
-    <div className="bg-body min-h-screen pb-20">
+    <div className="bg-body min-h-screen">
       <Navbar />
       <div className="h-[300px] relative overflow-hidden">
         <div className="absolute left-0 right-0 top-0 bottom-0 bg-gradient-to-b from-transparent via-transparent to-body"></div>
@@ -70,42 +74,22 @@ const TvSelection = () => {
           className="w-full h-auto"
         ></img>
       </div>
-      <div className="max-w-7xl mx-auto p-4 flex flex-col gap-12">
-        <div className="-mt-[150px] flex sm:flex-row flex-col items-center relative z-10">
+      <div className="max-w-7xl mx-auto p-4 flex flex-col gap-12 pb-20">
+        <div className="-mt-[150px] flex sm:flex-row flex-col items-center relative z-10 gap-3">
           <img
             src={`${baseUrl}/${data?.poster_path}`}
             alt="data?.title"
             className="sm:w-[200px] w-36 sm:h-[300px]"
           ></img>
           <div className="mx-auto flex flex-col items-center gap-3">
-            <p className="text-white text-3xl md:text-4xl h-full lg:text-5xl font-bold mb-8">
+            <p className="text-white text-3xl md:text-4xl h-full lg:text-5xl font-bold mb-8 text-center">
               {data?.name}
             </p>
-            <div className="flex items-center gap-2">
-              <ul className="flex items-center gap-3">
-                {data?.genres?.map((genre: Genre) => (
-                  <li
-                    key={genre.id}
-                    className="px-4 py-2 bg-primary text-gray-200 rounded-lg text-sm"
-                  >
-                    {genre.name}
-                  </li>
-                ))}
-              </ul>
-              <div className="sm:absolute right-0">
-                {data?.id && (
-                  <Link
-                    href={`https://www.themoviedb.org/tv/${data?.id}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-500"
-                  >
-                    <RiMovie2Line size={36} />
-                  </Link>
-                )}
-              </div>
-            </div>
-            <div className="flex items-center gap-8">
+            <p className="text-white font-semibold text-lg">
+              {new Date(data?.first_air_date).getFullYear()} to{" "}
+              {new Date(data?.last_air_date).getFullYear()}
+            </p>
+            <div className="flex items-center gap-4">
               {!isComingSoon ? (
                 <Link
                   href={`/streamtv/${mediaId}/1/1`}
@@ -123,19 +107,57 @@ const TvSelection = () => {
                   Coming Soon
                 </p>
               )}
-              <Link
-                href={`${baseYoutubeUrl}${key}`}
-                target="_blank"
-                passHref
-                className="bg-white rounded-md py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-neutral-300 transition text-black"
+              <div
+                onClick={() => {
+                  setShow(true);
+                  setVideoKey(key);
+                }}
+                className="bg-white rounded-md py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-neutral-300 transition text-black cursor-pointer"
               >
                 <BsFillPlayFill
                   size={24}
                   className="w-4 md:w-7 text-black mr-1"
                 />
                 Play Trailer
-              </Link>
+              </div>
+              <VideoModal
+                show={show}
+                setShow={setShow}
+                videoKey={videoKey}
+                setVideoKey={
+                  setVideoKey as React.Dispatch<
+                    React.SetStateAction<string | null>
+                  >
+                }
+              ></VideoModal>
+              <div className="sm:w-12 w-8 sm:h-12 h-8">
+                <CircleRating rating={data.vote_average.toFixed(1)} />
+              </div>
               <FavoriteButton mediaType="tv" mediaId={data?.id.toString()} />
+            </div>
+            <div className="flex items-center gap-3">
+              <ul className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3">
+                {data?.genres?.map((genre: Genre) => (
+                  <li
+                    key={genre.id}
+                    className="p-2 bg-primary text-gray-200 rounded-lg text-sm text-center"
+                  >
+                    {genre.name}
+                  </li>
+                ))}
+              </ul>
+              <div className="sm:absolute right-0">
+                {data?.id && (
+                  <Link
+                    href={`https://www.themoviedb.org/tv/${data?.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500"
+                  >
+                    <RiMovie2Line size={36} />
+                  </Link>
+                )}
+              </div>
             </div>
             <p className="text-white text-justify text-[14px] md:text-lg drop-shadow-xl px-4">
               {data?.overview}
@@ -181,6 +203,7 @@ const TvSelection = () => {
           )}
         </Carousel>
       </div>
+      <Footer />
     </div>
   );
 };
