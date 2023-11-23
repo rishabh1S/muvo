@@ -25,7 +25,7 @@ const Season = () => {
 
   useEffect(() => {
     if (session?.status !== "authenticated") {
-      router.push("/");
+      router.push("/auth");
     }
   }, [session?.status, router]);
 

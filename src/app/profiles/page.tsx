@@ -40,7 +40,7 @@ const Profiles = () => {
   const { data: currentUser } = useCurrentUser();
 
   const selectProfile = useCallback(() => {
-    router.push("/");
+    router.push("/auth");
   }, [router]);
 
   return (

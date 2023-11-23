@@ -42,7 +42,7 @@ export default function FavList() {
     };
 
     if (session?.status !== "authenticated") {
-      router.push("/");
+      router.push("/auth");
     } else {
       fetchExtendedFavorites();
     }

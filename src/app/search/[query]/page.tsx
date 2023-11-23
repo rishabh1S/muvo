@@ -17,7 +17,7 @@ export default function Search() {
 
   useEffect(() => {
     if (session?.status !== "authenticated") {
-      router.push("/");
+      router.push("/auth");
     }
   }, [session?.status, router]);
 
