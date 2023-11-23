@@ -6,6 +6,7 @@ import { getTVorMovieSearchResults } from "@/public/utils";
 import { useInfoModal } from "@/src/hooks";
 import { MediaInterface } from "@/src/types";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 export default function Search() {
   const session = useSession();
@@ -50,14 +51,22 @@ export default function Search() {
     <>
       <Navbar />
       <InfoModal visible={isOpen} onClose={closeModal} />
-      <div className="px-4 md:px-12 space-y-8 py-28">
+      <div className="px-4 md:px-12 space-y-8 py-28 min-h-screen">
         {searchResults.length === 0 ? (
-          <p className="text-white text-md md:text-xl lg:text-2xl font-semibold mb-4">
-            No Results found for{" "}
-            <span className="text-violet-500 font-bold">
-              {decodeURIComponent(mediaName)}
-            </span>
-          </p>
+          <>
+            <p className="text-white text-md md:text-xl lg:text-2xl font-semibold mb-4">
+              No Results found for{" "}
+              <span className="text-violet-500 font-bold">
+                {decodeURIComponent(mediaName)}
+              </span>
+            </p>
+            <Image
+              src="/images/no-results.png"
+              alt="No Results"
+              width={500}
+              height={500}
+            />
+          </>
         ) : (
           <>
             <h2 className="text-white text-md md:text-xl lg:text-2xl font-semibold mb-4">

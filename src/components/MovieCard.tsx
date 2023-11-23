@@ -26,11 +26,15 @@ const MovieCard: React.FC<MovieCardProps> = ({ data, mediaType }) => {
     [router, data.id, mediaType]
   );
 
+  const imagePath =
+    data?.backdrop_path || data?.poster_path
+      ? `${baseUrl}/${data.backdrop_path || data.poster_path}`
+      : "/images/no-poster.png";
   return (
     <div className="relative overflow-hidden bg-cover bg-no-repeat group">
       <img
         onClick={redirectToWatch}
-        src={`${baseUrl}/${data?.backdrop_path || data?.poster_path}`}
+        src={imagePath}
         alt="Movie"
         draggable={false}
         className="
