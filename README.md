@@ -16,7 +16,7 @@ Welcome to Nextflix, a Netflix clone built with NextJS, MongoDB, Prisma, and mor
 
 - **Environment:** TypeScript, NextJS 14
 - **Database:** MongoDB with Prisma for easy database connection and management
-- **Authentication:** Utilizes NextAuth for authentication with support for Google and Github login
+- **Authentication:** Utilizes NextAuth for authentication with support for Google and GitHub login
 - **Responsive Design:** Fully responsive on all pages for an optimal viewing experience on various devices
 - **Cookie-based Authentication:** Secure and efficient authentication using cookies
 - **API and Controllers:** Creation of APIs and controllers for handling server-side logic
@@ -65,4 +65,4 @@ You can deploy the project using platforms like Vercel or Netlify for the Next.j
 
 ## License
 
-This project is licensed under the [MIT](https://github.com/rishabh1S/buy-next/blob/main/LICENSE).
+This project is licensed under the [MIT](https://github.com/rishabh1S/next-flix/blob/main/LICENSE).
