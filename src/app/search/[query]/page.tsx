@@ -75,7 +75,7 @@ export default function Search() {
                 {decodeURIComponent(mediaName)}
               </span>
             </h2>
-            <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-2">
+            <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-2">
               {searchResults.map((media) => (
                 <MovieCard
                   key={media.id}

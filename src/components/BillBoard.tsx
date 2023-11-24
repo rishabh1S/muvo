@@ -50,8 +50,12 @@ const Billboard: React.FC<BillboardProps> = ({ mediaType }) => {
     <div className="relative sm:h-[56.25vw] h-[65vw]">
       {key ? (
         <>
-          <VideoPlayer url={`${baseYoutubeUrl}${key}`} muted={true} />
-          <div className="absolute top-0 left-0 w-full h-full bg-transparent" />
+          <VideoPlayer
+            url={`${baseYoutubeUrl}${key}`}
+            muted={true}
+            controls={false}
+          />
+          <div className="absolute top-0 left-0 w-full h-full bg-black/30" />
         </>
       ) : (
         <img

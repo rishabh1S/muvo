@@ -48,6 +48,7 @@ const TvSelection = () => {
   const { data: mediaSimilar } = useSimilar(mediaType, mediaId);
   const [show, setShow] = useState(false);
   const [videoKey, setVideoKey] = useState("");
+  console.log(data);
   const isComingSoon = new Date(data?.first_air_date) > new Date();
   const key =
     data?.videos?.results.find(
@@ -67,7 +68,7 @@ const TvSelection = () => {
   return (
     <div className="bg-body min-h-screen">
       <Navbar />
-      <div className="h-[300px] relative overflow-hidden">
+      <div className="sm:h-[400px] h-[300px] relative overflow-hidden">
         <div className="absolute left-0 right-0 top-0 bottom-0 bg-gradient-to-b from-transparent via-transparent to-body"></div>
         <img
           src={`${baseUrl}/${data?.backdrop_path}`}
@@ -76,20 +77,44 @@ const TvSelection = () => {
         ></img>
       </div>
       <div className="max-w-7xl mx-auto p-4 flex flex-col gap-12 pb-20">
-        <div className="-mt-[150px] flex sm:flex-row flex-col items-center relative z-10 gap-3">
+        <div className="-mt-[180px] flex sm:flex-row flex-col items-center relative z-10 gap-3">
           <img
             src={`${baseUrl}/${data?.poster_path}`}
             alt="data?.title"
             className="sm:w-[200px] w-36 sm:h-[300px]"
           ></img>
           <div className="mx-auto flex flex-col items-center gap-3">
-            <p className="text-white text-3xl md:text-4xl h-full lg:text-5xl font-bold mb-8 text-center">
+            <p className="text-white text-3xl md:text-4xl h-full lg:text-5xl font-bold sm:mb-4 text-center">
               {data?.name}
             </p>
-            <p className="text-white font-semibold text-lg">
-              {new Date(data?.first_air_date).getFullYear()} to{" "}
-              {new Date(data?.last_air_date).getFullYear()}
-            </p>
+            <div className="flex items-center sm:gap-3 gap-1">
+              <p className="text-white font-semibold sm:text-lg">
+                {new Date(
+                  data?.release_date || data?.first_air_date
+                ).getFullYear()}
+              </p>
+              <span className="text-white">|</span>
+              <p className="text-white sm:text-lg">
+                {`${data?.number_of_seasons} Seasons`}
+              </p>
+              <span className="text-white">|</span>
+              <p className="text-violet-500 sm:text-lg">
+                {data?.genres?.map((genre: Genre) => genre.name).join(", ")}
+              </p>
+              <div className="sm:absolute right-0">
+                {data?.id && (
+                  <Link
+                    href={`https://www.themoviedb.org/tv/${data?.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500"
+                  >
+                    <RiMovie2Line size={24} className="lg:hidden" />
+                    <RiMovie2Line size={34} className="hidden lg:block" />
+                  </Link>
+                )}
+              </div>
+            </div>
             <div className="flex items-center gap-4">
               {!isComingSoon ? (
                 <Link
@@ -135,30 +160,6 @@ const TvSelection = () => {
                 <CircleRating rating={data.vote_average.toFixed(1)} />
               </div>
               <FavoriteButton mediaType="tv" mediaId={data?.id.toString()} />
-            </div>
-            <div className="flex items-center gap-3">
-              <ul className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3">
-                {data?.genres?.map((genre: Genre) => (
-                  <li
-                    key={genre.id}
-                    className="p-2 bg-primary text-gray-200 rounded-lg text-sm text-center"
-                  >
-                    {genre.name}
-                  </li>
-                ))}
-              </ul>
-              <div className="sm:absolute right-0">
-                {data?.id && (
-                  <Link
-                    href={`https://www.themoviedb.org/tv/${data?.id}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-500"
-                  >
-                    <RiMovie2Line size={36} />
-                  </Link>
-                )}
-              </div>
             </div>
             <p className="text-white text-justify text-[14px] md:text-lg drop-shadow-xl px-4">
               {data?.overview}

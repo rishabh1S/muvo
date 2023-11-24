@@ -71,6 +71,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                 <VideoPlayer
                   url={`${baseYoutubeUrl}${videoKey}`}
                   muted={isMuted}
+                  controls={false}
                 />
                 <div className="absolute top-0 left-0 w-full h-full bg-transparent" />
               </>

@@ -28,7 +28,11 @@ const VideoModal: React.FC<VideoModalProps> = ({
       } z-50`}
     >
       <div className="relative lg:h-[450px] md:h-96 aspect-video">
-        <VideoPlayer url={`${baseYoutubeUrl}${videoKey}`} muted={false} />
+        <VideoPlayer
+          url={`${baseYoutubeUrl}${videoKey}`}
+          muted={false}
+          controls={true}
+        />
         <div
           onClick={hidePopup}
           className="cursor-pointer absolute top-3 right-3 h-10 w-10 rounded-full bg-black bg-opacity-70 flex items-center justify-center"

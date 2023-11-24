@@ -4,9 +4,10 @@ import ReactPlayer from "react-player";
 interface VideoPlayerProps {
   url: string;
   muted: boolean;
+  controls: boolean;
 }
 
-const VideoPlayer: React.FC<VideoPlayerProps> = ({ url, muted }) => {
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ url, muted, controls }) => {
   return (
     <ReactPlayer
       url={url}
@@ -15,9 +16,8 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ url, muted }) => {
       playing
       muted={muted}
       loop
-      controls={false}
+      controls={controls}
       onEnded={() => {}}
-      style={{ filter: "brightness(0.7)" }}
     />
   );
 };

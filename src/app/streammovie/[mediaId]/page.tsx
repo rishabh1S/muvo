@@ -30,6 +30,7 @@ const MovieSelection = () => {
   const [show, setShow] = useState(false);
   const [videoKey, setVideoKey] = useState("");
   const isComingSoon = new Date(data?.release_date) > new Date();
+
   const key =
     data?.videos?.results.find(
       (video: { type: string }) => video.type === "Trailer"
@@ -48,7 +49,7 @@ const MovieSelection = () => {
   return (
     <div className="bg-body min-h-screen">
       <Navbar />
-      <div className="h-[300px] relative overflow-hidden">
+      <div className="sm:h-[400px] h-[300px] relative overflow-hidden">
         <div className="absolute left-0 right-0 top-0 bottom-0 bg-gradient-to-b from-transparent via-transparent to-body"></div>
         <img
           src={`${baseUrl}/${data?.backdrop_path}`}
@@ -57,7 +58,7 @@ const MovieSelection = () => {
         ></img>
       </div>
       <div className="max-w-7xl mx-auto p-4 flex flex-col gap-12 pb-20">
-        <div className="-mt-[150px] flex sm:flex-row flex-col items-center relative z-10 gap-3">
+        <div className="-mt-[180px] flex sm:flex-row flex-col items-center relative z-10 gap-3">
           <img
             src={`${baseUrl}/${data?.poster_path}`}
             alt={data?.title}
@@ -65,28 +66,48 @@ const MovieSelection = () => {
             className="sm:w-[200px] w-36 sm:h-[300px]"
           />
           <div className="mx-auto flex flex-col items-center gap-3">
-            <p className="text-white text-3xl md:text-4xl h-full lg:text-5xl font-bold text-center">
+            <p className="text-white text-3xl md:text-4xl h-full lg:text-5xl sm:mb-4 font-bold text-center">
               {data?.title || data?.original_title}
             </p>
-            <p className="text-green-400 font-semibold text-lg">
-              {new Date(data?.release_date).getFullYear() ===
-              new Date().getFullYear() ? (
-                <>
-                  New{" "}
-                  <span className="text-white">
-                    {new Date(
-                      data?.release_date || data?.first_air_date
-                    ).getFullYear()}
-                  </span>
-                </>
-              ) : (
-                <span className="text-white">
-                  {new Date(
-                    data?.release_date || data?.first_air_date
-                  ).getFullYear()}
-                </span>
-              )}
-            </p>
+            <div className="flex items-center sm:gap-3 gap-1">
+              <p className="text-white font-semibold sm:text-lg">
+                {new Date(
+                  data?.release_date || data?.first_air_date
+                ).getFullYear()}
+              </p>
+              <span className="text-white">|</span>
+              <p className="text-white sm:text-lg">
+                {`${Math.floor(data.runtime / 60)}h ${data.runtime % 60}min`}
+              </p>
+              <span className="text-white">|</span>
+              <p className="text-violet-500 sm:text-lg">
+                {data?.genres?.map((genre: Genre) => genre.name).join(", ")}
+              </p>
+              <div className="flex items-center sm:absolute right-0">
+                {data?.imdb_id && (
+                  <Link
+                    href={`https://www.imdb.com/title/${data.imdb_id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-yellow-500 mx-2"
+                  >
+                    <SiImdb size={22} className="lg:hidden" />
+                    <SiImdb size={30} className="hidden lg:block" />
+                  </Link>
+                )}
+                {data?.id && (
+                  <Link
+                    href={`https://www.themoviedb.org/movie/${data?.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500"
+                  >
+                    <RiMovie2Line size={24} className="lg:hidden" />
+                    <RiMovie2Line size={34} className="hidden lg:block" />
+                  </Link>
+                )}
+              </div>
+            </div>
             <div className="flex items-center gap-4">
               {!isComingSoon ? (
                 <Link
@@ -132,40 +153,6 @@ const MovieSelection = () => {
                 <CircleRating rating={data.vote_average.toFixed(1)} />
               </div>
               <FavoriteButton mediaType="movie" mediaId={data?.id.toString()} />
-            </div>
-            <div className="flex items-center gap-3">
-              <ul className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3">
-                {data?.genres?.map((genre: Genre) => (
-                  <li
-                    key={genre.id}
-                    className="p-2 bg-primary text-gray-200 rounded-lg text-sm text-center"
-                  >
-                    {genre.name}
-                  </li>
-                ))}
-              </ul>
-              <div className="flex items-center sm:absolute right-0">
-                {data?.imdb_id && (
-                  <Link
-                    href={`https://www.imdb.com/title/${data.imdb_id}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-yellow-500 mx-2"
-                  >
-                    <SiImdb size={30} />
-                  </Link>
-                )}
-                {data?.id && (
-                  <Link
-                    href={`https://www.themoviedb.org/movie/${data?.id}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-500"
-                  >
-                    <RiMovie2Line size={36} />
-                  </Link>
-                )}
-              </div>
             </div>
             <p className="text-white text-justify text-[14px] md:text-lg drop-shadow-xl px-4">
               {data?.overview}

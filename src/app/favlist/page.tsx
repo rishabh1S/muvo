@@ -57,7 +57,7 @@ export default function FavList() {
           <p className="text-white text-md md:text-xl lg:text-2xl font-semibold mb-4">
             My List
           </p>
-          <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-2">
+          <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-2">
             {extendedFavorites.map((extendedData, index) => (
               <MovieCard
                 key={index}
