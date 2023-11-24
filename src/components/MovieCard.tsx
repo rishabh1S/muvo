@@ -38,10 +38,10 @@ const MovieCard: React.FC<MovieCardProps> = ({ data, mediaType }) => {
         alt="Movie"
         draggable={false}
         className="
-        cursor-pointer transition duration-300 ease-in-out group-hover:scale-110 w-full h-48
+        cursor-pointer transition duration-300 ease-in-out group-hover:scale-110 w-full lg:h-[28vh] md:h-[23vh] h-[18vh]
       "
       />
-      <div className="opacity-0 absolute sm:top-20 top-[120px] transform w-full group-hover:opacity-100">
+      <div className="opacity-0 absolute sm:top-20 top-12 transform w-full group-hover:opacity-100">
         <div className="z-10 bg-zinc-900/90 p-2 lg:p-4 absolute w-full transition shadow-md">
           <div className="flex flex-row items-center gap-3">
             <div
@@ -64,7 +64,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data, mediaType }) => {
               />
             </div>
           </div>
-          <p className="mt-4 text-white text-[12px] lg:text-2xl">
+          <p className="lg:mt-4 mt-1 text-white text-[12px] lg:text-2xl">
             {(data.title || data.name) &&
               (data.title || data.name).split(" ").slice(0, 4).join(" ")}
           </p>

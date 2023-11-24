@@ -8,7 +8,7 @@ import { Genre } from "@/src/types";
 import { SiImdb } from "react-icons/si";
 import { RiMovie2Line } from "react-icons/ri";
 import { AiOutlineClose } from "react-icons/ai";
-
+import { VscMute, VscUnmute } from "react-icons/vsc";
 interface InfoModalProps {
   visible?: boolean;
   onClose: any;
@@ -18,6 +18,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   const [isVisible, setIsVisible] = useState<boolean>(!!visible);
   const { mediaType, mediaId } = useInfoModal();
   const { data, isLoading } = useMovie(mediaType, mediaId);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
   const videoKey =
     data?.videos?.results.find(
       (video: { type: string }) => video.type === "Trailer"
@@ -33,6 +34,10 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
       onClose();
     }, 300);
   }, [onClose]);
+
+  const handleMute = () => {
+    setIsMuted((prevIsMuted) => !prevIsMuted);
+  };
 
   if (!visible || isLoading) {
     return null;
@@ -50,6 +55,8 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
 
   const isComingSoon = new Date(data?.release_date) > new Date();
 
+  const MuteIcon = isMuted ? VscMute : VscUnmute;
+
   return (
     <div className="z-50 transition duration-300 bg-black bg-opacity-80 flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0">
       <div className="relative w-auto mx-auto max-w-3xl rounded-md overflow-hidden">
@@ -63,7 +70,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
               <>
                 <VideoPlayer
                   url={`${baseYoutubeUrl}${videoKey}`}
-                  muted={false}
+                  muted={isMuted}
                 />
                 <div className="absolute top-0 left-0 w-full h-full bg-transparent" />
               </>
@@ -111,6 +118,15 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                   mediaId={mediaId as string}
                 />
               </div>
+            </div>
+            <div
+              onClick={handleMute}
+              className="cursor-pointer group/item absolute bottom-10 right-3 rounded-full border-2 border-white bg-opacity-70 flex justify-center items-center transition hover:border-neutral-300 sm:w-10 w-7 sm:h-10 h-7"
+            >
+              <MuteIcon
+                size={22}
+                className="text-white group-hover/item:text-neutral-300 w-4 lg:w-6"
+              />
             </div>
           </div>
 
