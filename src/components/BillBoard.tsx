@@ -55,7 +55,7 @@ const Billboard: React.FC<BillboardProps> = ({ mediaType }) => {
             muted={true}
             controls={false}
           />
-          <div className="absolute top-0 left-0 w-full h-full bg-black/30" />
+          <div className="absolute top-0 left-0 w-full h-full bg-black/40" />
         </>
       ) : (
         <img
