@@ -6,21 +6,21 @@ import { useRouter } from "next/navigation";
 import {
   Navbar,
   Billboard,
-  MovieList,
+  MediaList,
   InfoModal,
   Footer,
 } from "@/src/components";
-import { useMovieList, useInfoModal } from "@/src/hooks";
+import { useMediaList, useInfoModal } from "@/src/hooks";
 
 export default function Home() {
   const session = useSession();
   const router = useRouter();
-  const { data: moviesTrending } = useMovieList("trending", "movie");
-  const { data: tvTrending } = useMovieList("trending", "tv");
-  const { data: moviesPopular } = useMovieList("popular", "movie");
-  const { data: tvPopular } = useMovieList("popular", "tv");
-  const { data: moviesToprated } = useMovieList("toprated", "movie");
-  const { data: tvToprated } = useMovieList("toprated", "tv");
+  const { data: moviesTrending } = useMediaList("trending", "movie");
+  const { data: tvTrending } = useMediaList("trending", "tv");
+  const { data: moviesPopular } = useMediaList("popular", "movie");
+  const { data: tvPopular } = useMediaList("popular", "tv");
+  const { data: moviesToprated } = useMediaList("toprated", "movie");
+  const { data: tvToprated } = useMediaList("toprated", "tv");
   const { isOpen, closeModal } = useInfoModal();
   const [mediaType, setMediaType] = useState("");
 
@@ -41,28 +41,28 @@ export default function Home() {
       <Navbar />
       <Billboard mediaType={mediaType} />
       <div className="pb-40">
-        <MovieList
+        <MediaList
           title="Trending Movies"
           data={moviesTrending}
           mediaType="movie"
         />
-        <MovieList title="Trending Tv Shows" data={tvTrending} mediaType="tv" />
-        <MovieList
+        <MediaList title="Trending Tv Shows" data={tvTrending} mediaType="tv" />
+        <MediaList
           title="Popular Movies on NextFlix"
           data={moviesPopular}
           mediaType="movie"
         />
-        <MovieList
+        <MediaList
           title="Popular Series on NextFlix"
           data={tvPopular}
           mediaType="tv"
         />
-        <MovieList
+        <MediaList
           title="Top Rated Movies"
           data={moviesToprated}
           mediaType="movie"
         />
-        <MovieList title="Top Rated Shows" data={tvToprated} mediaType="tv" />
+        <MediaList title="Top Rated Shows" data={tvToprated} mediaType="tv" />
       </div>
       <Footer />
     </>

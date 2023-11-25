@@ -4,8 +4,8 @@ import NavbarItem from "./NavBarItem";
 import MobileMenu from "./MobileMenu";
 import AccountMenu from "./AccountMenu";
 import Billboard from "./BillBoard";
-import MovieList from "./MovieList";
-import MovieCard from "./MovieCard";
+import MediaList from "./MediaList";
+import MediaCard from "./MediaCard";
 import FavoriteButton from "./FavoriteButton";
 import PlayButton from "./PlayButton";
 import InfoModal from "./InfoModal";
@@ -24,8 +24,8 @@ export {
   MobileMenu,
   AccountMenu,
   Billboard,
-  MovieCard,
-  MovieList,
+  MediaCard,
+  MediaList,
   FavoriteButton,
   PlayButton,
   InfoModal,

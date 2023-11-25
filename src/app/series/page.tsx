@@ -6,18 +6,18 @@ import { useRouter } from "next/navigation";
 import {
   Navbar,
   Billboard,
-  MovieList,
+  MediaList,
   InfoModal,
   Footer,
 } from "@/src/components";
-import { useMovieList, useInfoModal } from "@/src/hooks";
+import { useMediaList, useInfoModal } from "@/src/hooks";
 
 export default function Series() {
   const session = useSession();
   const router = useRouter();
-  const { data: moviesTrending = [] } = useMovieList("trending", "tv");
-  const { data: moviesPopular = [] } = useMovieList("popular", "tv");
-  const { data: moviesToprated = [] } = useMovieList("toprated", "tv");
+  const { data: moviesTrending = [] } = useMediaList("trending", "tv");
+  const { data: moviesPopular = [] } = useMediaList("popular", "tv");
+  const { data: moviesToprated = [] } = useMediaList("toprated", "tv");
   const { isOpen, closeModal } = useInfoModal();
 
   useEffect(() => {
@@ -31,13 +31,13 @@ export default function Series() {
       <Navbar />
       <Billboard mediaType="tv" />
       <div className="pb-40">
-        <MovieList title="Trending Now" data={moviesTrending} mediaType="tv" />
-        <MovieList
+        <MediaList title="Trending Now" data={moviesTrending} mediaType="tv" />
+        <MediaList
           title="Popular on NextFlix"
           data={moviesPopular}
           mediaType="tv"
         />
-        <MovieList title="Top Rated" data={moviesToprated} mediaType="tv" />
+        <MediaList title="Top Rated" data={moviesToprated} mediaType="tv" />
       </div>
       <Footer />
     </>

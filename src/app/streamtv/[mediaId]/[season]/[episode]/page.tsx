@@ -88,18 +88,22 @@ const Episode = () => {
             </div>
           </div>
           <div className="flex gap-4">
-            <div
-              className="block border text-gray-200 border-gray-200 shadow-lg hover:bg-gray-200 hover:text-gray-900 transition duration-300 font-bold sm:py-2 sm:px-4 py-1 px-2 rounded cursor-pointer"
-              onClick={goToPreviousEpisode}
-            >
-              Previous Episode
-            </div>
-            <div
-              className="block border text-gray-200 border-gray-200 shadow-lg hover:bg-gray-200 hover:text-gray-900 transition duration-300 font-bold sm:py-2 sm:px-4 py-1 px-2 rounded cursor-pointer"
-              onClick={goToNextEpisode}
-            >
-              Next Episode
-            </div>
+            {Number(episode) > 1 && (
+              <div
+                className="block border text-gray-200 border-gray-200 shadow-lg hover:bg-gray-200 hover:text-gray-900 transition duration-300 font-bold sm:py-2 sm:px-4 py-1 px-2 rounded cursor-pointer"
+                onClick={goToPreviousEpisode}
+              >
+                Previous Episode
+              </div>
+            )}
+            {Number(episode) < episodeCount && (
+              <div
+                className="block border text-gray-200 border-gray-200 shadow-lg hover:bg-gray-200 hover:text-gray-900 transition duration-300 font-bold sm:py-2 sm:px-4 py-1 px-2 rounded cursor-pointer"
+                onClick={goToNextEpisode}
+              >
+                Next Episode
+              </div>
+            )}
           </div>
         </nav>
       )}

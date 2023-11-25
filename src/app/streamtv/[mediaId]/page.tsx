@@ -6,7 +6,7 @@ import {
   Footer,
   VideoModal,
   CircleRating,
-  MovieList,
+  MediaList,
 } from "@/src/components";
 import { useMovie, useSimilar } from "@/src/hooks";
 import { useParams, useRouter } from "next/navigation";
@@ -172,6 +172,7 @@ const TvSelection = () => {
           ssr={true}
           containerClass="-mx-[10px]"
           itemClass="px-2"
+          removeArrowOnDeviceType={["tablet", "mobile"]}
         >
           {data?.seasons.map(
             (
@@ -206,7 +207,7 @@ const TvSelection = () => {
         </Carousel>
       </div>
       <div className="pb-20">
-        <MovieList
+        <MediaList
           title="Similar Tv shows"
           data={mediaSimilar}
           mediaType="tv"

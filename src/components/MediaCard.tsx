@@ -8,12 +8,12 @@ import { FavoriteButton } from ".";
 import { useInfoModal } from "../hooks";
 import { baseUrl } from "@/public/utils";
 
-interface MovieCardProps {
+interface MediaCardProps {
   data: MediaInterface;
   mediaType: string;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ data, mediaType }) => {
+const MediaCard: React.FC<MediaCardProps> = ({ data, mediaType }) => {
   const router = useRouter();
 
   const { openModal } = useInfoModal();
@@ -74,4 +74,4 @@ const MovieCard: React.FC<MovieCardProps> = ({ data, mediaType }) => {
   );
 };
 
-export default MovieCard;
+export default MediaCard;

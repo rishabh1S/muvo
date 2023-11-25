@@ -3,13 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import {
-  Navbar,
-  InfoModal,
-  MovieCard,
-  MovieList,
-  Footer,
-} from "@/src/components";
+import { Navbar, InfoModal, MediaCard, Footer } from "@/src/components";
 import { useFavorites, useInfoModal } from "@/src/hooks";
 import { getTVorMovieDetailsByID } from "@/public/utils";
 
@@ -59,7 +53,7 @@ export default function FavList() {
           </p>
           <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-2">
             {extendedFavorites.map((extendedData, index) => (
-              <MovieCard
+              <MediaCard
                 key={index}
                 mediaType={extendedData.mediaType}
                 data={extendedData}

@@ -6,18 +6,18 @@ import { useRouter } from "next/navigation";
 import {
   Navbar,
   Billboard,
-  MovieList,
+  MediaList,
   InfoModal,
   Footer,
 } from "@/src/components";
-import { useMovieList, useInfoModal } from "@/src/hooks";
+import { useMediaList, useInfoModal } from "@/src/hooks";
 
 export default function Movies() {
   const session = useSession();
   const router = useRouter();
-  const { data: moviesTrending } = useMovieList("trending", "movie");
-  const { data: moviesPopular } = useMovieList("popular", "movie");
-  const { data: moviesToprated } = useMovieList("toprated", "movie");
+  const { data: moviesTrending } = useMediaList("trending", "movie");
+  const { data: moviesPopular } = useMediaList("popular", "movie");
+  const { data: moviesToprated } = useMediaList("toprated", "movie");
   const { isOpen, closeModal } = useInfoModal();
 
   useEffect(() => {
@@ -32,17 +32,17 @@ export default function Movies() {
       <Navbar />
       <Billboard mediaType="movie" />
       <div className="pb-40">
-        <MovieList
+        <MediaList
           title="Trending Now"
           data={moviesTrending}
           mediaType="movie"
         />
-        <MovieList
+        <MediaList
           title="Popular on NextFlix"
           data={moviesPopular}
           mediaType="movie"
         />
-        <MovieList title="Top Rated" data={moviesToprated} mediaType="movie" />
+        <MediaList title="Top Rated" data={moviesToprated} mediaType="movie" />
       </div>
       <Footer />
     </>

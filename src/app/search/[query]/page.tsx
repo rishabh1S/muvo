@@ -1,7 +1,7 @@
 "use client";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Navbar, InfoModal, MovieCard, Footer } from "@/src/components";
+import { Navbar, InfoModal, MediaCard, Footer } from "@/src/components";
 import { getTVorMovieSearchResults } from "@/public/utils";
 import { useInfoModal } from "@/src/hooks";
 import { MediaInterface } from "@/src/types";
@@ -77,7 +77,7 @@ export default function Search() {
             </h2>
             <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-2">
               {searchResults.map((media) => (
-                <MovieCard
+                <MediaCard
                   key={media.id}
                   mediaType={media.mediaType || ""}
                   data={media}

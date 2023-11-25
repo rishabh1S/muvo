@@ -4,7 +4,7 @@ import {
   CircleRating,
   FavoriteButton,
   Footer,
-  MovieList,
+  MediaList,
   Navbar,
   VideoModal,
 } from "@/src/components";
@@ -161,7 +161,7 @@ const MovieSelection = () => {
         </div>
       </div>
       <div className="pb-20">
-        <MovieList
+        <MediaList
           title="Similar Movies"
           data={mediaSimilar}
           mediaType="movie"

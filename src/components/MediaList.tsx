@@ -2,10 +2,10 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { MediaInterface } from "@/src/types";
-import { MovieCard } from ".";
+import { MediaCard } from ".";
 import { isEmpty } from "lodash";
 
-interface MovieListProps {
+interface MediaListProps {
   data: MediaInterface[];
   title: string;
   mediaType: string;
@@ -27,7 +27,7 @@ const responsive = {
   },
 };
 
-const MovieList: React.FC<MovieListProps> = ({ data, title, mediaType }) => {
+const MediaList: React.FC<MediaListProps> = ({ data, title, mediaType }) => {
   if (isEmpty(data)) {
     return null;
   }
@@ -44,9 +44,10 @@ const MovieList: React.FC<MovieListProps> = ({ data, title, mediaType }) => {
           ssr={true}
           containerClass="-mx-[10px]"
           itemClass="sm:px-2 px-1"
+          removeArrowOnDeviceType={["tablet", "mobile"]}
         >
           {data.map((media) => (
-            <MovieCard key={media.id} mediaType={mediaType} data={media} />
+            <MediaCard key={media.id} mediaType={mediaType} data={media} />
           ))}
         </Carousel>
       </div>
@@ -54,4 +55,4 @@ const MovieList: React.FC<MovieListProps> = ({ data, title, mediaType }) => {
   );
 };
 
-export default MovieList;
+export default MediaList;
