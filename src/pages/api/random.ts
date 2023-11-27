@@ -16,6 +16,9 @@ export default async function handler(
     const { mediaType } = req.query;
 
     const trendingMedias = await getTrendingMedias(mediaType as string);
+    if (!trendingMedias || trendingMedias.length === 0) {
+      return res.status(404).json({ error: "No trending media found." });
+    }
     const randomIndex = Math.floor(Math.random() * trendingMedias.length);
 
     const randomMovie = trendingMedias[randomIndex];

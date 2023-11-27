@@ -10,6 +10,7 @@ import FavoriteButton from "./FavoriteButton";
 import PlayButton from "./PlayButton";
 import InfoModal from "./InfoModal";
 import CircleLoader from "./CircleLoader";
+import SkeletonLoader from "./SkeletonLoader";
 import VideoEmbedding from "./VideoEmbedding";
 import VideoPlayer from "./VideoPlayer";
 import SearchBar from "./SearchBar";
@@ -30,6 +31,7 @@ export {
   PlayButton,
   InfoModal,
   CircleLoader,
+  SkeletonLoader,
   VideoEmbedding,
   VideoPlayer,
   SearchBar,

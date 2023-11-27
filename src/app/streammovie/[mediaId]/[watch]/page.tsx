@@ -53,7 +53,7 @@ const Watch = () => {
           <AiOutlineArrowLeft
             size={36}
             onClick={() => router.push(`/streammovie/${mediaId}`)}
-            className="w-4 md:w-10 text-white cursor-pointer hover:opacity-80 transition"
+            className="w-4 md:w-10 text-white cursor-pointer transition-transform transform hover:opacity-80 hover:-translate-x-2 duration-300"
           />
           <p className="text-white text-1xl md:text-3xl">
             <span className="font-light">Watching:</span>{" "}

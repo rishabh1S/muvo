@@ -78,7 +78,7 @@ const Episode = () => {
             <AiOutlineArrowLeft
               size={36}
               onClick={() => router.push(`/streamtv/${mediaId}/${season}`)}
-              className="w-4 md:w-10 text-white cursor-pointer hover:opacity-80 transition"
+              className="w-4 md:w-10 text-white cursor-pointer transition-transform transform hover:opacity-80 hover:-translate-x-2 duration-300"
             />
             <div className="text-white text-1xl md:text-3xl">
               <span className="font-light">Watching:</span>{" "}
