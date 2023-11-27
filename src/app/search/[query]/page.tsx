@@ -1,7 +1,13 @@
 "use client";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Navbar, InfoModal, MediaCard, Footer } from "@/src/components";
+import {
+  Navbar,
+  InfoModal,
+  MediaCard,
+  SkeletonLoader,
+  Footer,
+} from "@/src/components";
 import { getTVorMovieSearchResults } from "@/public/utils";
 import { useInfoModal } from "@/src/hooks";
 import { MediaInterface } from "@/src/types";
@@ -13,6 +19,7 @@ export default function Search() {
   const router = useRouter();
   const [searchResults, setSearchResults] = useState<MediaInterface[]>([]);
   const { isOpen, closeModal } = useInfoModal();
+  const [isLoading, setIsLoading] = useState(true);
   const params = useParams();
   const mediaName = params!.query as string;
 
@@ -42,6 +49,7 @@ export default function Search() {
         .map((movieItem: any) => ({ ...movieItem, mediaType: "movie" }));
 
       setSearchResults([...filteredTVShows, ...filteredMovies]);
+      setIsLoading(false);
     }
 
     getSearchResults();
@@ -52,38 +60,44 @@ export default function Search() {
       <Navbar />
       <InfoModal visible={isOpen} onClose={closeModal} />
       <div className="px-4 md:px-12 space-y-8 py-28 min-h-screen">
-        {searchResults.length === 0 ? (
-          <>
-            <p className="text-white text-md md:text-xl lg:text-2xl font-semibold mb-4">
-              No Results found for{" "}
-              <span className="text-violet-500 font-bold">
-                {decodeURIComponent(mediaName)}
-              </span>
-            </p>
-            <Image
-              src="/images/no-results.png"
-              alt="No Results"
-              width={500}
-              height={500}
-            />
-          </>
+        {isLoading ? (
+          <SkeletonLoader />
         ) : (
           <>
-            <h2 className="text-white text-md md:text-xl lg:text-2xl font-semibold mb-4">
-              Showing Results for{" "}
-              <span className="text-violet-500 font-bold">
-                {decodeURIComponent(mediaName)}
-              </span>
-            </h2>
-            <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-2">
-              {searchResults.map((media) => (
-                <MediaCard
-                  key={media.id}
-                  mediaType={media.mediaType || ""}
-                  data={media}
+            {searchResults.length === 0 ? (
+              <>
+                <p className="text-white text-2xl md:text-3xl font-bold mb-4">
+                  No Results found for{" "}
+                  <span className="text-violet-500 font-bold">
+                    {decodeURIComponent(mediaName)}
+                  </span>
+                </p>
+                <Image
+                  src="/images/no-results.png"
+                  alt="No Results"
+                  width={500}
+                  height={500}
                 />
-              ))}
-            </div>
+              </>
+            ) : (
+              <>
+                <h2 className="text-white text-2xl md:text-3xl font-bold mb-4">
+                  Showing Results for{" "}
+                  <span className="text-violet-500 font-bold">
+                    {decodeURIComponent(mediaName)}
+                  </span>
+                </h2>
+                <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-2">
+                  {searchResults.map((media) => (
+                    <MediaCard
+                      key={media.id}
+                      mediaType={media.mediaType || ""}
+                      data={media}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
           </>
         )}
       </div>

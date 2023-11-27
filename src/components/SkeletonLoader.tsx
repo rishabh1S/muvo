@@ -6,7 +6,7 @@ const SkeletonLoader = () => {
   return (
     <SkeletonTheme baseColor="#202020" highlightColor="#444">
       <p>
-        <Skeleton count={12} />
+        <Skeleton count={20} />
       </p>
     </SkeletonTheme>
   );
