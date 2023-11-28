@@ -38,10 +38,10 @@ const MediaCard: React.FC<MediaCardProps> = ({ data, mediaType }) => {
         alt="Movie"
         draggable={false}
         className="
-        cursor-pointer transition duration-300 ease-in-out group-hover:scale-110 w-full lg:h-[28vh] md:h-[23vh] h-[18vh]
+        cursor-pointer transition duration-300 ease-in-out group-hover:scale-110 w-full lg:h-[28vh] md:h-[23vh] h-[17vh]
       "
       />
-      <div className="opacity-0 absolute sm:top-20 top-12 transform w-full group-hover:opacity-100">
+      <div className="opacity-0 absolute top-20 transform w-full group-hover:opacity-100">
         <div className="z-10 bg-zinc-900/90 p-2 lg:p-4 absolute w-full transition shadow-md">
           <div className="flex flex-row items-center gap-3">
             <div
