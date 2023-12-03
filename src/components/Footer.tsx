@@ -57,17 +57,17 @@ const Footer = () => {
           </div>
           <div className="sm:w-1/4 w-1/2">
             <ul className="space-y-2">
-              <li className="">Account </li>
-              <li className="">Ways to Watch </li>
-              <li className="">Corporate Information </li>
-              <li className="">Nextflix Originals </li>
+              <li>Account </li>
+              <li>Ways to Watch </li>
+              <li>Corporate Information </li>
+              <li>Nextflix Originals </li>
             </ul>
           </div>
           <div className="sm:w-1/4 w-1/2">
             <ul className="space-y-2">
-              <li className=""> Media Centre</li>
-              <li className="">Terms of Use </li>
-              <li className="">Contact Us </li>
+              <li> Media Centre</li>
+              <li>Terms of Use </li>
+              <li>Contact Us </li>
             </ul>
           </div>
         </div>
@@ -75,9 +75,9 @@ const Footer = () => {
           <hr className="my-6 border-gray-600 sm:mx-auto lg:my-8" />
           <span className="block text-sm text-gray-500 sm:text-center">
             ©{new Date().getFullYear()}{" "}
-            <a href="https://flowbite.com/" className="hover:underline">
+            <Link href="/" className="hover:underline">
               NextFlix™
-            </a>
+            </Link>
             . All Rights Reserved.
           </span>
         </div>
