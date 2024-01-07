@@ -3,8 +3,8 @@ const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 
 export const baseUrl = "https://image.tmdb.org/t/p/original";
 export const baseYoutubeUrl = "https://www.youtube.com/watch?v=";
-export const embedMovieUrl = `https://autoembed.to/movie/tmdb/`;
-export const embedTvShowUrl = `https://autoembed.to/tv/tmdb/`;
+export const embedMovieUrl = `https://www.2embed.cc/embed/`;
+export const embedTvShowUrl = `https://www.2embed.cc/embedtv/`;
 
 export const getTrendingMedias = async (type: string) => {
   try {

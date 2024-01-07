@@ -13,9 +13,9 @@ const VideoEmbedding: React.FC<VideoEmbeddingProps> = ({ embedURL }) => {
         height="100%"
         frameBorder="0"
         allowFullScreen
+        scrolling="no"
         seamless
         allow="autoplay"
-        referrerPolicy="no-referrer"
       ></iframe>
     </>
   );

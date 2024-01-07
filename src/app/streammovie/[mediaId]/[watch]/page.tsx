@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useMovie } from "@/src/hooks";
 import { embedMovieUrl } from "@/public/utils";
 import { CircleLoader, VideoEmbedding } from "@/src/components";
+import { toast } from "sonner";
 
 const Watch = () => {
   const router = useRouter();
@@ -40,6 +41,14 @@ const Watch = () => {
       clearTimeout(timeoutId);
     };
   }, [showNavbar]);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      toast.info("Try other servers if Default Server fails.");
+    }, 3000);
+
+    return () => clearTimeout(timeoutId);
+  }, []);
 
   if (isLoading) {
     <CircleLoader />;

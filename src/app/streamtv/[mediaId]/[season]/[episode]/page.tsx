@@ -17,7 +17,7 @@ const Episode = () => {
   const { mediaId, season, episode } = params;
   const mediaType = "tv";
   const { data, isLoading } = useMovie(mediaType, mediaId);
-  const episodeURL = `${embedTvShowUrl}${mediaId}-${season}-${episode}`;
+  const episodeURL = `${embedTvShowUrl}${mediaId}&s=${season}&e=${episode}`;
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
   const episodeCount = data?.seasons.find(
     (s: { season_number: number }) => s.season_number === Number(season)
@@ -61,7 +61,7 @@ const Episode = () => {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      toast.info("Try other servers if Server 1 fails.");
+      toast.info("Try other servers if Default Server fails.");
     }, 3000);
 
     return () => clearTimeout(timeoutId);
