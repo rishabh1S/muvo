@@ -7,7 +7,7 @@ export default function CircleLoader() {
       <TailSpin
         height="60"
         width="60"
-        color="#8F00FF"
+        color="#8dc53e"
         ariaLabel="tail-spin-loading"
         radius="1"
       />

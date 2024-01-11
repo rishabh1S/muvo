@@ -1,6 +1,6 @@
 # <img src="https://res.cloudinary.com/dnp36kqdc/image/upload/v1700767382/NextFlix/logo_pvnh62.png" width="90" height="30"> Netflix Clone - Your Amazing OTT
 
-Welcome to Nextflix, a Netflix clone built with NextJS, MongoDB, Prisma, and more! This project aims to replicate the core features of Netflix, providing users with a seamless streaming experience.
+Welcome to Muvo, a Netflix clone built with NextJS, MongoDB, Prisma, and more! This project aims to replicate the core features of Netflix, providing users with a seamless streaming experience.
 
 <img src="https://res.cloudinary.com/dnp36kqdc/image/upload/v1700490888/CDN%20for%20portfolio/NextFlix_rbmftu.png" width="800">
 
@@ -53,6 +53,7 @@ Before you begin, ensure you have the following software and accounts set up:
    npm install
    ```
 3. Start the development server.
+
    ```bash
    npm run dev
    ```

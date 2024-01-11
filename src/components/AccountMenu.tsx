@@ -43,7 +43,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
         onClick={handleSignOut}
         className="px-3 text-center text-white text-sm hover:underline"
       >
-        Sign out of Nextflix
+        Sign out of Muvo
       </div>
     </div>
   );

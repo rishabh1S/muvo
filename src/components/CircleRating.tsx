@@ -15,7 +15,7 @@ const CircleRating: React.FC<CircleRatingProps> = ({ rating }) => {
       <CircularProgressbar
         value={rating}
         maxValue={10}
-        text={rating.toString()}
+        text={rating?.toString()}
         styles={buildStyles({
           pathColor,
           textColor: "white",

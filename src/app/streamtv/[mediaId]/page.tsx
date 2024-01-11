@@ -157,7 +157,7 @@ const TvSelection = () => {
                 }
               ></VideoModal>
               <div className="sm:w-12 w-8 sm:h-12 h-8">
-                <CircleRating rating={data.vote_average.toFixed(1)} />
+                <CircleRating rating={data?.vote_average.toFixed(1)} />
               </div>
               <FavoriteButton mediaType="tv" mediaId={data?.id.toString()} />
             </div>

@@ -48,15 +48,11 @@ export default function Home() {
         />
         <MediaList title="Trending Tv Shows" data={tvTrending} mediaType="tv" />
         <MediaList
-          title="Popular Movies on NextFlix"
+          title="Popular Movies"
           data={moviesPopular}
           mediaType="movie"
         />
-        <MediaList
-          title="Popular Series on NextFlix"
-          data={tvPopular}
-          mediaType="tv"
-        />
+        <MediaList title="Popular Series" data={tvPopular} mediaType="tv" />
         <MediaList
           title="Top Rated Movies"
           data={moviesToprated}

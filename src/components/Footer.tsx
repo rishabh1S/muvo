@@ -60,7 +60,7 @@ const Footer = () => {
               <li>Account </li>
               <li>Ways to Watch </li>
               <li>Corporate Information </li>
-              <li>Nextflix Originals </li>
+              <li>Muvo Originals </li>
             </ul>
           </div>
           <div className="sm:w-1/4 w-1/2">
@@ -76,7 +76,7 @@ const Footer = () => {
           <span className="block text-sm text-gray-500 sm:text-center">
             ©{new Date().getFullYear()}{" "}
             <Link href="/" className="hover:underline">
-              NextFlix™
+              Muvo™
             </Link>
             . All Rights Reserved.
           </span>

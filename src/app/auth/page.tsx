@@ -147,7 +147,7 @@ const AuthForm = () => {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="bg-violet-600 py-3 text-white rounded-md w-full mt-10 hover:bg-violet-700 transition"
+                  className="bg-[#8dc53e] py-3 text-white rounded-md w-full mt-10 hover:bg-[#b2d76e] transition"
                 >
                   {variant === "LOGIN" ? "Login" : "Sign up"}
                 </button>
@@ -167,9 +167,9 @@ const AuthForm = () => {
                 <FaGithub size={32} />
               </div>
             </div>
-            <p className="text-neutral-500 mt-12 text-center">
+            <p className="text-neutral-500 mt-8 text-center">
               {variant === "LOGIN"
-                ? "First time using Nextflix?"
+                ? "First time using Muvo?"
                 : "Already have an account?"}
               <span
                 onClick={toggleVariant}

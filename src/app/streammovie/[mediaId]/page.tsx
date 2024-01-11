@@ -77,7 +77,7 @@ const MovieSelection = () => {
               </p>
               <span className="text-white">|</span>
               <p className="text-white sm:text-lg">
-                {`${Math.floor(data.runtime / 60)}h ${data.runtime % 60}min`}
+                {`${Math.floor(data?.runtime / 60)}h ${data?.runtime % 60}min`}
               </p>
               <span className="text-white">|</span>
               <p className="text-violet-500 sm:text-lg">
@@ -150,7 +150,7 @@ const MovieSelection = () => {
                 }
               ></VideoModal>
               <div className="sm:w-12 w-8 sm:h-12 h-8">
-                <CircleRating rating={data.vote_average.toFixed(1)} />
+                <CircleRating rating={data?.vote_average.toFixed(1)} />
               </div>
               <FavoriteButton mediaType="movie" mediaId={data?.id.toString()} />
             </div>

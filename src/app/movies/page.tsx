@@ -37,11 +37,7 @@ export default function Movies() {
           data={moviesTrending}
           mediaType="movie"
         />
-        <MediaList
-          title="Popular on NextFlix"
-          data={moviesPopular}
-          mediaType="movie"
-        />
+        <MediaList title="Popular" data={moviesPopular} mediaType="movie" />
         <MediaList title="Top Rated" data={moviesToprated} mediaType="movie" />
       </div>
       <Footer />

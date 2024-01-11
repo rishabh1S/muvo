@@ -123,13 +123,13 @@ const Season = () => {
             <div className="flex items-center sm:gap-3 gap-1">
               <p className="text-white font-semibold text-lg">
                 {seasonInfo && seasonInfo.air_date
-                  ? new Date(seasonInfo.air_date).getFullYear()
+                  ? new Date(seasonInfo?.air_date).getFullYear()
                   : ""}
               </p>
               <span className="text-white">|</span>
               <p className="text-white sm:text-lg">
                 {seasonInfo && seasonInfo.episode_count
-                  ? `${seasonInfo.episode_count} Episodes`
+                  ? `${seasonInfo?.episode_count} Episodes`
                   : ""}
               </p>
               <span className="text-white">|</span>
@@ -169,7 +169,7 @@ const Season = () => {
                 </p>
               )}
               <div className="sm:w-12 w-8 sm:h-12 h-8">
-                <CircleRating rating={seasonInfo.vote_average.toFixed(1)} />
+                <CircleRating rating={seasonInfo?.vote_average.toFixed(1)} />
               </div>
               <FavoriteButton mediaType="tv" mediaId={data?.id.toString()} />
             </div>
@@ -179,7 +179,7 @@ const Season = () => {
           </div>
         </div>
         <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4">
-          {Array.from({ length: seasonInfo.episode_count }, (_, index) => (
+          {Array.from({ length: seasonInfo?.episode_count }, (_, index) => (
             <Link
               key={index + 1}
               href={`/streamtv/${mediaId}/${season}/${index + 1}`}

@@ -15,9 +15,9 @@ import { useMediaList, useInfoModal } from "@/src/hooks";
 export default function Series() {
   const session = useSession();
   const router = useRouter();
-  const { data: moviesTrending = [] } = useMediaList("trending", "tv");
-  const { data: moviesPopular = [] } = useMediaList("popular", "tv");
-  const { data: moviesToprated = [] } = useMediaList("toprated", "tv");
+  const { data: tvTrending = [] } = useMediaList("trending", "tv");
+  const { data: tvPopular = [] } = useMediaList("popular", "tv");
+  const { data: tvToprated = [] } = useMediaList("toprated", "tv");
   const { isOpen, closeModal } = useInfoModal();
 
   useEffect(() => {
@@ -31,13 +31,9 @@ export default function Series() {
       <Navbar />
       <Billboard mediaType="tv" />
       <div className="pb-40">
-        <MediaList title="Trending Now" data={moviesTrending} mediaType="tv" />
-        <MediaList
-          title="Popular on NextFlix"
-          data={moviesPopular}
-          mediaType="tv"
-        />
-        <MediaList title="Top Rated" data={moviesToprated} mediaType="tv" />
+        <MediaList title="Trending Now" data={tvTrending} mediaType="tv" />
+        <MediaList title="Popular" data={tvPopular} mediaType="tv" />
+        <MediaList title="Top Rated" data={tvToprated} mediaType="tv" />
       </div>
       <Footer />
     </>
