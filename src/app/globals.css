@@ -41,3 +41,7 @@ body::-webkit-scrollbar {
   display: none; 
   }
 }
+
+.react-multi-carousel-arrow {
+  z-index: 1; /* Set a lower z-index value to make sure other elements are on top */
+}

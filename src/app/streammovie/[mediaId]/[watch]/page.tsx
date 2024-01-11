@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { useParams, useRouter } from "next/navigation";
-import { useMovie } from "@/src/hooks";
+import { useMedia } from "@/src/hooks";
 import { embedMovieUrl } from "@/public/utils";
 import { CircleLoader, VideoEmbedding } from "@/src/components";
 import { toast } from "sonner";
@@ -12,7 +12,7 @@ const Watch = () => {
   const params = useParams() as { mediaId: string };
   const { mediaId } = params;
   const mediaType = "movie";
-  const { data, isLoading } = useMovie(mediaType, mediaId);
+  const { data, isLoading } = useMedia(mediaType, mediaId);
 
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
 

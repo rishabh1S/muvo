@@ -91,6 +91,23 @@ export const getTVorMovieVideosByID = async (type: string, id: string) => {
   }
 };
 
+export const getTVorMovieCreditsByID = async (type: string, id: string) => {
+  try {
+    const res = await fetch(
+      `${BASE_URL}/${type}/${id}/credits?api_key=${API_KEY}&language=en-US&append_to_response=videos`,
+      {
+        method: "GET",
+      }
+    );
+
+    const data = await res.json();
+
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const getTVorMovieSearchResults = async (
   type: string,
   query: string

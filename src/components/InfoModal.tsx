@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import countryLookup from "country-code-lookup";
 import { PlayButton, FavoriteButton, VideoPlayer } from ".";
-import { useInfoModal, useMovie } from "../hooks";
+import { useInfoModal, useMedia } from "../hooks";
 import { baseUrl, baseYoutubeUrl } from "@/public/utils";
 import { Genre } from "@/src/types";
 import { SiImdb } from "react-icons/si";
@@ -17,7 +17,7 @@ interface InfoModalProps {
 const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   const [isVisible, setIsVisible] = useState<boolean>(!!visible);
   const { mediaType, mediaId } = useInfoModal();
-  const { data, isLoading } = useMovie(mediaType, mediaId);
+  const { data, isLoading } = useMedia(mediaType, mediaId);
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const videoKey =
     data?.videos?.results.find(

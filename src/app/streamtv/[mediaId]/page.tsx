@@ -8,18 +8,16 @@ import {
   CircleRating,
   MediaList,
 } from "@/src/components";
-import { useMovie, useSimilar } from "@/src/hooks";
+import { useMedia, useSimilar } from "@/src/hooks";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Genre } from "@/src/types";
 import Link from "next/link";
-import { baseUrl, baseYoutubeUrl } from "@/public/utils";
+import { baseUrl } from "@/public/utils";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { RiMovie2Line } from "react-icons/ri";
 import { BsFillPlayFill } from "react-icons/bs";
-import { IoMdHome } from "react-icons/io";
-import { FaChevronRight } from "react-icons/fa6";
 import { useSession } from "next-auth/react";
 
 const responsive = {
@@ -44,7 +42,7 @@ const TvSelection = () => {
   const params = useParams() as { mediaId: string };
   const { mediaId } = params;
   const mediaType = "tv";
-  const { data, isLoading } = useMovie(mediaType, mediaId);
+  const { data, isLoading } = useMedia(mediaType, mediaId);
   const { data: mediaSimilar } = useSimilar(mediaType, mediaId);
   const [show, setShow] = useState(false);
   const [videoKey, setVideoKey] = useState("");

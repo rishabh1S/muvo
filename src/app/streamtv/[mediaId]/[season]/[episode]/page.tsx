@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { useParams, useRouter } from "next/navigation";
-import { useMovie } from "@/src/hooks";
+import { useMedia } from "@/src/hooks";
 import { embedTvShowUrl } from "@/public/utils";
 import { CircleLoader, VideoEmbedding } from "@/src/components";
 import { toast } from "sonner";
@@ -16,7 +16,7 @@ const Episode = () => {
   };
   const { mediaId, season, episode } = params;
   const mediaType = "tv";
-  const { data, isLoading } = useMovie(mediaType, mediaId);
+  const { data, isLoading } = useMedia(mediaType, mediaId);
   const episodeURL = `${embedTvShowUrl}${mediaId}&s=${season}&e=${episode}`;
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
   const episodeCount = data?.seasons.find(

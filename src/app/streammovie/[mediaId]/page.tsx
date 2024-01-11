@@ -8,7 +8,7 @@ import {
   Navbar,
   VideoModal,
 } from "@/src/components";
-import { useMovie, useSimilar } from "@/src/hooks";
+import { useMedia, useSimilar } from "@/src/hooks";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Genre } from "@/src/types";
@@ -25,12 +25,12 @@ const MovieSelection = () => {
   const params = useParams() as { mediaId: string };
   const { mediaId } = params;
   const mediaType = "movie";
-  const { data, isLoading } = useMovie(mediaType, mediaId);
+  const { data, isLoading } = useMedia(mediaType, mediaId);
   const { data: mediaSimilar } = useSimilar(mediaType, mediaId);
   const [show, setShow] = useState(false);
   const [videoKey, setVideoKey] = useState("");
   const isComingSoon = new Date(data?.release_date) > new Date();
-
+  console.log(data);
   const key =
     data?.videos?.results.find(
       (video: { type: string }) => video.type === "Trailer"

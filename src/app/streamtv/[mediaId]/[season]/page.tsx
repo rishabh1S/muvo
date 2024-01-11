@@ -7,7 +7,7 @@ import {
   Footer,
   Navbar,
 } from "@/src/components";
-import { useMovie } from "@/src/hooks";
+import { useMedia } from "@/src/hooks";
 import { Genre } from "@/src/types";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
@@ -24,7 +24,7 @@ const Season = () => {
   const params = useParams() as { mediaId: string; season: string };
   const { mediaId, season } = params;
   const mediaType = "tv";
-  const { data, isLoading } = useMovie(mediaType, mediaId);
+  const { data, isLoading } = useMedia(mediaType, mediaId);
   const seasonInfo = data?.seasons.find(
     (s: { season_number: number }) => s.season_number === Number(season)
   );

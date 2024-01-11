@@ -1,7 +1,7 @@
 import useSwr from "swr";
 import fetcher from "@/src/libs/fetcher";
 
-const useMovie = (mediaType?: string, mediaId?: string) => {
+const useMedia = (mediaType?: string, mediaId?: string) => {
   const { data, error, isLoading } = useSwr(
     mediaId ? `/api/media/${mediaType}/${mediaId}` : null,
     fetcher,
@@ -18,4 +18,4 @@ const useMovie = (mediaType?: string, mediaId?: string) => {
   };
 };
 
-export default useMovie;
+export default useMedia;
