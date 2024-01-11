@@ -6,8 +6,9 @@ import {
   FavoriteButton,
   Footer,
   Navbar,
+  MediaList,
 } from "@/src/components";
-import { useMedia } from "@/src/hooks";
+import { useMedia, useSimilar } from "@/src/hooks";
 import { Genre } from "@/src/types";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
@@ -25,6 +26,7 @@ const Season = () => {
   const { mediaId, season } = params;
   const mediaType = "tv";
   const { data, isLoading } = useMedia(mediaType, mediaId);
+  const { data: mediaSimilar } = useSimilar(mediaType, mediaId);
   const seasonInfo = data?.seasons.find(
     (s: { season_number: number }) => s.season_number === Number(season)
   );
@@ -92,7 +94,7 @@ const Season = () => {
           className="w-full h-auto"
         ></img>
       </div>
-      <div className="max-w-7xl mx-auto p-4 flex flex-col gap-12 pb-20">
+      <div className="max-w-7xl mx-auto p-4 flex flex-col gap-12">
         <div className="-mt-[180px] flex sm:flex-row flex-col items-center relative z-10">
           <img
             src={`${baseUrl}/${seasonInfo?.poster_path}`}
@@ -190,6 +192,13 @@ const Season = () => {
             </Link>
           ))}
         </div>
+      </div>
+      <div className="pb-20">
+        <MediaList
+          title="Similar Tv shows"
+          data={mediaSimilar}
+          mediaType="tv"
+        />
       </div>
       <Footer />
     </div>

@@ -7,8 +7,9 @@ import {
   VideoModal,
   CircleRating,
   MediaList,
+  Cast,
 } from "@/src/components";
-import { useMedia, useSimilar } from "@/src/hooks";
+import { useCredits, useMedia, useSimilar } from "@/src/hooks";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Genre } from "@/src/types";
@@ -43,10 +44,10 @@ const TvSelection = () => {
   const { mediaId } = params;
   const mediaType = "tv";
   const { data, isLoading } = useMedia(mediaType, mediaId);
+  const { data: credits } = useCredits(mediaType, mediaId);
   const { data: mediaSimilar } = useSimilar(mediaType, mediaId);
   const [show, setShow] = useState(false);
   const [videoKey, setVideoKey] = useState("");
-  console.log(data);
   const isComingSoon = new Date(data?.first_air_date) > new Date();
   const key =
     data?.videos?.results.find(
@@ -74,18 +75,18 @@ const TvSelection = () => {
           className="w-full h-auto"
         ></img>
       </div>
-      <div className="max-w-7xl mx-auto p-4 flex flex-col gap-12 pb-20">
+      <div className="max-w-7xl mx-auto p-4 flex flex-col gap-12 pb-12">
         <div className="-mt-[180px] flex sm:flex-row flex-col items-center relative z-10 gap-3">
           <img
             src={`${baseUrl}/${data?.poster_path}`}
             alt="data?.title"
             className="sm:w-[200px] w-36 sm:h-[300px]"
           ></img>
-          <div className="mx-auto flex flex-col items-center gap-3">
-            <p className="text-white text-3xl md:text-4xl h-full lg:text-5xl font-bold sm:mb-4 text-center">
+          <div className="mx-auto flex flex-col gap-3">
+            <div className="text-white text-3xl md:text-4xl h-full lg:text-5xl font-bold sm:mb-4 text-center">
               {data?.name}
-            </p>
-            <div className="flex items-center sm:gap-3 gap-1">
+            </div>
+            <div className="flex items-center justify-center sm:gap-3 gap-1">
               <p className="text-white font-semibold sm:text-lg">
                 {new Date(
                   data?.release_date || data?.first_air_date
@@ -113,7 +114,7 @@ const TvSelection = () => {
                 )}
               </div>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center justify-center gap-4">
               {!isComingSoon ? (
                 <Link
                   href={`/streamtv/${mediaId}/1/1`}
@@ -159,9 +160,12 @@ const TvSelection = () => {
               </div>
               <FavoriteButton mediaType="tv" mediaId={data?.id.toString()} />
             </div>
-            <p className="text-white text-justify text-[14px] md:text-lg drop-shadow-xl px-4">
-              {data?.overview}
-            </p>
+            <div className="text-white drop-shadow-xl px-4">
+              <div className="text-2xl mb-2">Overview</div>
+              <div className="text-sm md:text-lg text-justify">
+                {data?.overview}
+              </div>
+            </div>
           </div>
         </div>
         <Carousel
@@ -204,6 +208,7 @@ const TvSelection = () => {
           )}
         </Carousel>
       </div>
+      <Cast cast={credits?.cast} />
       <div className="pb-20">
         <MediaList
           title="Similar Tv shows"

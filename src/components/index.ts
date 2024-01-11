@@ -17,6 +17,7 @@ import SearchBar from "./SearchBar";
 import CircleRating from "./CircleRating";
 import VideoModal from "./VideoModal";
 import Footer from "./Footer";
+import Cast from "./Cast";
 
 export {
   Input,
@@ -38,4 +39,5 @@ export {
   VideoModal,
   CircleRating,
   Footer,
+  Cast,
 };

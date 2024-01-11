@@ -7,8 +7,9 @@ import {
   MediaList,
   Navbar,
   VideoModal,
+  Cast,
 } from "@/src/components";
-import { useMedia, useSimilar } from "@/src/hooks";
+import { useCredits, useMedia, useSimilar } from "@/src/hooks";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Genre } from "@/src/types";
@@ -26,11 +27,16 @@ const MovieSelection = () => {
   const { mediaId } = params;
   const mediaType = "movie";
   const { data, isLoading } = useMedia(mediaType, mediaId);
+  const { data: credits } = useCredits(mediaType, mediaId);
   const { data: mediaSimilar } = useSimilar(mediaType, mediaId);
   const [show, setShow] = useState(false);
   const [videoKey, setVideoKey] = useState("");
   const isComingSoon = new Date(data?.release_date) > new Date();
-  console.log(data);
+  const director = credits?.crew.filter((f: any) => f.job === "Director");
+  const writer = credits?.crew?.filter(
+    (f: any) =>
+      f.job === "Screenplay" || f.job === "Story" || f.job === "Writer"
+  );
   const key =
     data?.videos?.results.find(
       (video: { type: string }) => video.type === "Trailer"
@@ -57,7 +63,7 @@ const MovieSelection = () => {
           className="rounded-none"
         ></img>
       </div>
-      <div className="max-w-7xl mx-auto p-4 flex flex-col gap-12 pb-20">
+      <div className="max-w-7xl mx-auto p-4 flex flex-col gap-12 pb-12">
         <div className="-mt-[180px] flex sm:flex-row flex-col items-center relative z-10 gap-3">
           <img
             src={`${baseUrl}/${data?.poster_path}`}
@@ -65,11 +71,14 @@ const MovieSelection = () => {
             draggable={false}
             className="sm:w-[200px] w-36 sm:h-[300px]"
           />
-          <div className="mx-auto flex flex-col items-center gap-3">
-            <p className="text-white text-3xl md:text-4xl h-full lg:text-5xl sm:mb-4 font-bold text-center">
+          <div className="mx-auto flex flex-col gap-3">
+            <div className="text-white text-3xl md:text-4xl h-full lg:text-5xl sm:mb-4 font-bold text-center">
               {data?.title || data?.original_title}
-            </p>
-            <div className="flex items-center sm:gap-3 gap-1">
+              <div className="sm:text-sm text-xs sm:mt-2 italic opacity-60">
+                {data?.tagline}
+              </div>
+            </div>
+            <div className="flex items-center justify-center sm:gap-3 gap-1">
               <p className="text-white font-semibold sm:text-lg">
                 {new Date(
                   data?.release_date || data?.first_air_date
@@ -108,7 +117,7 @@ const MovieSelection = () => {
                 )}
               </div>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center justify-center gap-4">
               {!isComingSoon ? (
                 <Link
                   href={`/streammovie/${mediaId}/watch`}
@@ -154,12 +163,44 @@ const MovieSelection = () => {
               </div>
               <FavoriteButton mediaType="movie" mediaId={data?.id.toString()} />
             </div>
-            <p className="text-white text-justify text-[14px] md:text-lg drop-shadow-xl px-4">
-              {data?.overview}
-            </p>
+            <div className="text-white drop-shadow-xl px-4">
+              <div className="text-2xl mb-2">Overview</div>
+              <div className="text-sm md:text-lg text-justify">
+                {data?.overview}
+              </div>
+            </div>
+            <div className="flex justify-between relative gap-3 text-white px-4">
+              {director?.length > 0 && (
+                <div className="text-sm md:text-lg">
+                  <span className="font-bold">Director: </span>
+                  <span className="opacity-60">
+                    {director?.map((d: any, i: number) => (
+                      <span key={i}>
+                        {d.name}
+                        {director.length - 1 !== i && ", "}
+                      </span>
+                    ))}
+                  </span>
+                </div>
+              )}
+              {writer?.length > 0 && (
+                <div className="text-sm md:text-lg">
+                  <span className="font-bold">Writer: </span>
+                  <span className="opacity-60">
+                    {writer?.map((d: any, i: number) => (
+                      <span key={i}>
+                        {d.name}
+                        {writer.length - 1 !== i && ", "}
+                      </span>
+                    ))}
+                  </span>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
+      <Cast cast={credits?.cast} />
       <div className="pb-20">
         <MediaList
           title="Similar Movies"
