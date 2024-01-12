@@ -6,18 +6,18 @@ interface VideoEmbeddingProps {
 
 const VideoEmbedding: React.FC<VideoEmbeddingProps> = ({ embedURL }) => {
   return (
-    <>
+    <div className="relative pb-[56.29%] max-w-full block mx-auto overflow-hidden">
       <iframe
         src={embedURL}
-        width="100%"
-        height="100%"
         frameBorder="0"
         allowFullScreen
         scrolling="no"
         seamless
         allow="autoplay"
+        className="absolute top-0 left-0 w-full h-full"
+        referrerPolicy="no-referrer"
       ></iframe>
-    </>
+    </div>
   );
 };
 

@@ -42,6 +42,17 @@ body::-webkit-scrollbar {
   }
 }
 
-.react-multi-carousel-arrow {
-  z-index: 1; /* Set a lower z-index value to make sure other elements are on top */
+.dotfilter::before {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle, #777 1px, transparent 1px);
+  background-size: 3px 3px;
+  pointer-events: none;
+  backdrop-filter: blur(2px);
 }
+

@@ -1,6 +1,6 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
-import { BsBell, BsChevronDown } from "react-icons/bs";
+import { BsChevronDown } from "react-icons/bs";
 import { AiOutlineSearch } from "react-icons/ai";
 import { NavbarItem, MobileMenu, AccountMenu, SearchBar } from ".";
 import { usePathname, useRouter } from "next/navigation";

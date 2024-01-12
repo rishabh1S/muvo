@@ -49,6 +49,10 @@ const TvSelection = () => {
   const [show, setShow] = useState(false);
   const [videoKey, setVideoKey] = useState("");
   const isComingSoon = new Date(data?.first_air_date) > new Date();
+  console.log(credits);
+  const creator = credits?.crew.filter(
+    (f: any) => f.job === "Executive Producer" || f.job === "Producer"
+  );
   const key =
     data?.videos?.results.find(
       (video: { type: string }) => video.type === "Trailer"
@@ -166,6 +170,21 @@ const TvSelection = () => {
                 {data?.overview}
               </div>
             </div>
+            <div className="flex justify-between relative gap-3 text-white px-4">
+              {creator?.length > 0 && (
+                <div className="text-sm md:text-lg">
+                  <span className="font-bold">Creators: </span>
+                  <span className="opacity-60">
+                    {creator?.map((d: any, i: number) => (
+                      <span key={i}>
+                        {d.name}
+                        {creator.length - 1 !== i && ", "}
+                      </span>
+                    ))}
+                  </span>
+                </div>
+              )}
+            </div>
           </div>
         </div>
         <Carousel
@@ -186,7 +205,7 @@ const TvSelection = () => {
               i: number
             ) => (
               <Link
-                href={`/streamtv/${data.id}/${season.season_number}`}
+                href={`/streamtv/${data.id}/${season.season_number}/1`}
                 passHref
                 className="block border border-gray-800 rounded shadow hover:bg-gray-800 transition duration-300 relative group hover:scale-105"
                 key={i}
@@ -211,7 +230,7 @@ const TvSelection = () => {
       <Cast cast={credits?.cast} />
       <div className="pb-20">
         <MediaList
-          title="Similar Tv shows"
+          title="Similar TV Shows"
           data={mediaSimilar}
           mediaType="tv"
         />

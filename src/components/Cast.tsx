@@ -47,11 +47,19 @@ const Cast: React.FC<CastProps> = ({ cast }) => {
         >
           {cast?.map((item) => (
             <div key={item.id} className="text-center text-white">
-              <div className="w-32 h-36 rounded-full overflow-hidden mb-4">
+              <div
+                className="w-32 h-36 rounded-full mb-4 relative overflow-hidden bg-cover bg-no-repeat group"
+                onClick={() =>
+                  window.open(
+                    `https://www.google.com/search?q=${item.name}`,
+                    "_blank"
+                  )
+                }
+              >
                 <img
                   src={item.profile_path ? baseUrl + item.profile_path : avatar}
                   alt={item.name}
-                  className="w-full h-full object-cover object-top block"
+                  className="w-full h-full object-cover object-top block cursor-pointer transition duration-300 ease-in-out group-hover:scale-110"
                 />
               </div>
               <div className="sm:text-base text-sm font-semibold">
