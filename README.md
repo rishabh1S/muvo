@@ -1,8 +1,8 @@
-# <img src="https://res.cloudinary.com/dnp36kqdc/image/upload/v1700767382/NextFlix/logo_pvnh62.png" width="90" height="30"> Netflix Clone - Your Amazing OTT
+# <img src="https://res.cloudinary.com/dnp36kqdc/image/upload/v1705153097/Muvo/muvo_logo.png" width="90" height="30"> Netflix Clone - Your Amazing OTT
 
 Welcome to Muvo, a Netflix clone built with NextJS, MongoDB, Prisma, and more! This project aims to replicate the core features of Netflix, providing users with a seamless streaming experience.
 
-<img src="https://res.cloudinary.com/dnp36kqdc/image/upload/v1700490888/CDN%20for%20portfolio/NextFlix_rbmftu.png" width="800">
+<img src="https://res.cloudinary.com/dnp36kqdc/image/upload/v1705152988/CDN%20for%20portfolio/Muvo.png" width="800">
 
 ## Table of Contents
 
