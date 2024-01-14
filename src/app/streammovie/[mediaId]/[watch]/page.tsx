@@ -24,7 +24,6 @@ const Watch = () => {
   const { mediaId } = params;
   const mediaType = "movie";
   const { data, isLoading } = useMedia(mediaType, mediaId);
-  console.log(data);
   if (isLoading) {
     <CircleLoader />;
   }

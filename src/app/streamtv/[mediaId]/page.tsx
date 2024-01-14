@@ -42,13 +42,12 @@ const TvSelection = () => {
   const { isOpen, closeModal } = useInfoModal();
   const [show, setShow] = useState(false);
   const [videoKey, setVideoKey] = useState("");
-  const [selectedSeason, setSelectedSeason] = useState(data?.seasons[1]);
+  const [selectedSeason, setSelectedSeason] = useState(data?.seasons[0]);
   const { data: episodeDetails } = useEpisode(
     mediaId,
-    selectedSeason.season_number
+    selectedSeason?.season_number || 1
   );
   const isComingSoon = new Date(data?.first_air_date) > new Date();
-  console.log(episodeDetails);
   const creator = credits?.crew.filter(
     (f: any) => f.job === "Executive Producer" || f.job === "Producer"
   );
@@ -241,17 +240,14 @@ const TvSelection = () => {
         </div>
         <div className="py-4 text-white text-lg">
           <div className="font-semibold text-base">
-            Release Year:{" "}
-            {selectedSeason
-              ? new Date(selectedSeason.air_date).getFullYear()
-              : ""}
+            Release Year: {new Date(episodeDetails?.air_date).getFullYear()}
           </div>
           <div className="text-zinc-300 font-light text-base w-3/4">
-            {selectedSeason?.overview || data?.overview}
+            {episodeDetails?.overview || data?.overview}
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 py-2">
-          {episodeDetails?.episodes.map((episode: Episode) => (
+          {episodeDetails?.episodes?.map((episode: Episode) => (
             <Link
               key={episode.id}
               className="rounded-md text-white"
@@ -259,7 +255,11 @@ const TvSelection = () => {
             >
               <div className="relative overflow-hidden bg-cover bg-no-repeat group rounded-md">
                 <img
-                  src={`${baseUrl}${episode.still_path}`}
+                  src={
+                    episode.still_path
+                      ? `${baseUrl}${episode.still_path}`
+                      : "/images/no-poster.png"
+                  }
                   alt={`Episode ${episode.episode_number}`}
                   className="cursor-pointer transition duration-300 ease-in-out group-hover:scale-110 w-full h-48 object-cover"
                 />
