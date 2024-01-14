@@ -16,33 +16,18 @@ import {
   useSimilar,
   useRecommend,
   useInfoModal,
+  useEpisode,
 } from "@/src/hooks";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { Genre } from "@/src/types";
+import { Episode, Genre } from "@/src/types";
 import Link from "next/link";
 import { baseUrl } from "@/public/utils";
-import Carousel from "react-multi-carousel";
+import { FaChevronDown } from "react-icons/fa6";
 import "react-multi-carousel/lib/styles.css";
 import { RiMovie2Line } from "react-icons/ri";
 import { BsFillPlayFill } from "react-icons/bs";
 import { useSession } from "next-auth/react";
-
-const responsive = {
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 5,
-    slidesToSlide: 2,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 720 },
-    items: 3,
-  },
-  mobile: {
-    breakpoint: { max: 720, min: 0 },
-    items: 2,
-  },
-};
 
 const TvSelection = () => {
   const session = useSession();
@@ -57,8 +42,13 @@ const TvSelection = () => {
   const { isOpen, closeModal } = useInfoModal();
   const [show, setShow] = useState(false);
   const [videoKey, setVideoKey] = useState("");
+  const [selectedSeason, setSelectedSeason] = useState(data?.seasons[1]);
+  const { data: episodeDetails } = useEpisode(
+    mediaId,
+    selectedSeason.season_number
+  );
   const isComingSoon = new Date(data?.first_air_date) > new Date();
-  console.log(credits);
+  console.log(episodeDetails);
   const creator = credits?.crew.filter(
     (f: any) => f.job === "Executive Producer" || f.job === "Producer"
   );
@@ -76,6 +66,15 @@ const TvSelection = () => {
     };
   }, [session?.status, router, closeModal, mediaId]);
 
+  const handleSeasonChange = (event: { target: { value: any } }) => {
+    const selectedSeasonNumber = Number(event.target.value);
+    const selectedSeasonData = data?.seasons.find(
+      (season: { season_number: number }) =>
+        season.season_number === selectedSeasonNumber
+    );
+    setSelectedSeason(selectedSeasonData);
+  };
+
   if (isLoading) {
     return <CircleLoader />;
   }
@@ -84,16 +83,16 @@ const TvSelection = () => {
     <div className="bg-body min-h-screen">
       <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar />
-      <div className="sm:h-[400px] h-[300px] relative overflow-hidden">
-        <div className="absolute left-0 right-0 top-0 bottom-0 bg-gradient-to-b from-transparent via-transparent to-body"></div>
+      <div className="sm:h-[500px] h-[300px] relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-body/50 to-body"></div>
         <img
           src={`${baseUrl}/${data?.backdrop_path}`}
           alt="data?.title"
           className="w-full h-auto"
         ></img>
       </div>
-      <div className="max-w-7xl mx-auto p-4 flex flex-col gap-12 pb-12">
-        <div className="-mt-[180px] flex sm:flex-row flex-col items-center relative z-10 gap-3">
+      <div className="max-w-7xl mx-auto p-4 flex flex-col gap-12 pb-6">
+        <div className="-mt-[250px] flex sm:flex-row flex-col items-center relative z-10 gap-3">
           <img
             src={`${baseUrl}/${data?.poster_path}`}
             alt="data?.title"
@@ -178,15 +177,17 @@ const TvSelection = () => {
               <FavoriteButton mediaType="tv" mediaId={data?.id.toString()} />
             </div>
             <div className="text-white drop-shadow-xl px-4">
-              <div className="text-2xl mb-2">Overview</div>
+              <div className="text-3xl mb-2 font-light">Overview</div>
               <div className="text-sm md:text-lg text-justify">
                 {data?.overview}
               </div>
             </div>
             <div className="flex justify-between relative gap-3 text-white px-4">
               {creator?.length > 0 && (
-                <div className="text-sm md:text-lg">
-                  <span className="font-bold">Creators: </span>
+                <div className="text-sm md:text-base">
+                  <span className="font-bold text-sm md:text-lg">
+                    Creators:{" "}
+                  </span>
                   <span className="opacity-60">
                     {creator?.map((d: any, i: number) => (
                       <span key={i}>
@@ -200,47 +201,83 @@ const TvSelection = () => {
             </div>
           </div>
         </div>
-        <Carousel
-          responsive={responsive}
-          infinite={true}
-          ssr={true}
-          containerClass="-mx-[10px]"
-          itemClass="px-2"
-          removeArrowOnDeviceType={["tablet", "mobile"]}
-        >
-          {data?.seasons.map(
-            (
-              season: {
-                name: string;
-                poster_path: string | null;
-                season_number: number;
-              },
-              i: number
-            ) => (
-              <Link
-                href={`/streamtv/${data.id}/${season.season_number}/1`}
-                passHref
-                className="block border border-gray-800 rounded shadow hover:bg-gray-800 transition duration-300 relative group hover:scale-105"
-                key={i}
-              >
-                <div className="relative overflow-hidden aspect-w-4 aspect-h-3">
-                  <img
-                    src={`${baseUrl}/${
-                      season?.poster_path || data?.backdrop_path
-                    }`}
-                    alt={`Season ${season.name} Cover`}
-                    className="object-cover w-full h-full group-hover:opacity-70"
-                  />
-                </div>
-                <div className="absolute top-2 left-2 bg-black bg-opacity-60 p-1 rounded">
-                  <span className="font-bold text-white">{season.name}</span>
-                </div>
-              </Link>
-            )
-          )}
-        </Carousel>
       </div>
       <Cast cast={credits?.cast} />
+      <section className="px-4 md:px-12 py-4">
+        <div className="text-white text-3xl sm:mb-4 flex items-end gap-2">
+          Episodes{" "}
+          <span className="border-l border-gray-500 pl-2 text-xl text-gray-300">
+            {data?.name}
+          </span>
+        </div>
+        <div className="relative inline-block">
+          <select
+            className="h-10 text-xl pr-10 bg-transparent text-white border-none focus:outline-none appearance-none cursor-pointer"
+            onChange={handleSeasonChange}
+          >
+            {data?.seasons
+              .filter((season: { name: string }) => season.name !== "Specials")
+              .map(
+                (
+                  season: {
+                    name: string;
+                    season_number: number;
+                  },
+                  i: number
+                ) => (
+                  <option
+                    key={i}
+                    value={season.season_number}
+                    className="bg-black"
+                  >
+                    {season.name}
+                  </option>
+                )
+              )}
+          </select>
+          <div className="absolute inset-y-0 right-0 flex items-center pointer-events-none">
+            <FaChevronDown className="text-[#8dc53e]" />
+          </div>
+        </div>
+        <div className="py-4 text-white text-lg">
+          <div className="font-semibold text-base">
+            Release Year:{" "}
+            {selectedSeason
+              ? new Date(selectedSeason.air_date).getFullYear()
+              : ""}
+          </div>
+          <div className="text-zinc-300 font-light text-base w-3/4">
+            {selectedSeason?.overview || data?.overview}
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 py-2">
+          {episodeDetails?.episodes.map((episode: Episode) => (
+            <Link
+              key={episode.id}
+              className="rounded-md text-white"
+              href={`/streamtv/${mediaId}/${episode.season_number}/${episode.episode_number}`}
+            >
+              <div className="relative overflow-hidden bg-cover bg-no-repeat group rounded-md">
+                <img
+                  src={`${baseUrl}${episode.still_path}`}
+                  alt={`Episode ${episode.episode_number}`}
+                  className="cursor-pointer transition duration-300 ease-in-out group-hover:scale-110 w-full h-48 object-cover"
+                />
+              </div>
+              <div className="my-3 font-semibold flex justify-between">
+                <span>
+                  {episode.episode_number}. {episode.name}
+                </span>
+                <span className="font-extralight">{episode.runtime}m</span>
+              </div>
+              <p className="text-zinc-400 font-light text-sm text-justify">
+                {episode.overview.split(" ").slice(0, 25).join(" ")}
+                {episode.overview.split(" ").length > 25 ? "..." : ""}
+              </p>
+            </Link>
+          ))}
+        </div>
+      </section>
       <MediaList
         title="Recommended TV Shows"
         data={mediaRecommended}

@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import serverAuth from "@/src/libs/serverAuth";
-import { getRecommendedTVorMovies } from "@/public/utils";
+import { getTVEpisodeDetailsByIDandSeason } from "@/public/utils";
 
 export default async function handler(
   req: NextApiRequest,
@@ -13,14 +13,14 @@ export default async function handler(
 
     await serverAuth(req, res);
 
-    const { mediaType, mediaId } = req.query;
+    const { mediaId, season } = req.query;
 
-    const recommendedMedias = await getRecommendedTVorMovies(
-      mediaType as string,
-      mediaId as string
+    const episodeDetails = await getTVEpisodeDetailsByIDandSeason(
+      mediaId as string,
+      season as string
     );
 
-    return res.status(200).json(recommendedMedias);
+    return res.status(200).json(episodeDetails);
   } catch (error) {
     console.log(error);
 

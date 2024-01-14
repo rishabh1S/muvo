@@ -2,8 +2,9 @@
 import React from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { useParams, useRouter } from "next/navigation";
-import { useMedia } from "@/src/hooks";
+import { useEpisode, useMedia } from "@/src/hooks";
 import { baseUrl, embedTvShowUrl } from "@/public/utils";
+import { Episode } from "@/src/types";
 import {
   CircleLoader,
   CircleRating,
@@ -27,6 +28,8 @@ const Episode = () => {
   const { mediaId, season, episode } = params;
   const mediaType = "tv";
   const { data, isLoading } = useMedia(mediaType, mediaId);
+  const { data: episodeDetails } = useEpisode(mediaId, season);
+  const episodeInfo = episodeDetails?.episodes[episode];
   const seasonInfo = data?.seasons.find(
     (s: { season_number: number }) => s.season_number === Number(season)
   );
@@ -48,7 +51,6 @@ const Episode = () => {
   if (isLoading) {
     return <CircleLoader />;
   }
-  console.log(seasonInfo);
   return (
     <div className="relative min-h-screen">
       <nav className="w-full fixed z-40">
@@ -96,46 +98,49 @@ const Episode = () => {
       <div className="relative z-10 pt-20">
         <div className="grid grid-cols-1 grid-rows-4 gap-4 lg:grid-cols-7 lg:grid-rows-5 sm:px-8 px-2 py-4">
           <div className="lg:col-span-5 lg:row-span-5 row-span-4 flex lg:flex-row flex-col-reverse">
-            <div className="lg:w-1/5 bg-zinc-950">
+            <div className="lg:w-1/4 bg-zinc-950">
               <div className="text-white p-4 text-sm font-medium">
                 List of Episodes:
               </div>
               <ul className="overflow-y-auto max-h-screen">
-                {Array.from(
-                  { length: seasonInfo?.episode_count },
-                  (_, index) => (
-                    <Link
-                      key={index + 1}
-                      href={`/streamtv/${mediaId}/${season}/${index + 1}`}
-                      passHref
+                {episodeDetails?.episodes.map((e: Episode) => (
+                  <Link
+                    key={e.id}
+                    href={`/streamtv/${mediaId}/${season}/${e.episode_number}`}
+                    passHref
+                  >
+                    <li
+                      className={`p-2 cursor-pointer ${
+                        Number(episode) === e.episode_number
+                          ? "border-l-4 border-[#8dc53e] text-[#8dc53e]"
+                          : "text-white"
+                      }
+                        ${
+                          (e.episode_number + 1) % 2 === 0
+                            ? "bg-[#1E1F21] hover:bg-zinc-700"
+                            : "bg-[#121315] hover:bg-zinc-700"
+                        }`}
+                      title={e.name}
                     >
-                      <li
-                        className={`p-2 text-white cursor-pointer ${
-                          Number(episode) === index + 1
-                            ? "border-l-4 border-[#8dc53e] text-[#8dc53e]"
-                            : ""
-                        }
-                    ${
-                      index % 2 === 0
-                        ? "bg-[#18181b] hover:bg-zinc-700"
-                        : "bg-[#09090b] hover:bg-zinc-700"
-                    }`}
-                      >
-                        <div className="flex justify-between items-center">
-                          Episode {index + 1}
-                          {Number(episode) === index + 1 && (
-                            <span className="ml-2">
-                              <FaRegCirclePlay size={22} />
-                            </span>
-                          )}
-                        </div>
-                      </li>
-                    </Link>
-                  )
-                )}
+                      <div className="flex items-center">
+                        <span className="pr-4 font-semibold">
+                          {e.episode_number}
+                        </span>
+                        <span className="font-light overflow-hidden overflow-ellipsis whitespace-nowrap">
+                          {e.name}
+                        </span>
+                        {Number(episode) === e.episode_number && (
+                          <span className="ml-auto">
+                            <FaRegCirclePlay size={22} />
+                          </span>
+                        )}
+                      </div>
+                    </li>
+                  </Link>
+                ))}
               </ul>
             </div>
-            <div className="lg:w-4/5 flex flex-col bg-[#060002] text-white">
+            <div className="lg:w-3/4 flex flex-col bg-[#060002] text-white">
               <div>
                 <VideoEmbedding embedURL={episodeURL} />
               </div>
@@ -147,7 +152,29 @@ const Episode = () => {
                   by clicking on cloud icon.
                 </div>
               </div>
-              <div className="px-4 py-4 font-semibold text-lg">
+              <div className="p-4 rounded-lg shadow-lg">
+                <div className="text-white font-semibold text-xl mb-2">
+                  More about this episode
+                </div>
+                <div className="text-gray-400 flex justify-between">
+                  <span className="text-sm">
+                    {new Date(episodeInfo?.air_date).toLocaleDateString(
+                      "en-US",
+                      {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      }
+                    )}
+                  </span>
+                  <span className="text-sm">{episodeInfo?.runtime}m</span>
+                </div>
+                <p className="text-gray-300 text-sm mt-3 text-justify">
+                  {episodeInfo?.overview}
+                </p>
+              </div>
+
+              <div className="p-4 font-semibold text-lg">
                 Watch more seasons of this show
                 <div className="grid sm:grid-cols-4 grid-cols-2 gap-4 py-4">
                   {data?.seasons.map(

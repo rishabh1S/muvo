@@ -145,6 +145,26 @@ export const getTVorMovieDetailsByID = async (type: string, id: string) => {
   }
 };
 
+export const getTVEpisodeDetailsByIDandSeason = async (
+  id: string,
+  season: string
+) => {
+  try {
+    const res = await fetch(
+      `${BASE_URL}/tv/${id}/season/${season}?api_key=${API_KEY}&language=en-US`,
+      {
+        method: "GET",
+      }
+    );
+
+    const data = await res.json();
+
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const getRecommendedTVorMovies = async (type: string, id: string) => {
   try {
     const res = await fetch(

@@ -215,7 +215,7 @@ const MovieSelection = () => {
       </div>
       <Cast cast={credits?.cast} />
       <MediaList
-        title="Recommended TV Shows"
+        title="Recommended Movies"
         data={mediaRecommended}
         mediaType="movie"
       />

@@ -7,6 +7,7 @@ import useMediaList from "./useMediaList";
 import useRecommend from "./useRecommend";
 import useSimilar from "./useSimilar";
 import useCredits from "./useCredits";
+import useEpisode from "./useEpisode";
 
 export {
   useBillboard,
@@ -17,5 +18,6 @@ export {
   useMediaList,
   useRecommend,
   useSimilar,
+  useEpisode,
   useCredits,
 };
