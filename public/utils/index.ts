@@ -145,6 +145,23 @@ export const getTVorMovieDetailsByID = async (type: string, id: string) => {
   }
 };
 
+export const getRecommendedTVorMovies = async (type: string, id: string) => {
+  try {
+    const res = await fetch(
+      `${BASE_URL}/${type}/${id}/recommendations?api_key=${API_KEY}&language=en-US`,
+      {
+        method: "GET",
+      }
+    );
+
+    const data = await res.json();
+
+    return data && data.results;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const getSimilarTVorMovies = async (type: string, id: string) => {
   try {
     const res = await fetch(

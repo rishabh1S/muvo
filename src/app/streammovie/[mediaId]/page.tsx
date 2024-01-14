@@ -8,8 +8,15 @@ import {
   Navbar,
   VideoModal,
   Cast,
+  InfoModal,
 } from "@/src/components";
-import { useCredits, useMedia, useSimilar } from "@/src/hooks";
+import {
+  useCredits,
+  useInfoModal,
+  useMedia,
+  useRecommend,
+  useSimilar,
+} from "@/src/hooks";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Genre } from "@/src/types";
@@ -28,7 +35,9 @@ const MovieSelection = () => {
   const mediaType = "movie";
   const { data, isLoading } = useMedia(mediaType, mediaId);
   const { data: credits } = useCredits(mediaType, mediaId);
+  const { data: mediaRecommended } = useRecommend(mediaType, mediaId);
   const { data: mediaSimilar } = useSimilar(mediaType, mediaId);
+  const { isOpen, closeModal } = useInfoModal();
   const [show, setShow] = useState(false);
   const [videoKey, setVideoKey] = useState("");
   const isComingSoon = new Date(data?.release_date) > new Date();
@@ -46,7 +55,10 @@ const MovieSelection = () => {
     if (session?.status !== "authenticated") {
       router.push("/auth");
     }
-  }, [session?.status, router]);
+    return () => {
+      closeModal();
+    };
+  }, [session?.status, router, closeModal, mediaId]);
 
   if (isLoading) {
     return <CircleLoader />;
@@ -54,6 +66,7 @@ const MovieSelection = () => {
 
   return (
     <div className="bg-body min-h-screen">
+      <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar />
       <div className="sm:h-[400px] h-[300px] relative overflow-hidden">
         <div className="absolute left-0 right-0 top-0 bottom-0 bg-gradient-to-b from-transparent via-transparent to-body"></div>
@@ -201,6 +214,11 @@ const MovieSelection = () => {
         </div>
       </div>
       <Cast cast={credits?.cast} />
+      <MediaList
+        title="Recommended TV Shows"
+        data={mediaRecommended}
+        mediaType="movie"
+      />
       <div className="pb-20">
         <MediaList
           title="Similar Movies"
