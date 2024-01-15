@@ -52,8 +52,8 @@ const Navbar = () => {
         <div className="flex-row ml-8 gap-7 hidden lg:flex">
           <NavbarItem label="Home" href="/" />
           <NavbarItem label="Movies" href="/movies" />
-          <NavbarItem label="Series" href="/series" />
-          <NavbarItem label="My List" href="/favlist" />
+          <NavbarItem label="TV Shows" href="/shows" />
+          <NavbarItem label="Favourites" href="/favlist" />
         </div>
         <div
           onClick={toggleMobileMenu}

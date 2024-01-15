@@ -10,7 +10,13 @@ import {
   Cast,
   InfoModal,
 } from "@/src/components";
-import { useCredits, useInfoModal, useMedia, useRecommend } from "@/src/hooks";
+import {
+  useCredits,
+  useInfoModal,
+  useMedia,
+  useRecommend,
+  useSimilar,
+} from "@/src/hooks";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Genre } from "@/src/types";
@@ -30,6 +36,7 @@ const MovieSelection = () => {
   const { data, isLoading } = useMedia(mediaType, mediaId);
   const { data: credits } = useCredits(mediaType, mediaId);
   const { data: mediaRecommended } = useRecommend(mediaType, mediaId);
+  const { data: mediaSimilar } = useSimilar(mediaType, mediaId);
   const { isOpen, closeModal } = useInfoModal();
   const [show, setShow] = useState(false);
   const [videoKey, setVideoKey] = useState("");
@@ -126,7 +133,7 @@ const MovieSelection = () => {
             <div className="flex items-center justify-center gap-4">
               {!isComingSoon ? (
                 <Link
-                  href={`/streammovie/${mediaId}/watch`}
+                  href={`/movies/${mediaId}/watch`}
                   passHref
                   className="bg-white rounded-md py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-neutral-300 transition text-black"
                 >
@@ -211,10 +218,15 @@ const MovieSelection = () => {
         </div>
       </div>
       <Cast cast={credits?.cast} />
+      <MediaList
+        title="Recommended Movies"
+        data={mediaRecommended}
+        mediaType="movie"
+      />
       <div className="pb-20">
         <MediaList
-          title="More Like This"
-          data={mediaRecommended}
+          title="Similar Movies"
+          data={mediaSimilar}
           mediaType="movie"
         />
       </div>

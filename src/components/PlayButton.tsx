@@ -14,8 +14,8 @@ const PlayButton: React.FC<PlayButtonProps> = ({ mediaType, mediaId }) => {
     <button
       onClick={() =>
         mediaType === "tv"
-          ? router.push(`/streamtv/${mediaId}`)
-          : router.push(`/streammovie/${mediaId}`)
+          ? router.push(`/shows/${mediaId}`)
+          : router.push(`/movies/${mediaId}`)
       }
       className="
         bg-white 

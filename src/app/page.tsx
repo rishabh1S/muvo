@@ -52,7 +52,7 @@ export default function Home() {
           data={moviesPopular}
           mediaType="movie"
         />
-        <MediaList title="Popular Series" data={tvPopular} mediaType="tv" />
+        <MediaList title="Popular Tv Shows" data={tvPopular} mediaType="tv" />
         <MediaList
           title="Top Rated Movies"
           data={moviesToprated}

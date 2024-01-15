@@ -16,6 +16,7 @@ import {
   useRecommend,
   useInfoModal,
   useEpisode,
+  useSimilar,
 } from "@/src/hooks";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -37,6 +38,7 @@ const TvSelection = () => {
   const { data, isLoading } = useMedia(mediaType, mediaId);
   const { data: credits } = useCredits(mediaType, mediaId);
   const { data: mediaRecommended } = useRecommend(mediaType, mediaId);
+  const { data: mediaSimilar } = useSimilar(mediaType, mediaId);
   const { isOpen, closeModal } = useInfoModal();
   const [show, setShow] = useState(false);
   const [videoKey, setVideoKey] = useState("");
@@ -130,7 +132,7 @@ const TvSelection = () => {
             <div className="flex items-center justify-center gap-4">
               {!isComingSoon ? (
                 <Link
-                  href={`/streamtv/${mediaId}/1/1`}
+                  href={`/shows/${mediaId}/1/1`}
                   passHref
                   className="bg-white rounded-md py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-neutral-300 transition text-black"
                 >
@@ -249,7 +251,7 @@ const TvSelection = () => {
             <Link
               key={episode.id}
               className="rounded-md text-white"
-              href={`/streamtv/${mediaId}/${episode.season_number}/${episode.episode_number}`}
+              href={`/shows/${mediaId}/${episode.season_number}/${episode.episode_number}`}
             >
               <div className="relative overflow-hidden bg-cover bg-no-repeat group">
                 <img
@@ -278,10 +280,15 @@ const TvSelection = () => {
           ))}
         </div>
       </section>
+      <MediaList
+        title="Recommended Tv Shows"
+        data={mediaRecommended}
+        mediaType="tv"
+      />
       <div className="pb-20">
         <MediaList
-          title="More Like This"
-          data={mediaRecommended}
+          title="Similar Tv Shows"
+          data={mediaSimilar}
           mediaType="tv"
         />
       </div>

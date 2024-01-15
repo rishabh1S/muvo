@@ -10,8 +10,8 @@ export const config = {
   matcher: [
     "/profiles",
     "/",
-    "/movies",
-    "/series",
+    "/movies/:path*",
+    "/shows/:path",
     "/search/:path*",
     "/favlist",
     "/streammovie/:path*",

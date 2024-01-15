@@ -35,7 +35,7 @@ const Watch = () => {
         <div className="p-6 flex items-center gap-8 bg-black bg-opacity-70 backdrop-blur-sm">
           <AiOutlineArrowLeft
             size={36}
-            onClick={() => router.push(`/streammovie/${mediaId}`)}
+            onClick={() => router.push(`/movies/${mediaId}`)}
             className="w-6 md:w-10 text-white cursor-pointer transition-transform transform hover:opacity-80 hover:-translate-x-2 duration-300"
           />
           <div className="text-white text-1xl md:text-3xl">
@@ -59,7 +59,7 @@ const Watch = () => {
                 List of Episodes:
               </div>
               <ul className="overflow-y-auto max-h-screen">
-                <Link href={`/streammovie/${mediaId}/watch`} passHref>
+                <Link href={`/movies/${mediaId}/watch`} passHref>
                   <li className="p-2 cursor-pointer border-l-4 border-[#8dc53e] text-[#8dc53e] bg-[#18181b] hover:bg-zinc-700">
                     <div className="flex justify-between items-center">
                       1. Full
@@ -146,7 +146,7 @@ const Watch = () => {
             <div className="flex sm:justify-start justify-center gap-4">
               <button
                 type="button"
-                onClick={() => router.push(`/streammovie/${mediaId}`)}
+                onClick={() => router.push(`/movies/${mediaId}`)}
                 className="text-white bg-[#050708]/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center flex gap-2 items-center hover:bg-[#050708] my-3"
               >
                 View Details <MdInfoOutline size={22} />

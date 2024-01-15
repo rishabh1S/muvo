@@ -21,8 +21,8 @@ const MediaCard: React.FC<MediaCardProps> = ({ data, mediaType }) => {
   const redirectToWatch = useCallback(
     () =>
       mediaType === "tv"
-        ? router.push(`/streamtv/${data.id}`)
-        : router.push(`/streammovie/${data.id}`),
+        ? router.push(`/shows/${data.id}`)
+        : router.push(`/movies/${data.id}`),
     [router, data.id, mediaType]
   );
 

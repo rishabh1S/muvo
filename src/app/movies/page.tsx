@@ -31,7 +31,7 @@ export default function Movies() {
       <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar />
       <Billboard mediaType="movie" />
-      <div className="pb-40">
+      <div className="sm:pb-40 pb-10">
         <MediaList
           title="Trending Now"
           data={moviesTrending}

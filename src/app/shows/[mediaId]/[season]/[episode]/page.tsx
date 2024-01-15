@@ -40,12 +40,12 @@ const Episode = () => {
 
   const goToPreviousEpisode = () => {
     const previousEpisode = Math.max(Number(episode) - 1, 1);
-    router.push(`/streamtv/${mediaId}/${season}/${previousEpisode}`);
+    router.push(`/shows/${mediaId}/${season}/${previousEpisode}`);
   };
 
   const goToNextEpisode = () => {
     const nextEpisode = Math.min(Number(episode) + 1, episodeCount);
-    router.push(`/streamtv/${mediaId}/${season}/${nextEpisode}`);
+    router.push(`/shows/${mediaId}/${season}/${nextEpisode}`);
   };
 
   if (isLoading) {
@@ -58,7 +58,7 @@ const Episode = () => {
           <div className="flex gap-4">
             <AiOutlineArrowLeft
               size={36}
-              onClick={() => router.push(`/streamtv/${mediaId}`)}
+              onClick={() => router.push(`/shows/${mediaId}`)}
               className="w-6 md:w-10 text-white cursor-pointer transition-transform transform hover:opacity-80 hover:-translate-x-2 duration-300"
             />
             <div className="text-white text-1xl md:text-3xl">
@@ -106,7 +106,7 @@ const Episode = () => {
                 {episodeDetails?.episodes.map((e: Episode) => (
                   <Link
                     key={e.id}
-                    href={`/streamtv/${mediaId}/${season}/${e.episode_number}`}
+                    href={`/shows/${mediaId}/${season}/${e.episode_number}`}
                     passHref
                   >
                     <li
@@ -199,9 +199,7 @@ const Episode = () => {
                           })`,
                         }}
                         onClick={() =>
-                          router.push(
-                            `/streamtv/${data.id}/${s.season_number}/1`
-                          )
+                          router.push(`/shows/${data.id}/${s.season_number}/1`)
                         }
                       >
                         <div className="absolute top-0 left-0 w-full h-full dotfilter z-10" />
@@ -264,7 +262,7 @@ const Episode = () => {
             <div className="flex sm:justify-start justify-center gap-4">
               <button
                 type="button"
-                onClick={() => router.push(`/streamtv/${mediaId}`)}
+                onClick={() => router.push(`/shows/${mediaId}`)}
                 className="text-white bg-[#050708]/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center flex gap-2 items-center hover:bg-[#050708] my-3"
               >
                 View Details <MdInfoOutline size={22} />

@@ -37,11 +37,11 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/series"
+                  href="/shows"
                   passHref
                   className="hover:text-gray-300 cursor-pointer"
                 >
-                  Series
+                  Shows
                 </Link>
               </li>
               <li>
