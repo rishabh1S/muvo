@@ -10,6 +10,20 @@ interface VideoModalProps {
   setVideoKey: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
+const useScrollControl = (show: boolean) => {
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [show]);
+};
+
 const VideoModal: React.FC<VideoModalProps> = ({
   show,
   setShow,
@@ -23,6 +37,8 @@ const VideoModal: React.FC<VideoModalProps> = ({
     setVideoKey(null);
   }, [setShow, setVideoKey]);
 
+  useScrollControl(show);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -35,6 +51,8 @@ const VideoModal: React.FC<VideoModalProps> = ({
 
     if (show) {
       document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
@@ -48,10 +66,7 @@ const VideoModal: React.FC<VideoModalProps> = ({
         show ? "visible" : "invisible"
       } z-50`}
     >
-      <div
-        ref={modalRef}
-        className="relative lg:h-[450px] md:h-96 aspect-video"
-      >
+      <div ref={modalRef} className="relative md:h-96 h-56 aspect-video">
         <VideoPlayer
           url={`${baseYoutubeUrl}${videoKey}`}
           muted={false}
