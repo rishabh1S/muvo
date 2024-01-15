@@ -61,9 +61,12 @@ const Watch = () => {
               <ul className="overflow-y-auto max-h-screen">
                 <Link href={`/movies/${mediaId}/watch`} passHref>
                   <li className="p-2 cursor-pointer border-l-4 border-[#8dc53e] text-[#8dc53e] bg-[#18181b] hover:bg-zinc-700">
-                    <div className="flex justify-between items-center">
-                      1. Full
-                      <span className="ml-2">
+                    <div className="flex items-center">
+                      <span className="pr-4 font-semibold">1</span>
+                      <span className="font-light overflow-hidden overflow-ellipsis whitespace-nowrap">
+                        Full
+                      </span>
+                      <span className="ml-auto">
                         <FaRegCirclePlay size={22} />
                       </span>
                     </div>
@@ -80,7 +83,7 @@ const Watch = () => {
                 <span className="font-bold">{data?.title || data?.name}</span>.
                 <div className="font-thin">
                   If current server doesn&apos;t work please try other servers
-                  by clicking on cloud icon.
+                  by clicking on servers icon.
                 </div>
               </div>
             </div>

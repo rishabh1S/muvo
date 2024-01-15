@@ -9,6 +9,7 @@ import {
   MediaList,
   Cast,
   InfoModal,
+  MediaVideos,
 } from "@/src/components";
 import {
   useCredits,
@@ -18,7 +19,7 @@ import {
   useEpisode,
   useSimilar,
 } from "@/src/hooks";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Episode, Genre } from "@/src/types";
 import Link from "next/link";
@@ -32,6 +33,7 @@ import { useSession } from "next-auth/react";
 const TvSelection = () => {
   const session = useSession();
   const router = useRouter();
+  const path = usePathname();
   const params = useParams() as { mediaId: string };
   const { mediaId } = params;
   const mediaType = "tv";
@@ -63,7 +65,7 @@ const TvSelection = () => {
     return () => {
       closeModal();
     };
-  }, [session?.status, router, closeModal, mediaId]);
+  }, [session?.status, router, closeModal, path]);
 
   const handleSeasonChange = (event: { target: { value: any } }) => {
     const selectedSeasonNumber = Number(event.target.value);
@@ -280,6 +282,14 @@ const TvSelection = () => {
           ))}
         </div>
       </section>
+      {data?.videos?.results?.length > 0 && (
+        <MediaVideos
+          title="Official Videos"
+          videos={data?.videos}
+          setShow={setShow}
+          setVideoKey={setVideoKey}
+        />
+      )}
       <MediaList
         title="Recommended Tv Shows"
         data={mediaRecommended}

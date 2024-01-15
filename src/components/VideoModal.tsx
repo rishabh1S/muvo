@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 import { VideoPlayer } from ".";
 import { baseYoutubeUrl } from "@/public/utils";
 import { AiOutlineClose } from "react-icons/ai";
@@ -16,10 +16,31 @@ const VideoModal: React.FC<VideoModalProps> = ({
   videoKey,
   setVideoKey,
 }) => {
-  const hidePopup = () => {
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const hidePopup = useCallback(() => {
     setShow(false);
     setVideoKey(null);
-  };
+  }, [setShow, setVideoKey]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        hidePopup();
+      }
+    };
+
+    if (show) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [show, hidePopup]);
 
   return (
     <div
@@ -27,7 +48,10 @@ const VideoModal: React.FC<VideoModalProps> = ({
         show ? "visible" : "invisible"
       } z-50`}
     >
-      <div className="relative lg:h-[450px] md:h-96 aspect-video">
+      <div
+        ref={modalRef}
+        className="relative lg:h-[450px] md:h-96 aspect-video"
+      >
         <VideoPlayer
           url={`${baseYoutubeUrl}${videoKey}`}
           muted={false}

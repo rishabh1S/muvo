@@ -50,7 +50,7 @@ const Footer = () => {
                   passHref
                   className="hover:text-gray-300 cursor-pointer"
                 >
-                  My List
+                  Favourites
                 </Link>
               </li>
             </ul>

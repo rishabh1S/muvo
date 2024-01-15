@@ -7,6 +7,7 @@ import Billboard from "./BillBoard";
 import MediaList from "./MediaList";
 import MediaCard from "./MediaCard";
 import MediaSection from "./MediaSection";
+import MediaVideos from "./MediaVideos";
 import FavoriteButton from "./FavoriteButton";
 import PlayButton from "./PlayButton";
 import InfoModal from "./InfoModal";
@@ -30,6 +31,7 @@ export {
   MediaCard,
   MediaList,
   MediaSection,
+  MediaVideos,
   FavoriteButton,
   PlayButton,
   InfoModal,

@@ -9,6 +9,7 @@ import {
   VideoModal,
   Cast,
   InfoModal,
+  MediaVideos,
 } from "@/src/components";
 import {
   useCredits,
@@ -17,7 +18,7 @@ import {
   useRecommend,
   useSimilar,
 } from "@/src/hooks";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Genre } from "@/src/types";
 import Link from "next/link";
@@ -30,6 +31,7 @@ import { useSession } from "next-auth/react";
 const MovieSelection = () => {
   const session = useSession();
   const router = useRouter();
+  const path = usePathname();
   const params = useParams() as { mediaId: string };
   const { mediaId } = params;
   const mediaType = "movie";
@@ -58,12 +60,13 @@ const MovieSelection = () => {
     return () => {
       closeModal();
     };
-  }, [session?.status, router, closeModal, mediaId]);
+  }, [session?.status, router, closeModal, path]);
 
   if (isLoading) {
     return <CircleLoader />;
   }
 
+  console.log(data);
   return (
     <div className="bg-body min-h-screen">
       <InfoModal visible={isOpen} onClose={closeModal} />
@@ -218,6 +221,14 @@ const MovieSelection = () => {
         </div>
       </div>
       <Cast cast={credits?.cast} />
+      {data?.videos?.results?.length > 0 && (
+        <MediaVideos
+          title="Official Videos"
+          videos={data?.videos}
+          setShow={setShow}
+          setVideoKey={setVideoKey}
+        />
+      )}
       <MediaList
         title="Recommended Movies"
         data={mediaRecommended}

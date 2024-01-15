@@ -23,7 +23,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ visible }) => {
           <NavbarItem label="Tv Shows" href="/shows" />
         </div>
         <div className="px-3 text-center text-white">
-          <NavbarItem label="My List" href="/favlist" />
+          <NavbarItem label="Favourites" href="/favlist" />
         </div>
       </div>
     </div>

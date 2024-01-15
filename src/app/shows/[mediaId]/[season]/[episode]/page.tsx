@@ -149,7 +149,7 @@ const Episode = () => {
                 <span className="font-bold">{` Episode ${episode}`}</span>.
                 <div className="font-thin">
                   If current server doesn&apos;t work please try other servers
-                  by clicking on cloud icon.
+                  by clicking on servers icon.
                 </div>
               </div>
               <div className="p-4 rounded-lg shadow-lg">
