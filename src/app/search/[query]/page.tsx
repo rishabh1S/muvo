@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import {
   Navbar,
   InfoModal,
-  MediaCard,
   SkeletonLoader,
   Footer,
+  MediaSection,
 } from "@/src/components";
 import { getTVorMovieSearchResults } from "@/public/utils";
 import { useInfoModal } from "@/src/hooks";
@@ -87,15 +87,7 @@ export default function Search() {
                     {decodeURIComponent(mediaName)}
                   </span>
                 </h2>
-                <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-2">
-                  {searchResults.map((media) => (
-                    <MediaCard
-                      key={media.id}
-                      mediaType={media.mediaType || ""}
-                      data={media}
-                    />
-                  ))}
-                </div>
+                <MediaSection mediaData={searchResults} />
               </>
             )}
           </>

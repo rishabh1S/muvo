@@ -9,6 +9,7 @@ import {
   MediaCard,
   Footer,
   SkeletonLoader,
+  MediaSection,
 } from "@/src/components";
 import { useFavorites, useInfoModal } from "@/src/hooks";
 import { getTVorMovieDetailsByID } from "@/public/utils";
@@ -63,23 +64,36 @@ export default function FavList() {
           className="w-full h-auto"
         ></img>
         <div className="absolute top-[70%] px-4 md:px-12">
-          <p className="text-white text-3xl md:text-5xl font-bold">My Shows</p>
+          <p className="text-white text-3xl md:text-5xl font-bold">
+            My Favourites
+          </p>
         </div>
       </div>
       {isLoading ? (
         <SkeletonLoader />
       ) : (
-        <div className="sm:pb-40 pb-20">
+        <div className="sm:pb-40 pb-10">
           <div className="px-4 md:px-12 mt-4 space-y-8">
-            <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-2">
-              {extendedFavorites.map((extendedData, index) => (
-                <MediaCard
-                  key={index}
-                  mediaType={extendedData.mediaType}
-                  data={extendedData}
-                />
-              ))}
-            </div>
+            {extendedFavorites.length === 0 ? (
+              <div className="flex flex-col items-center sm:justify-end justify-center sm:gap-10 gap-6 h-[40vh]">
+                <div className="text-center space-y-2">
+                  <h1 className="sm:text-7xl text-4xl font-black text-white">
+                    Nothing to see here yet.
+                  </h1>
+                  <h2 className="sm:text-3xl text-xl text-zinc-400">
+                    Start adding your shows to the favorites section
+                  </h2>
+                </div>
+                <button
+                  onClick={() => router.push("/")}
+                  className="border text-gray-200 border-gray-200 shadow-lg hover:bg-gray-200 hover:text-gray-900 transition duration-300 font-bold sm:py-2 sm:px-4 py-1 px-2 rounded-full cursor-pointer"
+                >
+                  Go to Home Page
+                </button>
+              </div>
+            ) : (
+              <MediaSection mediaData={extendedFavorites} />
+            )}
           </div>
         </div>
       )}

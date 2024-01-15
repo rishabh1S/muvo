@@ -26,10 +26,9 @@ const MediaCard: React.FC<MediaCardProps> = ({ data, mediaType }) => {
     [router, data.id, mediaType]
   );
 
-  const imagePath =
-    data?.backdrop_path || data?.poster_path
-      ? `${baseUrl}/${data.backdrop_path || data.poster_path}`
-      : "/images/no-poster.png";
+  const imagePath = data?.backdrop_path
+    ? `${baseUrl}/${data.backdrop_path}`
+    : "/images/no-poster.png";
   return (
     <div className="relative overflow-hidden bg-cover bg-no-repeat group">
       <img
@@ -38,11 +37,11 @@ const MediaCard: React.FC<MediaCardProps> = ({ data, mediaType }) => {
         alt="Movie"
         draggable={false}
         className="
-        cursor-pointer transition duration-300 ease-in-out group-hover:scale-110 w-full lg:h-[28vh] md:h-[23vh] h-[17vh]
+        cursor-pointer transition duration-300 ease-in-out group-hover:scale-110 w-full h-full object-cover
       "
       />
-      <div className="opacity-0 absolute top-20 transform w-full group-hover:opacity-100">
-        <div className="z-10 bg-zinc-900/90 p-2 lg:p-4 absolute w-full transition shadow-md">
+      <div className="opacity-0 absolute transform w-full group-hover:opacity-100">
+        <div className="z-10 bg-zinc-900/90 p-2 sm:p-4 absolute w-full transition shadow-md bottom-0">
           <div className="flex flex-row items-center gap-3">
             <div
               onClick={redirectToWatch}
@@ -64,10 +63,9 @@ const MediaCard: React.FC<MediaCardProps> = ({ data, mediaType }) => {
               />
             </div>
           </div>
-          <p className="lg:mt-4 mt-1 text-white text-[12px] lg:text-2xl">
-            {(data.title || data.name) &&
-              (data.title || data.name).split(" ").slice(0, 4).join(" ")}
-          </p>
+          <div className="pt-2 text-white text-sm sm:text-2xl overflow-hidden overflow-ellipsis whitespace-nowrap">
+            {data?.title || data?.name}
+          </div>
         </div>
       </div>
     </div>

@@ -6,6 +6,7 @@ import AccountMenu from "./AccountMenu";
 import Billboard from "./BillBoard";
 import MediaList from "./MediaList";
 import MediaCard from "./MediaCard";
+import MediaSection from "./MediaSection";
 import FavoriteButton from "./FavoriteButton";
 import PlayButton from "./PlayButton";
 import InfoModal from "./InfoModal";
@@ -28,6 +29,7 @@ export {
   Billboard,
   MediaCard,
   MediaList,
+  MediaSection,
   FavoriteButton,
   PlayButton,
   InfoModal,

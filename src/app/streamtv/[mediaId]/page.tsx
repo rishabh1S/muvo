@@ -13,7 +13,6 @@ import {
 import {
   useCredits,
   useMedia,
-  useSimilar,
   useRecommend,
   useInfoModal,
   useEpisode,
@@ -38,7 +37,6 @@ const TvSelection = () => {
   const { data, isLoading } = useMedia(mediaType, mediaId);
   const { data: credits } = useCredits(mediaType, mediaId);
   const { data: mediaRecommended } = useRecommend(mediaType, mediaId);
-  const { data: mediaSimilar } = useSimilar(mediaType, mediaId);
   const { isOpen, closeModal } = useInfoModal();
   const [show, setShow] = useState(false);
   const [videoKey, setVideoKey] = useState("");
@@ -49,7 +47,7 @@ const TvSelection = () => {
   );
   const isComingSoon = new Date(data?.first_air_date) > new Date();
   const creator = credits?.crew.filter(
-    (f: any) => f.job === "Executive Producer" || f.job === "Producer"
+    (f: any) => f.job === "Executive Producer"
   );
   const key =
     data?.videos?.results.find(
@@ -177,17 +175,17 @@ const TvSelection = () => {
             </div>
             <div className="text-white drop-shadow-xl px-4">
               <div className="text-3xl mb-2 font-light">Overview</div>
-              <div className="text-sm md:text-lg text-justify">
+              <div className="text-base leading-[22px] text-justify">
                 {data?.overview}
               </div>
             </div>
             <div className="flex justify-between relative gap-3 text-white px-4">
               {creator?.length > 0 && (
-                <div className="text-sm md:text-base">
-                  <span className="font-bold text-sm md:text-lg">
+                <div>
+                  <span className="text-neutral-400 text-base mr-1">
                     Creators:{" "}
                   </span>
-                  <span className="opacity-60">
+                  <span className="text-base leading-[22px] opacity-75">
                     {creator?.map((d: any, i: number) => (
                       <span key={i}>
                         {d.name}
@@ -205,7 +203,7 @@ const TvSelection = () => {
       <section className="px-4 md:px-12 py-4">
         <div className="text-white text-3xl sm:mb-4 flex items-end gap-2">
           Episodes{" "}
-          <span className="border-l border-gray-500 pl-2 text-xl text-gray-300">
+          <span className="border-l border-neutral-400 pl-2 text-xl text-neutral-400">
             {data?.name}
           </span>
         </div>
@@ -242,7 +240,7 @@ const TvSelection = () => {
           <div className="font-semibold text-base">
             Release Year: {new Date(episodeDetails?.air_date).getFullYear()}
           </div>
-          <div className="text-zinc-300 font-light text-base w-3/4">
+          <div className="text-neutral-400 my-1 text-base leading-[22px] sm:w-3/4">
             {episodeDetails?.overview || data?.overview}
           </div>
         </div>
@@ -253,7 +251,7 @@ const TvSelection = () => {
               className="rounded-md text-white"
               href={`/streamtv/${mediaId}/${episode.season_number}/${episode.episode_number}`}
             >
-              <div className="relative overflow-hidden bg-cover bg-no-repeat group rounded-md">
+              <div className="relative overflow-hidden bg-cover bg-no-repeat group">
                 <img
                   src={
                     episode.still_path
@@ -264,13 +262,15 @@ const TvSelection = () => {
                   className="cursor-pointer transition duration-300 ease-in-out group-hover:scale-110 w-full h-48 object-cover"
                 />
               </div>
-              <div className="my-3 font-semibold flex justify-between">
-                <span>
+              <div className="my-3 flex justify-between">
+                <span className="inline-block font-medium">
                   {episode.episode_number}. {episode.name}
                 </span>
-                <span className="font-extralight">{episode.runtime}m</span>
+                <span className="text-neutral-400 font-extralight">
+                  {episode.runtime}m
+                </span>
               </div>
-              <p className="text-zinc-400 font-light text-sm text-justify">
+              <p className="text-neutral-400 text-xs leading-[18px] text-justify">
                 {episode.overview.split(" ").slice(0, 25).join(" ")}
                 {episode.overview.split(" ").length > 25 ? "..." : ""}
               </p>
@@ -278,15 +278,10 @@ const TvSelection = () => {
           ))}
         </div>
       </section>
-      <MediaList
-        title="Recommended TV Shows"
-        data={mediaRecommended}
-        mediaType="tv"
-      />
       <div className="pb-20">
         <MediaList
-          title="Similar TV Shows"
-          data={mediaSimilar}
+          title="More Like This"
+          data={mediaRecommended}
           mediaType="tv"
         />
       </div>

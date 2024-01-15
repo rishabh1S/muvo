@@ -1,4 +1,4 @@
-# <img src="https://res.cloudinary.com/dnp36kqdc/image/upload/v1705153097/Muvo/muvo_logo.png" width="90" height="30"> Netflix Clone - Your Amazing OTT
+# <img src="https://res.cloudinary.com/dnp36kqdc/image/upload/v1705153097/Muvo/muvo_logo.png" width="90" height="30"> Your Amazing OTT
 
 Welcome to Muvo, a Netflix clone built with NextJS, MongoDB, Prisma, and more! This project aims to replicate the core features of Netflix, providing users with a seamless streaming experience.
 

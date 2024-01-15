@@ -10,13 +10,7 @@ import {
   Cast,
   InfoModal,
 } from "@/src/components";
-import {
-  useCredits,
-  useInfoModal,
-  useMedia,
-  useRecommend,
-  useSimilar,
-} from "@/src/hooks";
+import { useCredits, useInfoModal, useMedia, useRecommend } from "@/src/hooks";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Genre } from "@/src/types";
@@ -36,7 +30,6 @@ const MovieSelection = () => {
   const { data, isLoading } = useMedia(mediaType, mediaId);
   const { data: credits } = useCredits(mediaType, mediaId);
   const { data: mediaRecommended } = useRecommend(mediaType, mediaId);
-  const { data: mediaSimilar } = useSimilar(mediaType, mediaId);
   const { isOpen, closeModal } = useInfoModal();
   const [show, setShow] = useState(false);
   const [videoKey, setVideoKey] = useState("");
@@ -68,7 +61,7 @@ const MovieSelection = () => {
     <div className="bg-body min-h-screen">
       <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar />
-      <div className="sm:h-[400px] h-[300px] relative overflow-hidden">
+      <div className="sm:h-[500px] h-[300px] relative overflow-hidden">
         <div className="absolute left-0 right-0 top-0 bottom-0 bg-gradient-to-b from-transparent via-transparent to-body"></div>
         <img
           src={`${baseUrl}/${data?.backdrop_path}`}
@@ -77,7 +70,7 @@ const MovieSelection = () => {
         ></img>
       </div>
       <div className="max-w-7xl mx-auto p-4 flex flex-col gap-12 pb-12">
-        <div className="-mt-[180px] flex sm:flex-row flex-col items-center relative z-10 gap-3">
+        <div className="-mt-[250px] flex sm:flex-row flex-col items-center relative z-10 gap-3">
           <img
             src={`${baseUrl}/${data?.poster_path}`}
             alt={data?.title}
@@ -178,15 +171,17 @@ const MovieSelection = () => {
             </div>
             <div className="text-white drop-shadow-xl px-4">
               <div className="text-2xl mb-2">Overview</div>
-              <div className="text-sm md:text-lg text-justify">
+              <div className="text-base leading-[22px] text-justify">
                 {data?.overview}
               </div>
             </div>
             <div className="flex justify-between relative gap-3 text-white px-4">
               {director?.length > 0 && (
                 <div className="text-sm md:text-lg">
-                  <span className="font-bold">Director: </span>
-                  <span className="opacity-60">
+                  <span className="text-neutral-400 text-base mr-1">
+                    Director:{" "}
+                  </span>
+                  <span className="text-base leading-[22px] opacity-75">
                     {director?.map((d: any, i: number) => (
                       <span key={i}>
                         {d.name}
@@ -197,9 +192,11 @@ const MovieSelection = () => {
                 </div>
               )}
               {writer?.length > 0 && (
-                <div className="text-sm md:text-lg">
-                  <span className="font-bold">Writer: </span>
-                  <span className="opacity-60">
+                <div>
+                  <span className="text-neutral-400 text-base mr-1">
+                    Writer:{" "}
+                  </span>
+                  <span className="text-base leading-[22px] opacity-75">
                     {writer?.map((d: any, i: number) => (
                       <span key={i}>
                         {d.name}
@@ -214,15 +211,10 @@ const MovieSelection = () => {
         </div>
       </div>
       <Cast cast={credits?.cast} />
-      <MediaList
-        title="Recommended Movies"
-        data={mediaRecommended}
-        mediaType="movie"
-      />
       <div className="pb-20">
         <MediaList
-          title="Similar Movies"
-          data={mediaSimilar}
+          title="More Like This"
+          data={mediaRecommended}
           mediaType="movie"
         />
       </div>

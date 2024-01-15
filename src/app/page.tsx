@@ -40,7 +40,7 @@ export default function Home() {
       <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar />
       <Billboard mediaType={mediaType} />
-      <div className="pb-40">
+      <div className="sm:pb-40 pb-10">
         <MediaList
           title="Trending Movies"
           data={moviesTrending}
