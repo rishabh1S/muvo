@@ -28,7 +28,7 @@ const MediaCard: React.FC<MediaCardProps> = ({ data, mediaType }) => {
 
   const imagePath = data?.backdrop_path
     ? `${baseUrl}/${data.backdrop_path}`
-    : "/images/no-poster.png";
+    : "/images/no-backdrop.png";
   return (
     <div className="relative overflow-hidden bg-cover bg-no-repeat group">
       <img

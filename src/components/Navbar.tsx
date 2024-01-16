@@ -76,10 +76,7 @@ const Navbar = () => {
                 }
               >
                 <SearchBar
-                  pathName={pathName}
                   router={router}
-                  searchQuery={searchQuery}
-                  setSearchQuery={setSearchQuery}
                   setShowSearchBar={setShowSearchBar}
                 />
               </div>

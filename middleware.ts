@@ -14,7 +14,5 @@ export const config = {
     "/shows/:path",
     "/search/:path*",
     "/favlist",
-    "/streammovie/:path*",
-    "/streamtv/:path*",
   ],
 };

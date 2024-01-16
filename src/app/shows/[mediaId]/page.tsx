@@ -260,7 +260,7 @@ const TvSelection = () => {
                   src={
                     episode.still_path
                       ? `${baseUrl}${episode.still_path}`
-                      : "/images/no-poster.png"
+                      : "/images/no-backdrop.png"
                   }
                   alt={`Episode ${episode.episode_number}`}
                   className="cursor-pointer transition duration-300 ease-in-out group-hover:scale-110 w-full h-48 object-cover"
