@@ -88,7 +88,10 @@ const Watch = () => {
               </div>
             </div>
           </div>
-          <div className="lg:col-span-2 lg:row-span-5 lg:col-start-6 row-start-5">
+          <div
+            className="lg:col-span-2 lg:row-span-5 lg:col-start-6 row-start-5"
+            style={{ textShadow: "1px 1px 2px rgba(0, 0, 0, 0.7)" }}
+          >
             <div className="flex flex-col sm:items-start items-center gap-3 drop-shadow-lg">
               <img
                 src={`${baseUrl}/${data?.poster_path}`}

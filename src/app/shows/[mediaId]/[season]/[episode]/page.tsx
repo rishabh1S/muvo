@@ -29,7 +29,10 @@ const Episode = () => {
   const mediaType = "tv";
   const { data, isLoading } = useMedia(mediaType, mediaId);
   const { data: episodeDetails } = useEpisode(mediaId, season);
-  const episodeInfo = episodeDetails?.episodes[episode];
+  const episodeInfo = episodeDetails?.episodes.find(
+    (e: Episode) => e.episode_number === Number(episode)
+  );
+  console.log(episodeInfo);
   const seasonInfo = data?.seasons.find(
     (s: { season_number: number }) => s.season_number === Number(season)
   );
@@ -64,8 +67,6 @@ const Episode = () => {
             <div className="text-white text-1xl md:text-3xl">
               <span className="font-light">Watching:</span>{" "}
               {data?.title || data?.name}
-              {` Season ${season}`}
-              {` Episode ${episode}`}
             </div>
           </div>
           <div className="flex gap-4">
@@ -144,10 +145,10 @@ const Episode = () => {
               <div>
                 <VideoEmbedding embedURL={episodeURL} />
               </div>
-              <div className="p-2 text-center">
-                You are watching{" "}
-                <span className="font-bold">{` Episode ${episode}`}</span>.
-                <div className="font-thin">
+              <div className="p-2 text-center text-white font-semibold">
+                You are watching <span>{`S${season} E${episode}`}</span>
+                <span>{` - ${episodeInfo?.name}`}</span>
+                <div className="font-thin text-neutral-200">
                   If current server doesn&apos;t work please try other servers
                   by clicking on servers icon.
                 </div>
@@ -169,9 +170,9 @@ const Episode = () => {
                   </span>
                   <span className="text-sm">{episodeInfo?.runtime}m</span>
                 </div>
-                <p className="text-gray-300 text-sm mt-3 text-justify">
+                <div className="mt-2 text-justify text-sm text-gray-300">
                   {episodeInfo?.overview}
-                </p>
+                </div>
               </div>
 
               <div className="p-4 font-semibold text-lg">
@@ -215,8 +216,11 @@ const Episode = () => {
               </div>
             </div>
           </div>
-          <div className="lg:col-span-2 lg:row-span-5 lg:col-start-6 row-start-5">
-            <div className="flex flex-col sm:items-start items-center gap-3 drop-shadow-lg">
+          <div
+            className="lg:col-span-2 lg:row-span-5 lg:col-start-6 row-start-5"
+            style={{ textShadow: "1px 1px 2px rgba(0, 0, 0, 0.7)" }}
+          >
+            <div className="flex flex-col sm:items-start items-center gap-3">
               <img
                 src={`${baseUrl}/${seasonInfo?.poster_path}`}
                 alt="data?.title"

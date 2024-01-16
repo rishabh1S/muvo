@@ -72,7 +72,7 @@ const Navbar = () => {
             {showSearchBar ? (
               <div
                 className={
-                  "sm:relative fixed inset-0 sm:pt-0 pt-4 bg-black sm:bg-opacity-0 bg-opacity-60 z-50"
+                  "sm:relative fixed inset-0 sm:pt-0 pt-4 bg-neutral-950 sm:bg-opacity-0 bg-opacity-80 z-50"
                 }
               >
                 <SearchBar
@@ -83,7 +83,7 @@ const Navbar = () => {
             ) : (
               <AiOutlineSearch
                 onClick={() => setShowSearchBar(true)}
-                className="inline sm:w-6 sm:h-6 cursor-pointer text-gray-200"
+                className="inline sm:w-6 sm:h-6 cursor-pointer text-neutral-200"
               />
             )}
           </div>
