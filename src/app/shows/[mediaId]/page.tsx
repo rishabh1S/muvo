@@ -19,8 +19,8 @@ import {
   useEpisode,
   useSimilar,
 } from "@/src/hooks";
-import { useParams, usePathname } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import React, { useState } from "react";
 import { Episode, Genre } from "@/src/types";
 import Link from "next/link";
 import { baseUrl } from "@/public/utils";
@@ -30,7 +30,6 @@ import { RiMovie2Line } from "react-icons/ri";
 import { BsClockFill, BsFillPlayFill } from "react-icons/bs";
 
 const TvSelection = () => {
-  const path = usePathname();
   const params = useParams() as { mediaId: string };
   const { mediaId } = params;
   const mediaType = "tv";

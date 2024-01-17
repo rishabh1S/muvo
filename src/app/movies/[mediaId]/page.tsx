@@ -18,8 +18,8 @@ import {
   useRecommend,
   useSimilar,
 } from "@/src/hooks";
-import { useParams, usePathname } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import React, { useState } from "react";
 import { Genre } from "@/src/types";
 import Link from "next/link";
 import { baseUrl } from "@/public/utils";
@@ -28,7 +28,6 @@ import { RiMovie2Line } from "react-icons/ri";
 import { SiImdb } from "react-icons/si";
 
 const MovieSelection = () => {
-  const path = usePathname();
   const params = useParams() as { mediaId: string };
   const { mediaId } = params;
   const mediaType = "movie";
