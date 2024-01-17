@@ -13,7 +13,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ visible }) => {
   }
 
   return (
-    <div className="bg-black w-36 absolute top-8 left-0 py-5 flex-col border-2 border-gray-800 flex">
+    <div className="bg-neutral-950/90 w-36 absolute top-7 left-0 py-5 flex-col border-2 border-gray-800 flex">
       <div className="flex flex-col gap-4">
         <div className="px-3 text-center text-white">
           <NavbarItem label="Home" href="/" />
@@ -24,11 +24,11 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ visible }) => {
         <div className="px-3 text-center text-white">
           <NavbarItem label="Tv Shows" href="/shows" />
         </div>
-        <div className="px-3 text-center text-white">
-          {session?.status === "authenticated" && (
+        {session?.status === "authenticated" && (
+          <div className="px-3 text-center text-white">
             <NavbarItem label="Favourites" href="/favlist" />
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

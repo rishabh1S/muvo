@@ -41,7 +41,7 @@ const Overlay: React.FC<OverlayProps> = ({ data, router }) => {
             <img
               src={`${baseUrl}/${data?.poster_path}`}
               alt="Movie Poster"
-              className="sm:w-36 w-24 sm:h-60 h-40 mb-4"
+              className="w-36 h-60 mb-4"
             />
             <div className="text-white sm:text-5xl text-xl font-bold sm:text-left text-center">
               Start your streaming journey today

@@ -97,21 +97,24 @@ const TvSelection = () => {
             <div className="text-white text-3xl md:text-4xl h-full lg:text-5xl font-bold sm:mb-4 text-center">
               {data?.name}
             </div>
-            <div className="flex items-center justify-center sm:gap-3 gap-1">
-              <p className="text-white font-semibold sm:text-lg">
+            <div className="flex items-center justify-center sm:gap-3 gap-1 text-center">
+              <p className="text-white font-semibold sm:text-lg text-sm">
                 {new Date(
                   data?.release_date || data?.first_air_date
                 ).getFullYear()}
               </p>
               <span className="text-white">|</span>
-              <p className="text-white sm:text-lg">
+              <p className="text-white sm:text-lg text-sm">
                 {`${data?.number_of_seasons} Seasons`}
               </p>
               <span className="text-white">|</span>
-              <p className="text-violet-500 sm:text-lg">
-                {data?.genres?.map((genre: Genre) => genre.name).join(", ")}
+              <p className="text-violet-500 sm:text-lg text-sm">
+                {data?.genres
+                  ?.slice(0, 3)
+                  .map((genre: Genre) => genre.name)
+                  .join(", ")}
               </p>
-              <div className="sm:absolute right-0">
+              <div className="sm:absolute sm:block hidden right-0">
                 {data?.id && (
                   <Link
                     href={`https://www.themoviedb.org/tv/${data?.id}`}
@@ -119,8 +122,7 @@ const TvSelection = () => {
                     rel="noopener noreferrer"
                     className="text-blue-500"
                   >
-                    <RiMovie2Line size={24} className="lg:hidden" />
-                    <RiMovie2Line size={34} className="hidden lg:block" />
+                    <RiMovie2Line size={34} />
                   </Link>
                 )}
               </div>

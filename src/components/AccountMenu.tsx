@@ -27,7 +27,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
   }
 
   return (
-    <div className="bg-black w-56 absolute top-14 right-0 py-5 flex-col border-2 border-gray-800 flex">
+    <div className="bg-neutral-950/90 w-56 absolute top-10 sm:top-14 right-0 py-5 flex-col border-2 border-gray-800 flex">
       <div className="flex flex-col gap-3">
         <div className="px-3 flex flex-row gap-3 items-center w-full">
           <img
