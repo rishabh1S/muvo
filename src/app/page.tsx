@@ -8,8 +8,10 @@ import {
   Footer,
 } from "@/src/components";
 import { useMediaList, useInfoModal } from "@/src/hooks";
+import { usePathname } from "next/navigation";
 
 export default function Home() {
+  const path = usePathname();
   const { data: moviesTrending } = useMediaList("trending", "movie");
   const { data: tvTrending } = useMediaList("trending", "tv");
   const { data: moviesPopular } = useMediaList("popular", "movie");
@@ -22,7 +24,8 @@ export default function Home() {
   useEffect(() => {
     const randomMediaType = Math.random() > 0.5 ? "tv" : "movie";
     setMediaType(randomMediaType);
-  }, []);
+    closeModal();
+  }, [closeModal, path]);
 
   return (
     <>

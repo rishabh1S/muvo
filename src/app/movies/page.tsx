@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Navbar,
   Billboard,
@@ -8,12 +8,18 @@ import {
   Footer,
 } from "@/src/components";
 import { useMediaList, useInfoModal } from "@/src/hooks";
+import { usePathname } from "next/navigation";
 
 export default function Movies() {
+  const path = usePathname();
   const { data: moviesTrending } = useMediaList("trending", "movie");
   const { data: moviesPopular } = useMediaList("popular", "movie");
   const { data: moviesToprated } = useMediaList("toprated", "movie");
   const { isOpen, closeModal } = useInfoModal();
+
+  useEffect(() => {
+    closeModal();
+  }, [closeModal, path]);
 
   return (
     <>
