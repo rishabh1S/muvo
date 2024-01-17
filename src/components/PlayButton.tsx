@@ -5,18 +5,30 @@ import { useRouter } from "next/navigation";
 interface PlayButtonProps {
   mediaType?: string;
   mediaId?: string;
+  onClose?: () => void;
 }
 
-const PlayButton: React.FC<PlayButtonProps> = ({ mediaType, mediaId }) => {
+const PlayButton: React.FC<PlayButtonProps> = ({
+  mediaType,
+  mediaId,
+  onClose,
+}) => {
   const router = useRouter();
+
+  const handleClick = () => {
+    if (mediaType === "tv") {
+      router.push(`/shows/${mediaId}`);
+    } else {
+      router.push(`/movies/${mediaId}`);
+    }
+    if (onClose) {
+      onClose();
+    }
+  };
 
   return (
     <button
-      onClick={() =>
-        mediaType === "tv"
-          ? router.push(`/shows/${mediaId}`)
-          : router.push(`/movies/${mediaId}`)
-      }
+      onClick={handleClick}
       className="
         bg-white 
         rounded-md 

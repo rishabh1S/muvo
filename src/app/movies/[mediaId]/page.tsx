@@ -23,7 +23,7 @@ import React, { useEffect, useState } from "react";
 import { Genre } from "@/src/types";
 import Link from "next/link";
 import { baseUrl } from "@/public/utils";
-import { BsFillPlayFill } from "react-icons/bs";
+import { BsClockFill, BsFillPlayFill } from "react-icons/bs";
 import { RiMovie2Line } from "react-icons/ri";
 import { SiImdb } from "react-icons/si";
 
@@ -49,12 +49,6 @@ const MovieSelection = () => {
     data?.videos?.results.find(
       (video: { type: string }) => video.type === "Trailer"
     )?.key || data?.videos?.results[0]?.key;
-
-  useEffect(() => {
-    return () => {
-      closeModal();
-    };
-  }, [closeModal, path]);
 
   if (isLoading) {
     return <CircleLoader />;
@@ -87,21 +81,24 @@ const MovieSelection = () => {
                 {data?.tagline}
               </div>
             </div>
-            <div className="flex items-center justify-center sm:gap-3 gap-1">
-              <p className="text-white font-semibold sm:text-lg">
+            <div className="flex items-center justify-center sm:gap-3 gap-1 text-center">
+              <p className="text-white font-semibold sm:text-lg text-sm">
                 {new Date(
                   data?.release_date || data?.first_air_date
                 ).getFullYear()}
               </p>
               <span className="text-white">|</span>
-              <p className="text-white sm:text-lg">
+              <p className="text-white sm:text-lg text-sm">
                 {`${Math.floor(data?.runtime / 60)}h ${data?.runtime % 60}min`}
               </p>
               <span className="text-white">|</span>
-              <p className="text-violet-500 sm:text-lg">
-                {data?.genres?.map((genre: Genre) => genre.name).join(", ")}
+              <p className="text-violet-500 sm:text-lg text-sm">
+                {data?.genres
+                  ?.slice(0, 3)
+                  .map((genre: Genre) => genre.name)
+                  .join(", ")}
               </p>
-              <div className="flex items-center sm:absolute right-0">
+              <div className="sm:flex items-center sm:absolute hidden right-0">
                 {data?.imdb_id && (
                   <Link
                     href={`https://www.imdb.com/title/${data.imdb_id}`}
@@ -109,8 +106,7 @@ const MovieSelection = () => {
                     rel="noopener noreferrer"
                     className="text-yellow-500 mx-2"
                   >
-                    <SiImdb size={22} className="lg:hidden" />
-                    <SiImdb size={30} className="hidden lg:block" />
+                    <SiImdb size={30} />
                   </Link>
                 )}
                 {data?.id && (
@@ -120,8 +116,7 @@ const MovieSelection = () => {
                     rel="noopener noreferrer"
                     className="text-blue-500"
                   >
-                    <RiMovie2Line size={24} className="lg:hidden" />
-                    <RiMovie2Line size={34} className="hidden lg:block" />
+                    <RiMovie2Line size={34} />
                   </Link>
                 )}
               </div>
@@ -140,7 +135,11 @@ const MovieSelection = () => {
                   Watch Now
                 </Link>
               ) : (
-                <p className="bg-white rounded-md py-1 md:py-2 px-2 md:px-4w-auto text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-neutral-300 transition text-black pointer-events-none">
+                <p className="bg-white rounded-md py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-neutral-300 transition cursor-not-allowed">
+                  <BsClockFill
+                    size={24}
+                    className="w-4 sm:w-6 text-black pr-1"
+                  />
                   Coming Soon
                 </p>
               )}

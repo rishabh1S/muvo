@@ -9,6 +9,7 @@ import { SiImdb } from "react-icons/si";
 import { RiMovie2Line } from "react-icons/ri";
 import { AiOutlineClose } from "react-icons/ai";
 import { VscMute, VscUnmute } from "react-icons/vsc";
+import { BsClockFill } from "react-icons/bs";
 interface InfoModalProps {
   visible?: boolean;
   onClose: any;
@@ -93,26 +94,20 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                 {data?.title || data?.name}
               </p>
               <div className="flex flex-row gap-4 items-center">
-                {!isComingSoon && (
-                  <PlayButton mediaType={mediaType} mediaId={mediaId} />
-                )}
-                {isComingSoon && (
-                  <p
-                    className="bg-white 
-                      rounded-md 
-                      py-1 md:py-2 
-                      px-2 md:px-4
-                      w-auto 
-                      text-xs lg:text-lg 
-                      font-semibold
-                      flex
-                      flex-row
-                      items-center
-                      hover:bg-neutral-300
-                      transition text-black"
-                  >
+                {isComingSoon ? (
+                  <p className="bg-white rounded-md py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-neutral-300 transition cursor-not-allowed">
+                    <BsClockFill
+                      size={24}
+                      className="w-4 md:w-7 text-black pr-1"
+                    />
                     Coming Soon
                   </p>
+                ) : (
+                  <PlayButton
+                    mediaType={mediaType}
+                    mediaId={mediaId}
+                    onClose={onClose}
+                  />
                 )}
                 <FavoriteButton
                   mediaType={mediaType as string}

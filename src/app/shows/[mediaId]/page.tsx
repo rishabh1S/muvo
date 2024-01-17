@@ -27,7 +27,7 @@ import { baseUrl } from "@/public/utils";
 import { FaChevronDown } from "react-icons/fa6";
 import "react-multi-carousel/lib/styles.css";
 import { RiMovie2Line } from "react-icons/ri";
-import { BsFillPlayFill } from "react-icons/bs";
+import { BsClockFill, BsFillPlayFill } from "react-icons/bs";
 
 const TvSelection = () => {
   const path = usePathname();
@@ -54,12 +54,6 @@ const TvSelection = () => {
     data?.videos?.results.find(
       (video: { type: string }) => video.type === "Trailer"
     )?.key || data?.videos?.results[0]?.key;
-
-  useEffect(() => {
-    return () => {
-      closeModal();
-    };
-  }, [closeModal, path]);
 
   const handleSeasonChange = (event: { target: { value: any } }) => {
     const selectedSeasonNumber = Number(event.target.value);
@@ -141,7 +135,11 @@ const TvSelection = () => {
                   Watch Now
                 </Link>
               ) : (
-                <p className="bg-white rounded-md py-1 md:py-2 px-2 md:px-4w-auto text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-neutral-300 transition text-black pointer-events-none">
+                <p className="bg-white rounded-md py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-neutral-300 transition cursor-not-allowed">
+                  <BsClockFill
+                    size={24}
+                    className="w-4 sm:w-6 text-black pr-1"
+                  />
                   Coming Soon
                 </p>
               )}
