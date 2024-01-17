@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Navbar,
   InfoModal,
@@ -16,6 +16,7 @@ import { getTVorMovieDetailsByID } from "@/public/utils";
 export default function FavList() {
   const session = useSession();
   const router = useRouter();
+  const path = usePathname();
   const { data: favorites = [] } = useFavorites();
   const { isOpen, closeModal } = useInfoModal();
   const [extendedFavorites, setExtendedFavorites] = useState<any[]>([]);
@@ -49,7 +50,8 @@ export default function FavList() {
     } else {
       fetchExtendedFavorites();
     }
-  }, [session?.status, router, favorites]);
+    closeModal();
+  }, [session?.status, router, favorites, closeModal, path]);
 
   return (
     <>

@@ -1,5 +1,5 @@
 "use client";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
   Navbar,
@@ -18,6 +18,7 @@ export default function Search() {
   const { isOpen, closeModal } = useInfoModal();
   const [isLoading, setIsLoading] = useState(true);
   const params = useParams();
+  const path = usePathname();
   const mediaName = params!.query as string;
 
   useEffect(() => {
@@ -44,7 +45,8 @@ export default function Search() {
     }
 
     getSearchResults();
-  }, [mediaName]);
+    closeModal();
+  }, [mediaName, closeModal, path]);
 
   return (
     <>
