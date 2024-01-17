@@ -147,7 +147,7 @@ const AuthForm = () => {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="bg-[#8dc53e] py-3 text-white rounded-md w-full mt-10 hover:bg-[#b2d76e] transition"
+                  className="bg-gradient-to-r from-lime-400 via-lime-500 to-lime-600 hover:bg-gradient-to-br focus:outline-none py-3 text-white rounded-md w-full mt-10"
                 >
                   {variant === "LOGIN" ? "Login" : "Sign up"}
                 </button>

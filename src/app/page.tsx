@@ -1,8 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import {
   Navbar,
   Billboard,
@@ -13,8 +10,6 @@ import {
 import { useMediaList, useInfoModal } from "@/src/hooks";
 
 export default function Home() {
-  const session = useSession();
-  const router = useRouter();
   const { data: moviesTrending } = useMediaList("trending", "movie");
   const { data: tvTrending } = useMediaList("trending", "tv");
   const { data: moviesPopular } = useMediaList("popular", "movie");
@@ -23,12 +18,6 @@ export default function Home() {
   const { data: tvToprated } = useMediaList("toprated", "tv");
   const { isOpen, closeModal } = useInfoModal();
   const [mediaType, setMediaType] = useState("");
-
-  useEffect(() => {
-    if (session?.status !== "authenticated") {
-      router.push("/auth");
-    }
-  }, [session?.status, router]);
 
   useEffect(() => {
     const randomMediaType = Math.random() > 0.5 ? "tv" : "movie";

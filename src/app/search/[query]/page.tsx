@@ -1,5 +1,5 @@
 "use client";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
   Navbar,
@@ -11,23 +11,14 @@ import {
 import { getTVorMovieSearchResults } from "@/public/utils";
 import { useInfoModal } from "@/src/hooks";
 import { MediaInterface } from "@/src/types";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 
 export default function Search() {
-  const session = useSession();
-  const router = useRouter();
   const [searchResults, setSearchResults] = useState<MediaInterface[]>([]);
   const { isOpen, closeModal } = useInfoModal();
   const [isLoading, setIsLoading] = useState(true);
   const params = useParams();
   const mediaName = params!.query as string;
-
-  useEffect(() => {
-    if (session?.status !== "authenticated") {
-      router.push("/auth");
-    }
-  }, [session?.status, router]);
 
   useEffect(() => {
     async function getSearchResults() {

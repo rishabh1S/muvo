@@ -7,12 +7,5 @@ export default withAuth({
 });
 
 export const config = {
-  matcher: [
-    "/profiles",
-    "/",
-    "/movies/:path*",
-    "/shows/:path",
-    "/search/:path*",
-    "/favlist",
-  ],
+  matcher: ["/profiles", "/movies/:path*", "/shows/:path*", "/favlist"],
 };

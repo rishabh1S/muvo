@@ -19,7 +19,7 @@ import {
   useEpisode,
   useSimilar,
 } from "@/src/hooks";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Episode, Genre } from "@/src/types";
 import Link from "next/link";
@@ -28,11 +28,8 @@ import { FaChevronDown } from "react-icons/fa6";
 import "react-multi-carousel/lib/styles.css";
 import { RiMovie2Line } from "react-icons/ri";
 import { BsFillPlayFill } from "react-icons/bs";
-import { useSession } from "next-auth/react";
 
 const TvSelection = () => {
-  const session = useSession();
-  const router = useRouter();
   const path = usePathname();
   const params = useParams() as { mediaId: string };
   const { mediaId } = params;
@@ -59,13 +56,10 @@ const TvSelection = () => {
     )?.key || data?.videos?.results[0]?.key;
 
   useEffect(() => {
-    if (session?.status !== "authenticated") {
-      router.push("/auth");
-    }
     return () => {
       closeModal();
     };
-  }, [session?.status, router, closeModal, path]);
+  }, [closeModal, path]);
 
   const handleSeasonChange = (event: { target: { value: any } }) => {
     const selectedSeasonNumber = Number(event.target.value);

@@ -1,11 +1,13 @@
 import React from "react";
 import { NavbarItem } from ".";
+import { useSession } from "next-auth/react";
 
 interface MobileMenuProps {
   visible?: boolean;
 }
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ visible }) => {
+  const session = useSession();
   if (!visible) {
     return null;
   }
@@ -23,7 +25,9 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ visible }) => {
           <NavbarItem label="Tv Shows" href="/shows" />
         </div>
         <div className="px-3 text-center text-white">
-          <NavbarItem label="Favourites" href="/favlist" />
+          {session?.status === "authenticated" && (
+            <NavbarItem label="Favourites" href="/favlist" />
+          )}
         </div>
       </div>
     </div>

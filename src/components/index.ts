@@ -20,6 +20,7 @@ import CircleRating from "./CircleRating";
 import VideoModal from "./VideoModal";
 import Footer from "./Footer";
 import Cast from "./Cast";
+import Overlay from "./Overlay";
 
 export {
   Input,
@@ -44,4 +45,5 @@ export {
   CircleRating,
   Footer,
   Cast,
+  Overlay,
 };

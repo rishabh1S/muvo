@@ -3,7 +3,8 @@ import React, { useCallback, useEffect, useState } from "react";
 import { BsChevronDown } from "react-icons/bs";
 import { AiOutlineSearch } from "react-icons/ai";
 import { NavbarItem, MobileMenu, AccountMenu, SearchBar } from ".";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 const TOP_OFFSET = 66;
 
 const Navbar = () => {
@@ -11,9 +12,8 @@ const Navbar = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(false);
-  const [searchQuery, setSearchQuery] = useState<string>("");
   const router = useRouter();
-  const pathName = usePathname() ?? "/";
+  const session = useSession();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,7 +53,9 @@ const Navbar = () => {
           <NavbarItem label="Home" href="/" />
           <NavbarItem label="Movies" href="/movies" />
           <NavbarItem label="TV Shows" href="/shows" />
-          <NavbarItem label="Favourites" href="/favlist" />
+          {session?.status === "authenticated" && (
+            <NavbarItem label="Favourites" href="/favlist" />
+          )}
         </div>
         <div
           onClick={toggleMobileMenu}

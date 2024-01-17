@@ -7,6 +7,10 @@ import { authOptions } from "@/src/pages/api/auth/[...nextauth]";
 const serverAuth = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerSession(req, res, authOptions);
 
+  if (!session) {
+    return { currentUser: null };
+  }
+
   if (!session?.user?.email) {
     throw new Error("Not signed in");
   }

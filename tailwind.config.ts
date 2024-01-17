@@ -17,7 +17,7 @@ const config: Config = {
       colors: {
         primary: "#7F00FF",
         header: "#292841",
-        body: "rgb(24 24 27)",
+        body: "#0F0F14",
       },
     },
   },

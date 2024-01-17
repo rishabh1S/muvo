@@ -95,7 +95,7 @@ const SearchBar: React.FC<SearchProps> = ({ router, setShowSearchBar }) => {
 
   return (
     <div className="relative flex justify-center items-center text-center sm:px-0 px-2">
-      <div className="bg-neutral-950 border border-gray-300 px-4 items-center text-center flex rounded-full w-full mx-2">
+      <div className="bg-neutral-950/70 border border-gray-300 px-4 items-center text-center flex rounded-full w-full mx-2">
         <div className="order-2 flex items-center flex-grow">
           <input
             name="search"

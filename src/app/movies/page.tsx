@@ -1,8 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
-
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import React from "react";
 import {
   Navbar,
   Billboard,
@@ -13,18 +10,10 @@ import {
 import { useMediaList, useInfoModal } from "@/src/hooks";
 
 export default function Movies() {
-  const session = useSession();
-  const router = useRouter();
   const { data: moviesTrending } = useMediaList("trending", "movie");
   const { data: moviesPopular } = useMediaList("popular", "movie");
   const { data: moviesToprated } = useMediaList("toprated", "movie");
   const { isOpen, closeModal } = useInfoModal();
-
-  useEffect(() => {
-    if (session?.status !== "authenticated") {
-      router.push("/auth");
-    }
-  }, [session?.status, router]);
 
   return (
     <>

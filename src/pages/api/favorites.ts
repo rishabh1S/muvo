@@ -14,6 +14,10 @@ export default async function handler(
 
     const { currentUser } = await serverAuth(req, res);
 
+    if (!currentUser) {
+      return res.status(401).json({ error: "Unauthorized User" });
+    }
+
     const favoritedMedias = await prismadb.favouriteIds.findMany({
       where: {
         userId: currentUser.id,

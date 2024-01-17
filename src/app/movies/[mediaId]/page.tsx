@@ -18,7 +18,7 @@ import {
   useRecommend,
   useSimilar,
 } from "@/src/hooks";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Genre } from "@/src/types";
 import Link from "next/link";
@@ -26,11 +26,8 @@ import { baseUrl } from "@/public/utils";
 import { BsFillPlayFill } from "react-icons/bs";
 import { RiMovie2Line } from "react-icons/ri";
 import { SiImdb } from "react-icons/si";
-import { useSession } from "next-auth/react";
 
 const MovieSelection = () => {
-  const session = useSession();
-  const router = useRouter();
   const path = usePathname();
   const params = useParams() as { mediaId: string };
   const { mediaId } = params;
@@ -54,19 +51,15 @@ const MovieSelection = () => {
     )?.key || data?.videos?.results[0]?.key;
 
   useEffect(() => {
-    if (session?.status !== "authenticated") {
-      router.push("/auth");
-    }
     return () => {
       closeModal();
     };
-  }, [session?.status, router, closeModal, path]);
+  }, [closeModal, path]);
 
   if (isLoading) {
     return <CircleLoader />;
   }
 
-  console.log(data);
   return (
     <div className="bg-body min-h-screen">
       <InfoModal visible={isOpen} onClose={closeModal} />

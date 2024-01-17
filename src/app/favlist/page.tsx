@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import {
   Navbar,
   InfoModal,
-  MediaCard,
   Footer,
   SkeletonLoader,
   MediaSection,

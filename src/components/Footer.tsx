@@ -1,7 +1,9 @@
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
 
 const Footer = () => {
+  const session = useSession();
   return (
     <footer className="w-full bg-zinc-950 text-gray-400">
       <div className="w-full p-10 space-y-4">
@@ -44,15 +46,17 @@ const Footer = () => {
                   Shows
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/favlist"
-                  passHref
-                  className="hover:text-gray-300 cursor-pointer"
-                >
-                  Favourites
-                </Link>
-              </li>
+              {session?.status === "authenticated" && (
+                <li>
+                  <Link
+                    href="/favlist"
+                    passHref
+                    className="hover:text-gray-300 cursor-pointer"
+                  >
+                    Favourites
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
           <div className="sm:w-1/4 w-1/2">

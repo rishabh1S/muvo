@@ -66,6 +66,10 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
 
   const Icon = isFavorite ? AiOutlineCheck : AiOutlinePlus;
 
+  if (!currentUser) {
+    return null;
+  }
+
   return (
     <div
       onClick={toggleFavorites}

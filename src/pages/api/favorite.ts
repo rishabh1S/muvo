@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { without } from "lodash";
 
 import prismadb from "@/src/libs/prismadb";
 import serverAuth from "@/src/libs/serverAuth";
@@ -16,7 +15,7 @@ export default async function handler(
 
       const existingFavorite = await prismadb.favouriteIds.findUnique({
         where: {
-          id: currentUser.id,
+          id: currentUser?.id,
         },
       });
 
@@ -26,7 +25,7 @@ export default async function handler(
 
       const user = await prismadb.user.update({
         where: {
-          email: currentUser.email || "",
+          email: currentUser?.email || "",
         },
         data: {
           favoriteIds: {
@@ -45,7 +44,7 @@ export default async function handler(
 
       const updatedUser = await prismadb.user.update({
         where: {
-          email: currentUser.email || "",
+          email: currentUser?.email || "",
         },
         data: {
           favoriteIds: {
