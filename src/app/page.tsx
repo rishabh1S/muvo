@@ -20,7 +20,7 @@ export default function Home() {
   const [mediaType, setMediaType] = useState("");
 
   useEffect(() => {
-    const randomMediaType = Math.random() > 0.5 ? "tv" : "movie";
+    const randomMediaType = Math.random() > 0.5 ? "movie" : "tv";
     setMediaType(randomMediaType);
   }, []);
 

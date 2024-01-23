@@ -82,25 +82,26 @@ const Episode = () => {
               />
               <div className="text-white text-1xl md:text-3xl">
                 <span className="font-light">Watching:</span>{" "}
-                {data?.title || data?.name}
+                {data?.title || data?.name}{" "}
+                <span>{`S${season} E${episode}`}</span>
               </div>
             </div>
             <div className="flex gap-4">
               {Number(episode) > 1 && (
-                <div
+                <button
                   className="block border text-gray-200 border-gray-200 shadow-lg hover:bg-gray-200 hover:text-gray-900 transition duration-300 font-bold sm:py-2 sm:px-4 py-1 px-2 rounded cursor-pointer"
                   onClick={goToPreviousEpisode}
                 >
                   Previous Episode
-                </div>
+                </button>
               )}
               {Number(episode) < episodeCount && (
-                <div
+                <button
                   className="block border text-gray-200 border-gray-200 shadow-lg hover:bg-gray-200 hover:text-gray-900 transition duration-300 font-bold sm:py-2 sm:px-4 py-1 px-2 rounded cursor-pointer"
                   onClick={goToNextEpisode}
                 >
                   Next Episode
-                </div>
+                </button>
               )}
             </div>
           </div>
@@ -240,8 +241,10 @@ const Episode = () => {
             >
               <div className="flex flex-col sm:items-start items-center gap-3">
                 <img
-                  src={`${baseUrl}/${seasonInfo?.poster_path}`}
-                  alt="data?.title"
+                  src={`${baseUrl}/${
+                    seasonInfo?.poster_path || data.poster_path
+                  }`}
+                  alt={data?.title}
                   className="w-36 h-60"
                 />
                 <div className="text-white text-xl md:text-2xl lg:text-3xl font-bold">

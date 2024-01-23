@@ -2,7 +2,6 @@ import React from "react";
 import { baseUrl } from "@/public/utils";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-
 interface CastProps {
   cast: {
     id: number;
@@ -39,13 +38,13 @@ const Cast: React.FC<CastProps> = ({ cast }) => {
           responsive={responsive}
           ssr={true}
           containerClass="-mx-[10px]"
-          itemClass="sm:px-2 px-1"
+          itemClass="px-2"
           removeArrowOnDeviceType={["tablet", "mobile"]}
         >
           {cast?.map((item) => (
-            <div key={item.id} className="text-center text-white">
+            <div key={item.id} className="text-center text-white px-2">
               <div
-                className="w-32 h-36 rounded-full mb-4 relative overflow-hidden bg-cover bg-no-repeat group"
+                className="sm:w-32 w-24 sm:h-36 h-24 rounded-full mb-4 relative overflow-hidden bg-cover bg-no-repeat group"
                 onClick={() =>
                   window.open(
                     `https://www.google.com/search?q=${item.name}`,
@@ -56,15 +55,23 @@ const Cast: React.FC<CastProps> = ({ cast }) => {
                 <img
                   src={item.profile_path ? baseUrl + item.profile_path : avatar}
                   alt={item.name}
-                  className="w-full h-full object-cover object-top block cursor-pointer transition duration-300 ease-in-out group-hover:scale-110"
+                  className="w-full h-full object-cover object-center block cursor-pointer transition duration-300 ease-in-out group-hover:scale-110"
                 />
               </div>
               <div className="sm:text-base text-sm font-semibold">
                 {item.name}
               </div>
-              <div className="sm:text-base text-sm opacity-60">
-                {item.character}
-              </div>
+              {item.character.length > 15 ? (
+                /* @ts-ignore */
+                <marquee className="sm:text-base text-sm opacity-60">
+                  {item.character}
+                  {/* @ts-ignore */}
+                </marquee>
+              ) : (
+                <div className="sm:text-base text-sm opacity-60">
+                  {item.character}
+                </div>
+              )}
             </div>
           ))}
         </Carousel>
