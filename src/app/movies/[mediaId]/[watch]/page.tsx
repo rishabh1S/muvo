@@ -138,7 +138,7 @@ const Watch = () => {
                     <CircleRating rating={data?.vote_average.toFixed(1)} />
                   </div>
                   <FavoriteButton
-                    mediaType="tv"
+                    mediaType={mediaType}
                     mediaId={data?.id.toString()}
                   />
                   <div className="flex items-center">

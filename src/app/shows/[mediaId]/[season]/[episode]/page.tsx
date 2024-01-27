@@ -268,7 +268,7 @@ const Episode = () => {
                     />
                   </div>
                   <FavoriteButton
-                    mediaType="tv"
+                    mediaType={mediaType}
                     mediaId={data?.id.toString()}
                   />
                   <div>
