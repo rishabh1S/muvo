@@ -112,7 +112,7 @@ const AuthForm = () => {
         <div className="flex justify-center">
           <div className="bg-black bg-opacity-70 sm:px-16 px-8 py-12 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full">
             <h2 className="text-white text-4xl mb-8 font-semibold">
-              {variant === "LOGIN" ? "Sign in" : "Register"}
+              {variant === "LOGIN" ? "Welcome Back!" : "Create Account"}
             </h2>
             <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
               {variant === "REGISTER" && (

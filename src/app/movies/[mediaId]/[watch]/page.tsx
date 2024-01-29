@@ -31,10 +31,13 @@ const Watch = () => {
   const { data, isLoading } = useMedia(mediaType, mediaId);
 
   useEffect(() => {
-    if (session?.status !== "authenticated") {
-      setShowSignupOverlay(true);
-    }
-  }, [session?.status]);
+    const delayCheck = setTimeout(() => {
+      if (session?.status !== "authenticated") {
+        setShowSignupOverlay(true);
+      }
+    }, 3000);
+    return () => clearTimeout(delayCheck);
+  }, [session?.status, setShowSignupOverlay]);
 
   if (isLoading) {
     return <CircleLoader />;

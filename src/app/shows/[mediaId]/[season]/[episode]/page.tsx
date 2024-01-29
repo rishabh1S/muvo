@@ -40,7 +40,7 @@ const Episode = () => {
   const seasonInfo = data?.seasons.find(
     (s: { season_number: number }) => s.season_number === Number(season)
   );
-  const episodeURL = `${embedTvShowUrl}${mediaId}&s=${season}&e=${episode}`;
+  const episodeURL = `${embedTvShowUrl}${mediaId}-${season}-${episode}`;
   const episodeCount = data?.seasons.find(
     (s: { season_number: number }) => s.season_number === Number(season)
   )?.episode_count;
@@ -56,10 +56,13 @@ const Episode = () => {
   };
 
   useEffect(() => {
-    if (session?.status !== "authenticated") {
-      setShowSignupOverlay(true);
-    }
-  }, [session?.status]);
+    const delayCheck = setTimeout(() => {
+      if (session?.status !== "authenticated") {
+        setShowSignupOverlay(true);
+      }
+    }, 3000);
+    return () => clearTimeout(delayCheck);
+  }, [session?.status, setShowSignupOverlay]);
 
   if (isLoading) {
     return <CircleLoader />;
