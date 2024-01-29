@@ -44,7 +44,7 @@ const Navbar = () => {
       <div
         className={`px-4 md:px-16 py-6 flex flex-row items-center transition duration-500 ${
           showBackground
-            ? "bg-zinc-900/70 backdrop-blur-sm border-b border-solid border-gray-300 border-opacity-30 transition-opacity"
+            ? "bg-body/80 backdrop-blur-sm border-b border-solid border-gray-300 border-opacity-30 transition-opacity"
             : ""
         }`}
       >

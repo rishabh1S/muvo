@@ -54,7 +54,7 @@ const MovieSelection = () => {
   }
 
   return (
-    <div className="bg-body min-h-screen">
+    <div className="bg-gradient-linear min-h-screen">
       <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar />
       <div className="sm:h-[500px] h-[300px] relative overflow-hidden">
