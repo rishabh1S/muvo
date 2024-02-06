@@ -6,6 +6,7 @@ import {
   MediaList,
   InfoModal,
   Footer,
+  FixedFooter,
 } from "@/src/components";
 import { useMediaList, useInfoModal } from "@/src/hooks";
 
@@ -49,6 +50,7 @@ export default function Home() {
         />
         <MediaList title="Top Rated Shows" data={tvToprated} mediaType="tv" />
       </div>
+      <FixedFooter />
       <Footer />
     </>
   );

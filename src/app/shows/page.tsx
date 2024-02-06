@@ -6,6 +6,7 @@ import {
   MediaList,
   InfoModal,
   Footer,
+  FixedFooter,
 } from "@/src/components";
 import { useMediaList, useInfoModal } from "@/src/hooks";
 
@@ -25,6 +26,7 @@ export default function Shows() {
         <MediaList title="Popular" data={tvPopular} mediaType="tv" />
         <MediaList title="Top Rated" data={tvToprated} mediaType="tv" />
       </div>
+      <FixedFooter />
       <Footer />
     </>
   );

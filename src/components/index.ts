@@ -21,6 +21,7 @@ import VideoModal from "./VideoModal";
 import Footer from "./Footer";
 import Cast from "./Cast";
 import Overlay from "./Overlay";
+import FixedFooter from "./FixedFooter";
 
 export {
   Input,
@@ -46,4 +47,5 @@ export {
   Footer,
   Cast,
   Overlay,
+  FixedFooter,
 };
