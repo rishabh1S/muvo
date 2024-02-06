@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import AuthContext from "./context/AuthContext";
 import ToasterContext from "./context/ToasterContext";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "Muvo",
@@ -19,6 +20,7 @@ export default function RootLayout({
         <AuthContext>
           <ToasterContext />
           {children}
+          <Analytics />
         </AuthContext>
       </body>
     </html>
