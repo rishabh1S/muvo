@@ -25,7 +25,6 @@ import { Episode, Genre } from "@/src/types";
 import Link from "next/link";
 import { baseUrl } from "@/public/utils";
 import { FaChevronDown } from "react-icons/fa6";
-import "react-multi-carousel/lib/styles.css";
 import { RiMovie2Line } from "react-icons/ri";
 import { BsClockFill, BsFillPlayFill } from "react-icons/bs";
 

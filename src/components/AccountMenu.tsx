@@ -26,6 +26,10 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
     return null;
   }
 
+  const handleClick = currentUser ? handleSignOut : () => router.push("/auth");
+
+  const buttonText = currentUser ? "Sign out of Muvo" : "Sign in to Muvo";
+
   return (
     <div className="bg-neutral-950/90 w-56 absolute top-10 sm:top-14 right-0 py-5 flex-col border-2 border-gray-800 flex">
       <div className="flex flex-col gap-3">
@@ -41,21 +45,12 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
         </div>
       </div>
       <hr className="bg-gray-600 border-0 h-px my-4" />
-      {currentUser ? (
-        <div
-          onClick={handleSignOut}
-          className="px-3 text-center text-white text-sm hover:underline"
-        >
-          Sign out of Muvo
-        </div>
-      ) : (
-        <div
-          onClick={() => router.push("/auth")}
-          className="px-3 text-center text-white text-sm hover:underline"
-        >
-          Sign in to Muvo
-        </div>
-      )}
+      <div
+        onClick={handleClick}
+        className="px-3 text-center text-white hover:text-lime-400 text-sm hover:underline"
+      >
+        {buttonText}
+      </div>
     </div>
   );
 };

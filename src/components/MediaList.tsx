@@ -4,6 +4,7 @@ import "react-multi-carousel/lib/styles.css";
 import { MediaInterface } from "@/src/types";
 import { MediaCard } from ".";
 import { isEmpty } from "lodash";
+import { CustomLeftArrow, CustomRightArrow } from "./CustomArrows";
 
 interface MediaListProps {
   data: MediaInterface[];
@@ -49,6 +50,8 @@ const MediaList: React.FC<MediaListProps> = ({ data, title, mediaType }) => {
           itemClass="sm:px-2 px-1"
           removeArrowOnDeviceType={["tablet", "mobile"]}
           partialVisible={true}
+          customRightArrow={<CustomRightArrow />}
+          customLeftArrow={<CustomLeftArrow />}
         >
           {data.map((media) => (
             <MediaCard key={media.id} mediaType={mediaType} data={media} />

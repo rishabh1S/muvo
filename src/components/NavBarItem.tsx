@@ -16,8 +16,8 @@ const NavbarItem: React.FC<NavbarItemProps> = ({ label, href }) => {
       passHref
       className={`${
         isActive
-          ? "text-white cursor-default border-b"
-          : "text-gray-200 hover:text-violet-600 cursor-pointer"
+          ? "text-white cursor-default border-b border-lime-500"
+          : "text-gray-200 hover:text-lime-500 cursor-pointer"
       } transition-transform duration-500 ease-in-out transform-gpu hover:translate-y-0.5}`}
     >
       {label}

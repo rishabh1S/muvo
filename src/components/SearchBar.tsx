@@ -125,7 +125,7 @@ const SearchBar: React.FC<SearchProps> = ({ router, setShowSearchBar }) => {
       </div>
       <div
         onClick={() => setShowSearchBar(false)}
-        className="text-white px-2 text-sm cursor-pointer"
+        className="text-white hover:text-lime-500 px-2 text-sm cursor-pointer"
       >
         Cancel
       </div>

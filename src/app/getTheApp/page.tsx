@@ -3,6 +3,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { SiExpo } from "react-icons/si";
+import Image from "next/image";
 
 export default function AppScreen() {
   const router = useRouter();
@@ -45,7 +46,7 @@ export default function AppScreen() {
           </div>
           <div className="sm:col-span-3 col-span-1 sm:col-start-3 sm:row-span-1 row-span-4 row-start-4 flex flex-col justify-center gap-4 text-white sm:text-3xl text-xl px-2 py-4">
             <div className="flex items-center justify-center">
-              <img
+              <Image
                 src="/images/mobile-display.png"
                 width={600}
                 height={600}

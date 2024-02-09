@@ -2,6 +2,7 @@ import React from "react";
 import { baseUrl } from "@/public/utils";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { CustomLeftArrow, CustomRightArrow } from "./CustomArrows";
 interface CastProps {
   cast: {
     id: number;
@@ -40,6 +41,8 @@ const Cast: React.FC<CastProps> = ({ cast }) => {
           containerClass="-mx-[10px]"
           itemClass="px-2"
           removeArrowOnDeviceType={["tablet", "mobile"]}
+          customRightArrow={<CustomRightArrow />}
+          customLeftArrow={<CustomLeftArrow />}
         >
           {cast?.map((item) => (
             <div key={item.id} className="text-center text-white px-2">

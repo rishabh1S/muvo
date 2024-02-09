@@ -3,6 +3,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { isEmpty } from "lodash";
 import { BsFillPlayFill } from "react-icons/bs";
+import { CustomLeftArrow, CustomRightArrow } from "./CustomArrows";
 
 interface MediaVideosProps {
   videos: {
@@ -56,6 +57,8 @@ const MediaVideos: React.FC<MediaVideosProps> = ({
           itemClass="sm:px-2 px-1"
           removeArrowOnDeviceType={["tablet", "mobile"]}
           partialVisible={true}
+          customRightArrow={<CustomRightArrow />}
+          customLeftArrow={<CustomLeftArrow />}
         >
           {videos?.results.map((video: any) => (
             <div
