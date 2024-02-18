@@ -24,8 +24,8 @@ export default function AppScreen() {
             </div>
             <div className="py-2">
               <img
-                src="/images/app_link.svg"
-                alt="Frame SVG"
+                src="/images/app_link.png"
+                alt="App Link"
                 className="sm:w-[350px] w-56"
               />
             </div>
