@@ -71,7 +71,7 @@ export default function FavList() {
       {isLoading ? (
         <SkeletonLoader />
       ) : (
-        <div className="sm:pb-40 pb-10">
+        <div className="sm:pb-40 pb-10 bg-gradient-linear">
           <div className="px-4 md:px-12 mt-4 space-y-8">
             {extendedFavorites.length === 0 ? (
               <div className="flex flex-col items-center sm:justify-end justify-center sm:gap-10 gap-6 h-[40vh]">

@@ -21,7 +21,7 @@ export default function Shows() {
       <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar />
       <Billboard mediaType="tv" />
-      <div className="sm:pb-40 pb-10">
+      <div className="sm:pb-40 pb-10 bg-gradient-linear">
         <MediaList title="Trending Now" data={tvTrending} mediaType="tv" />
         <MediaList title="Popular" data={tvPopular} mediaType="tv" />
         <MediaList title="Top Rated" data={tvToprated} mediaType="tv" />
