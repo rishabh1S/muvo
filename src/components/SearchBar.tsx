@@ -132,7 +132,7 @@ const SearchBar: React.FC<SearchProps> = ({ router, setShowSearchBar }) => {
       {showSearchResults && searchQuery.trim() !== "" && (
         <div
           ref={resultsContainerRef}
-          className="absolute top-11 bg-neutral-950/70 w-full rounded-md overflow-y-auto sm:max-h-[60vh] max-h-[100vh]"
+          className="absolute top-11 bg-body/80 w-full rounded-md overflow-y-auto sm:max-h-[60vh] max-h-[100vh]"
         >
           {searchResults.map((result) => (
             <div
