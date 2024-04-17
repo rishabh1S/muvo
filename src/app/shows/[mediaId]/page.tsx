@@ -21,9 +21,9 @@ import {
 } from "@/src/hooks";
 import { useParams } from "next/navigation";
 import React, { useState } from "react";
-import { Episode, Genre } from "@/src/types";
+import { Episodes, Genre } from "@/src/types";
 import Link from "next/link";
-import { baseUrl } from "@/public/utils";
+import { baseImgUrl } from "@/src/utils";
 import { FaChevronDown } from "react-icons/fa6";
 import { RiMovie2Line } from "react-icons/ri";
 import { BsClockFill, BsFillPlayFill } from "react-icons/bs";
@@ -73,7 +73,7 @@ const TvSelection = () => {
       <div className="sm:h-[500px] h-[300px] relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-body/50 to-body"></div>
         <img
-          src={`${baseUrl}/${data?.backdrop_path}`}
+          src={`${baseImgUrl}/${data?.backdrop_path}`}
           alt="data?.title"
           className="w-full h-auto"
         ></img>
@@ -81,7 +81,7 @@ const TvSelection = () => {
       <div className="max-w-7xl mx-auto p-4 flex flex-col gap-12 pb-6">
         <div className="-mt-[250px] flex sm:flex-row flex-col items-center relative z-10 gap-3">
           <img
-            src={`${baseUrl}/${data?.poster_path}`}
+            src={`${baseImgUrl}/${data?.poster_path}`}
             alt="data?.title"
             className="sm:w-[200px] w-36 sm:h-[300px]"
           ></img>
@@ -241,7 +241,7 @@ const TvSelection = () => {
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 py-2">
-          {episodeDetails?.episodes?.map((episode: Episode) => (
+          {episodeDetails?.episodes?.map((episode: Episodes) => (
             <Link
               key={episode.id}
               className="rounded-md text-white"
@@ -251,7 +251,7 @@ const TvSelection = () => {
                 <img
                   src={
                     episode.still_path
-                      ? `${baseUrl}${episode.still_path}`
+                      ? `${baseImgUrl}${episode.still_path}`
                       : "/images/no-backdrop.png"
                   }
                   alt={`Episode ${episode.episode_number}`}

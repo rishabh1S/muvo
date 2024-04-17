@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import serverAuth from "@/src/libs/serverAuth";
-import { getTVEpisodeDetailsByIDandSeason } from "@/public/utils";
+import { getTVEpisodeDetailsByIDandSeason } from "@/src/utils";
 
 export default async function handler(
   req: NextApiRequest,

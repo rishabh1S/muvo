@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useCallback } from "react";
 import { VideoPlayer } from ".";
-import { baseYoutubeUrl } from "@/public/utils";
+import { baseYoutubeUrl } from "@/src/utils";
 import { AiOutlineClose } from "react-icons/ai";
 
 interface VideoModalProps {

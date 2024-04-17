@@ -2,7 +2,7 @@ import React from "react";
 import { FaCheck } from "react-icons/fa";
 import { Footer } from ".";
 import { IoMdClose } from "react-icons/io";
-import { baseUrl } from "@/public/utils";
+import { baseImgUrl } from "@/src/utils";
 import { MediaInterface } from "../types";
 
 interface OverlayProps {
@@ -39,7 +39,7 @@ const Overlay: React.FC<OverlayProps> = ({ data, router }) => {
         <div className="grid sm:grid-cols-5 sm:grid-rows-1 grid-rows-7 grid-cols-1 sm:gap-12 gap-3 max-w-6xl">
           <div className="sm:col-span-2 col-span-1 sm:row-span-1 row-span-3 flex flex-col justify-center sm:items-start items-center py-4">
             <img
-              src={`${baseUrl}/${data?.poster_path}`}
+              src={`${baseImgUrl}/${data?.poster_path}`}
               alt="Movie Poster"
               className="w-36 h-60 mb-4"
             />

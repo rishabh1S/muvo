@@ -11,7 +11,7 @@ import {
   MediaSection,
 } from "@/src/components";
 import { useFavorites, useInfoModal } from "@/src/hooks";
-import { getTVorMovieDetailsByID } from "@/public/utils";
+import { getTVorMovieDetailsByID } from "@/src/utils";
 
 export default function FavList() {
   const session = useSession();

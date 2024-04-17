@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { useParams, useRouter } from "next/navigation";
 import { useMedia } from "@/src/hooks";
-import { baseUrl, embedMovieUrl } from "@/public/utils";
+import { baseImgUrl, embedMovieUrl } from "@/src/utils";
 import {
   CircleLoader,
   CircleRating,
@@ -47,7 +47,7 @@ const Watch = () => {
     return <Overlay data={data} router={router} />;
   }
 
-  const episodeURL = `${embedMovieUrl}${mediaId}`;
+  const movieURL = `${embedMovieUrl}${mediaId}`;
   return (
     <>
       <div className="relative min-h-screen">
@@ -67,7 +67,7 @@ const Watch = () => {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url(${baseUrl}/${data?.backdrop_path})`,
+            backgroundImage: `url(${baseImgUrl}/${data?.backdrop_path})`,
             filter: "blur(14px)",
           }}
         />
@@ -96,7 +96,7 @@ const Watch = () => {
               </div>
               <div className="lg:w-4/5 flex flex-col bg-[#060002] text-white">
                 <div>
-                  <VideoEmbedding embedURL={episodeURL} />{" "}
+                  <VideoEmbedding embedURL={movieURL} />
                 </div>
                 <div className="p-2 text-center">
                   You are watching{" "}
@@ -115,7 +115,7 @@ const Watch = () => {
             >
               <div className="flex flex-col sm:items-start items-center gap-3 drop-shadow-lg">
                 <img
-                  src={`${baseUrl}/${data?.poster_path}`}
+                  src={`${baseImgUrl}/${data?.poster_path}`}
                   alt={data?.title}
                   className="w-36 h-60"
                 />

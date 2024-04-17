@@ -1,5 +1,5 @@
 import React from "react";
-import { baseUrl } from "@/public/utils";
+import { baseImgUrl } from "@/src/utils";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { CustomLeftArrow, CustomRightArrow } from "./CustomArrows";
@@ -56,7 +56,9 @@ const Cast: React.FC<CastProps> = ({ cast }) => {
                 }
               >
                 <img
-                  src={item.profile_path ? baseUrl + item.profile_path : avatar}
+                  src={
+                    item.profile_path ? baseImgUrl + item.profile_path : avatar
+                  }
                   alt={item.name}
                   className="w-full h-full object-cover object-center block cursor-pointer transition duration-300 ease-in-out group-hover:scale-110"
                 />

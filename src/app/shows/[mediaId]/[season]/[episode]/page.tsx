@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { useParams, useRouter } from "next/navigation";
 import { useEpisode, useMedia } from "@/src/hooks";
-import { baseUrl, embedTvShowUrl } from "@/public/utils";
-import { Episode } from "@/src/types";
+import { baseImgUrl, embedTvShowUrl } from "@/src/utils";
+import { Episodes } from "@/src/types";
 import {
   CircleLoader,
   CircleRating,
@@ -35,7 +35,7 @@ const Episode = () => {
   const { data, isLoading } = useMedia(mediaType, mediaId);
   const { data: episodeDetails } = useEpisode(mediaId, season);
   const episodeInfo = episodeDetails?.episodes.find(
-    (e: Episode) => e.episode_number === Number(episode)
+    (e: Episodes) => e.episode_number === Number(episode)
   );
   const seasonInfo = data?.seasons.find(
     (s: { season_number: number }) => s.season_number === Number(season)
@@ -112,7 +112,7 @@ const Episode = () => {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url(${baseUrl}/${data?.backdrop_path})`,
+            backgroundImage: `url(${baseImgUrl}/${data?.backdrop_path})`,
             filter: "blur(14px)",
           }}
         />
@@ -124,7 +124,7 @@ const Episode = () => {
                   List of Episodes:
                 </div>
                 <ul className="overflow-y-auto max-h-screen">
-                  {episodeDetails?.episodes.map((e: Episode) => (
+                  {episodeDetails?.episodes.map((e: Episodes) => (
                     <Link
                       key={e.id}
                       href={`/shows/${mediaId}/${season}/${e.episode_number}`}
@@ -215,7 +215,7 @@ const Episode = () => {
                               : ""
                           }`}
                           style={{
-                            backgroundImage: `url(${baseUrl}/${
+                            backgroundImage: `url(${baseImgUrl}/${
                               s?.poster_path || data?.backdrop_path
                             })`,
                           }}
@@ -244,7 +244,7 @@ const Episode = () => {
             >
               <div className="flex flex-col sm:items-start items-center gap-3">
                 <img
-                  src={`${baseUrl}/${
+                  src={`${baseImgUrl}/${
                     seasonInfo?.poster_path || data.poster_path
                   }`}
                   alt={data?.title}

@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { IoCloseOutline } from "react-icons/io5";
-import { baseUrl, getTVorMovieSearchResults } from "@/public/utils";
+import { baseImgUrl, getTVorMovieSearchResults } from "@/src/utils";
 interface SearchResult {
   id: number;
   name: string;
@@ -143,7 +143,7 @@ const SearchBar: React.FC<SearchProps> = ({ router, setShowSearchBar }) => {
               <img
                 src={
                   result.poster_path
-                    ? `${baseUrl}${result.poster_path}`
+                    ? `${baseImgUrl}${result.poster_path}`
                     : "/images/no-poster.png"
                 }
                 alt={`${result.name} Poster`}

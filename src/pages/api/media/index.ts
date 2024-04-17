@@ -4,7 +4,7 @@ import {
   getPopularMedias,
   getTopratedMedias,
   getTrendingMedias,
-} from "@/public/utils";
+} from "@/src/utils";
 
 export default async function handler(
   req: NextApiRequest,

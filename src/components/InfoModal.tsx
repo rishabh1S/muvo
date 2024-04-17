@@ -3,7 +3,7 @@ import Link from "next/link";
 import countryLookup from "country-code-lookup";
 import { PlayButton, FavoriteButton, VideoPlayer } from ".";
 import { useInfoModal, useMedia } from "../hooks";
-import { baseUrl, baseYoutubeUrl } from "@/public/utils";
+import { baseImgUrl, baseYoutubeUrl } from "@/src/utils";
 import { Genre } from "@/src/types";
 import { SiImdb } from "react-icons/si";
 import { RiMovie2Line } from "react-icons/ri";
@@ -78,7 +78,9 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
               </>
             ) : (
               <img
-                src={`${baseUrl}/${data?.backdrop_path || data?.poster_path}`}
+                src={`${baseImgUrl}/${
+                  data?.backdrop_path || data?.poster_path
+                }`}
                 alt={data?.title}
                 className="w-full h-full object-cover"
               />

@@ -22,7 +22,7 @@ import { useParams } from "next/navigation";
 import React, { useState } from "react";
 import { Genre } from "@/src/types";
 import Link from "next/link";
-import { baseUrl } from "@/public/utils";
+import { baseImgUrl } from "@/src/utils";
 import { BsClockFill, BsFillPlayFill } from "react-icons/bs";
 import { RiMovie2Line } from "react-icons/ri";
 import { SiImdb } from "react-icons/si";
@@ -39,7 +39,7 @@ const MovieSelection = () => {
   const [show, setShow] = useState(false);
   const [videoKey, setVideoKey] = useState("");
   const isComingSoon = new Date(data?.release_date) > new Date();
-  const director = credits?.crew.filter((f: any) => f.job === "Director");
+  const director = credits?.crew?.filter((f: any) => f.job === "Director");
   const writer = credits?.crew?.filter(
     (f: any) =>
       f.job === "Screenplay" || f.job === "Story" || f.job === "Writer"
@@ -60,7 +60,7 @@ const MovieSelection = () => {
       <div className="sm:h-[500px] h-[300px] relative overflow-hidden">
         <div className="absolute left-0 right-0 top-0 bottom-0 bg-gradient-to-b from-transparent via-transparent to-body"></div>
         <img
-          src={`${baseUrl}/${data?.backdrop_path}`}
+          src={`${baseImgUrl}/${data?.backdrop_path}`}
           alt="data?.title"
           className="rounded-none"
         ></img>
@@ -68,7 +68,7 @@ const MovieSelection = () => {
       <div className="max-w-7xl mx-auto p-4 flex flex-col gap-12 pb-12">
         <div className="-mt-[250px] flex sm:flex-row flex-col items-center relative z-10 gap-3">
           <img
-            src={`${baseUrl}/${data?.poster_path}`}
+            src={`${baseImgUrl}/${data?.poster_path}`}
             alt={data?.title}
             draggable={false}
             className="sm:w-[200px] w-36 sm:h-[300px]"
@@ -166,7 +166,7 @@ const MovieSelection = () => {
                 }
               ></VideoModal>
               <div className="sm:w-12 w-8 sm:h-12 h-8">
-                <CircleRating rating={data?.vote_average.toFixed(1)} />
+                <CircleRating rating={data?.vote_average?.toFixed(1)} />
               </div>
               <FavoriteButton mediaType="movie" mediaId={data?.id.toString()} />
             </div>

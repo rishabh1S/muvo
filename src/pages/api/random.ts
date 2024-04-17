@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import serverAuth from "@/src/libs/serverAuth";
-import { getTrendingMedias } from "@/public/utils";
+import { getTrendingMedias } from "@/src/utils";
 
 export default async function handler(
   req: NextApiRequest,

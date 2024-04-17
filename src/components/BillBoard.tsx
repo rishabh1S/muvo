@@ -3,10 +3,10 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 import { useBillboard, useInfoModal } from "../hooks";
 import { CircleLoader, PlayButton, VideoPlayer } from ".";
 import {
-  baseUrl,
+  baseImgUrl,
   baseYoutubeUrl,
   getTVorMovieVideosByID,
-} from "@/public/utils";
+} from "@/src/utils";
 
 interface BillboardProps {
   mediaType: string;
@@ -59,7 +59,7 @@ const Billboard: React.FC<BillboardProps> = ({ mediaType }) => {
         </>
       ) : (
         <img
-          src={`${baseUrl}/${data?.backdrop_path || data?.poster_path}`}
+          src={`${baseImgUrl}/${data?.backdrop_path || data?.poster_path}`}
           alt={data?.title}
           className="w-full h-full object-cover"
         />

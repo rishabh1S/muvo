@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import serverAuth from "@/src/libs/serverAuth";
-import { getTVorMovieDetailsByID } from "@/public/utils";
+import { getTVorMovieDetailsByID } from "@/src/utils";
 
 export default async function handler(
   req: NextApiRequest,

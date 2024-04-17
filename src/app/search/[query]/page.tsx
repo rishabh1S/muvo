@@ -8,7 +8,7 @@ import {
   Footer,
   MediaSection,
 } from "@/src/components";
-import { getTVorMovieSearchResults } from "@/public/utils";
+import { getTVorMovieSearchResults } from "@/src/utils";
 import { useInfoModal } from "@/src/hooks";
 import { MediaInterface } from "@/src/types";
 import Image from "next/image";

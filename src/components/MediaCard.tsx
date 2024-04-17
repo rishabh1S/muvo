@@ -6,7 +6,7 @@ import { BsFillPlayFill, BsChevronDown } from "react-icons/bs";
 import { MediaInterface } from "@/src/types";
 import { FavoriteButton } from ".";
 import { useInfoModal } from "../hooks";
-import { baseUrl } from "@/public/utils";
+import { baseImgUrl } from "@/src/utils";
 
 interface MediaCardProps {
   data: MediaInterface;
@@ -27,7 +27,7 @@ const MediaCard: React.FC<MediaCardProps> = ({ data, mediaType }) => {
   );
 
   const imagePath = data?.backdrop_path
-    ? `${baseUrl}/${data.backdrop_path}`
+    ? `${baseImgUrl}/${data.backdrop_path}`
     : "/images/no-backdrop.png";
   return (
     <div className="relative overflow-hidden bg-cover bg-no-repeat group">
