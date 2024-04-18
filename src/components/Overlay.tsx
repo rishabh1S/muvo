@@ -4,10 +4,11 @@ import { Footer } from ".";
 import { IoMdClose } from "react-icons/io";
 import { baseImgUrl } from "@/src/utils";
 import { MediaInterface } from "../types";
+import { NextRouter } from "next/router";
 
 interface OverlayProps {
   data: MediaInterface;
-  router: any;
+  router: NextRouter;
 }
 
 const Overlay: React.FC<OverlayProps> = ({ data, router }) => {

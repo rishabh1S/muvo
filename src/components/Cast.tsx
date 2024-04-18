@@ -41,8 +41,8 @@ const Cast: React.FC<CastProps> = ({ cast }) => {
           containerClass="-mx-[10px]"
           itemClass="px-2"
           removeArrowOnDeviceType={["tablet", "mobile"]}
-          customRightArrow={<CustomRightArrow />}
-          customLeftArrow={<CustomLeftArrow />}
+          customRightArrow={<CustomRightArrow onClick={() => {}} />}
+          customLeftArrow={<CustomLeftArrow onClick={() => {}} />}
         >
           {cast?.map((item) => (
             <div key={item.id} className="text-center text-white px-2">

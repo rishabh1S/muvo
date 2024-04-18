@@ -50,8 +50,8 @@ const MediaList: React.FC<MediaListProps> = ({ data, title, mediaType }) => {
           itemClass="sm:px-2 px-1"
           removeArrowOnDeviceType={["tablet", "mobile"]}
           partialVisible={true}
-          customRightArrow={<CustomRightArrow />}
-          customLeftArrow={<CustomLeftArrow />}
+          customRightArrow={<CustomRightArrow onClick={() => {}} />}
+          customLeftArrow={<CustomLeftArrow onClick={() => {}} />}
         >
           {data.map((media) => (
             <MediaCard key={media.id} mediaType={mediaType} data={media} />

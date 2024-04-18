@@ -57,8 +57,8 @@ const MediaVideos: React.FC<MediaVideosProps> = ({
           itemClass="sm:px-2 px-1"
           removeArrowOnDeviceType={["tablet", "mobile"]}
           partialVisible={true}
-          customRightArrow={<CustomRightArrow />}
-          customLeftArrow={<CustomLeftArrow />}
+          customRightArrow={<CustomRightArrow onClick={() => {}} />}
+          customLeftArrow={<CustomLeftArrow onClick={() => {}} />}
         >
           {videos?.results.map((video: any) => (
             <div

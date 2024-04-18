@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { IoCloseOutline } from "react-icons/io5";
 import { baseImgUrl, getTVorMovieSearchResults } from "@/src/utils";
+import { NextRouter } from "next/router";
 interface SearchResult {
   id: number;
   name: string;
@@ -13,7 +14,7 @@ interface SearchResult {
   release_date: string;
 }
 interface SearchProps {
-  router: any;
+  router: NextRouter;
   setShowSearchBar: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -21,7 +22,7 @@ const SearchBar: React.FC<SearchProps> = ({ router, setShowSearchBar }) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [showSearchResults, setShowSearchResults] = useState<boolean>(false);
-  const resultsContainerRef = useRef<HTMLDivElement | null>(null);
+  const resultsContainerRef = useRef<HTMLDivElement>(null);
 
   const handleClear = () => {
     setSearchQuery("");

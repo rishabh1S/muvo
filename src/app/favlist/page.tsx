@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import {
@@ -12,13 +11,16 @@ import {
 } from "@/src/components";
 import { useFavorites, useInfoModal } from "@/src/hooks";
 import { getTVorMovieDetailsByID } from "@/src/utils";
+import { MediaInterface } from "@/src/types";
 
 export default function FavList() {
   const session = useSession();
   const router = useRouter();
   const { data: favorites = [] } = useFavorites();
   const { isOpen, closeModal } = useInfoModal();
-  const [extendedFavorites, setExtendedFavorites] = useState<any[]>([]);
+  const [extendedFavorites, setExtendedFavorites] = useState<MediaInterface[]>(
+    []
+  );
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
