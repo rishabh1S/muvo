@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { IoCloseOutline } from "react-icons/io5";
 import { baseImgUrl, getTVorMovieSearchResults } from "@/src/utils";
-import { NextRouter } from "next/router";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 interface SearchResult {
   id: number;
   name: string;
@@ -14,7 +14,7 @@ interface SearchResult {
   release_date: string;
 }
 interface SearchProps {
-  router: NextRouter;
+  router: AppRouterInstance;
   setShowSearchBar: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
