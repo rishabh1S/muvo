@@ -76,7 +76,7 @@ const Episode = () => {
     <>
       <div className="relative min-h-screen">
         <nav className="w-full fixed z-40">
-          <div className="sm:p-6 p-4 flex items-center justify-between gap-8 bg-black bg-opacity-70 backdrop-blur-sm">
+          <div className="sm:p-6 p-4 flex items-center justify-between gap-8 bg-body/80 backdrop-blur-sm">
             <div className="flex gap-4">
               <AiOutlineArrowLeft
                 size={36}

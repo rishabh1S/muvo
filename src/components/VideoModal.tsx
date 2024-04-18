@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useCallback } from "react";
 import { VideoPlayer } from ".";
 import { baseYoutubeUrl } from "@/src/utils";
 import { AiOutlineClose } from "react-icons/ai";
+import { useClickOutside, useScrollControl } from "@/src/hooks";
 
 interface VideoModalProps {
   show: boolean;
@@ -9,20 +10,6 @@ interface VideoModalProps {
   videoKey: string | null;
   setVideoKey: React.Dispatch<React.SetStateAction<string | null>>;
 }
-
-const useScrollControl = (show: boolean) => {
-  useEffect(() => {
-    if (show) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [show]);
-};
 
 const VideoModal: React.FC<VideoModalProps> = ({
   show,
@@ -32,33 +19,14 @@ const VideoModal: React.FC<VideoModalProps> = ({
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const hidePopup = useCallback(() => {
+  const handleClose = useCallback(() => {
     setShow(false);
     setVideoKey(null);
   }, [setShow, setVideoKey]);
 
   useScrollControl(show);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target as Node)
-      ) {
-        hidePopup();
-      }
-    };
-
-    if (show) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [show, hidePopup]);
+  useClickOutside(modalRef, handleClose);
 
   return (
     <div
@@ -73,7 +41,7 @@ const VideoModal: React.FC<VideoModalProps> = ({
           controls={true}
         />
         <div
-          onClick={hidePopup}
+          onClick={handleClose}
           className="cursor-pointer absolute top-3 right-3 h-10 w-10 rounded-full bg-black bg-opacity-70 flex items-center justify-center"
         >
           <AiOutlineClose size={24} className="text-white w-6" />

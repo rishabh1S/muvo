@@ -8,6 +8,8 @@ import useRecommend from "./useRecommend";
 import useSimilar from "./useSimilar";
 import useCredits from "./useCredits";
 import useEpisode from "./useEpisode";
+import useScrollControl from "./useScrollControl";
+import useClickOutside from "./useClickOutside";
 
 export {
   useBillboard,
@@ -20,4 +22,6 @@ export {
   useSimilar,
   useEpisode,
   useCredits,
+  useScrollControl,
+  useClickOutside,
 };

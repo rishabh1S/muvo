@@ -52,7 +52,7 @@ const Watch = () => {
     <>
       <div className="relative min-h-screen">
         <nav className="w-full fixed z-40">
-          <div className="p-6 flex items-center gap-8 bg-black bg-opacity-70 backdrop-blur-sm">
+          <div className="p-6 flex items-center gap-8 bg-body/80 backdrop-blur-sm">
             <AiOutlineArrowLeft
               size={36}
               onClick={() => router.push(`/movies/${mediaId}`)}

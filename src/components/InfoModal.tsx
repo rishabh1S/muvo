@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import countryLookup from "country-code-lookup";
 import { PlayButton, FavoriteButton, VideoPlayer } from ".";
@@ -10,12 +10,14 @@ import { RiMovie2Line } from "react-icons/ri";
 import { AiOutlineClose } from "react-icons/ai";
 import { VscMute, VscUnmute } from "react-icons/vsc";
 import { BsClockFill } from "react-icons/bs";
+import { useScrollControl, useClickOutside } from "@/src/hooks";
 interface InfoModalProps {
   visible?: boolean;
-  onClose: any;
+  onClose: () => void;
 }
 
 const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
+  const modalRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState<boolean>(!!visible);
   const { mediaType, mediaId } = useInfoModal();
   const { data, isLoading } = useMedia(mediaType, mediaId);
@@ -35,6 +37,10 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
       onClose();
     }, 300);
   }, [onClose]);
+
+  useScrollControl(isVisible);
+
+  useClickOutside(modalRef, handleClose);
 
   const handleMute = () => {
     setIsMuted((prevIsMuted) => !prevIsMuted);
@@ -59,8 +65,11 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   const MuteIcon = isMuted ? VscMute : VscUnmute;
 
   return (
-    <div className="z-50 transition duration-300 bg-black bg-opacity-80 flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0">
-      <div className="relative w-auto mx-auto max-w-3xl rounded-md overflow-hidden">
+    <div className="z-50 transition duration-300 bg-body/70 flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0">
+      <div
+        ref={modalRef}
+        className="relative w-auto mx-auto max-w-3xl rounded-md overflow-hidden"
+      >
         <div
           className={`${
             isVisible ? "scale-100" : "scale-0"
@@ -119,7 +128,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
             </div>
             <div
               onClick={handleMute}
-              className="cursor-pointer group/item absolute bottom-10 right-3 rounded-full border-2 border-white bg-opacity-70 flex justify-center items-center transition hover:border-neutral-300 sm:w-10 w-7 sm:h-10 h-7"
+              className="cursor-pointer group/item absolute bottom-10 right-3 rounded-full border-2 border-white flex justify-center items-center transition hover:border-neutral-300 sm:w-10 w-7 sm:h-10 h-7"
             >
               <MuteIcon
                 size={22}
