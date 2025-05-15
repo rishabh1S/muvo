@@ -146,14 +146,14 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                     New{" "}
                     <span className="text-white">
                       {new Date(
-                        data?.release_date || data?.first_air_date
+                        data?.release_date ?? data?.first_air_date
                       ).getFullYear()}
                     </span>
                   </>
                 ) : (
                   <span className="text-white">
                     {new Date(
-                      data?.release_date || data?.first_air_date
+                      data?.release_date ?? data?.first_air_date
                     ).getFullYear()}
                   </span>
                 )}

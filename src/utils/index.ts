@@ -17,7 +17,7 @@ export const getTrendingMedias = async (type: string) => {
 
     const data = await res.json();
 
-    return data && data.results;
+    return data?.results;
   } catch (e) {
     console.log(e);
   }
@@ -34,7 +34,7 @@ export const getTopratedMedias = async (type: string) => {
 
     const data = await res.json();
 
-    return data && data.results;
+    return data?.results;
   } catch (e) {
     console.log(e);
   }
@@ -51,7 +51,7 @@ export const getPopularMedias = async (type: string) => {
 
     const data = await res.json();
 
-    return data && data.results;
+    return data?.results;
   } catch (e) {
     console.log(e);
   }
@@ -68,7 +68,7 @@ export const getTVorMoviesByGenre = async (type: string, id: string) => {
 
     const data = await res.json();
 
-    return data && data.results;
+    return data?.results;
   } catch (e) {
     console.log(e);
   }
@@ -122,7 +122,7 @@ export const getTVorMovieSearchResults = async (
 
     const data = await res.json();
 
-    return data && data.results;
+    return data?.results;
   } catch (e) {
     console.log(e);
   }
@@ -176,7 +176,7 @@ export const getRecommendedTVorMovies = async (type: string, id: string) => {
 
     const data = await res.json();
 
-    return data && data.results;
+    return data?.results;
   } catch (e) {
     console.log(e);
   }
@@ -193,7 +193,7 @@ export const getSimilarTVorMovies = async (type: string, id: string) => {
 
     const data = await res.json();
 
-    return data && data.results;
+    return data?.results;
   } catch (e) {
     console.log(e);
   }
