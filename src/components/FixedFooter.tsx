@@ -22,7 +22,9 @@ const FixedFooter = () => {
   };
 
   if (isLoading) {
-    return null;
+    return (
+      <div className="fixed bottom-0 left-0 w-full px-2 sm:px-5 py-2 sm:py-5 invisible" />
+    );
   }
   return (
     <>

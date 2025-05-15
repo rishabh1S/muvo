@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getTrendingMedias } from "@/src/utils";
+import { serverAuth } from "@/src/libs/serverAuth";
 
 export async function GET(req: NextRequest) {
   try {
+    await serverAuth();
     const { searchParams } = new URL(req.url);
     const mediaType = searchParams.get("mediaType");
 

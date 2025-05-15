@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Navbar,
   Billboard,
@@ -18,12 +18,7 @@ export default function Home() {
   const { data: moviesToprated } = useMediaList("toprated", "movie");
   const { data: tvToprated } = useMediaList("toprated", "tv");
   const { isOpen, closeModal } = useInfoModal();
-  const [mediaType, setMediaType] = useState("");
-
-  useEffect(() => {
-    const randomMediaType = Math.random() > 0.5 ? "movie" : "tv";
-    setMediaType(randomMediaType);
-  }, []);
+  const [mediaType] = useState(Math.random() > 0.5 ? "movie" : "tv");
 
   return (
     <>

@@ -3,7 +3,7 @@ import fetcher from "@/src/libs/fetcher";
 
 const useBillboard = (mediaType: string) => {
   const { data, error, isLoading } = useSwr(
-    `/api/random?mediaType=${mediaType}`,
+    mediaType ? `/api/random?mediaType=${mediaType}` : null,
     fetcher,
     {
       revalidateIfStale: false,

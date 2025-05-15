@@ -3,7 +3,9 @@ import fetcher from "@/src/libs/fetcher";
 
 const useMedia = (mediaType?: string, mediaId?: string) => {
   const { data, error, isLoading } = useSwr(
-    mediaId ? `/api/media/${mediaType}/${mediaId}` : null,
+    mediaType && mediaId
+      ? `/api/media?mediaType=${mediaType}&mediaId=${mediaId}`
+      : null,
     fetcher,
     {
       revalidateIfStale: false,
